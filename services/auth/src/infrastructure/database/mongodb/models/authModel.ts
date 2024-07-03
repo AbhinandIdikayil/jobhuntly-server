@@ -1,9 +1,18 @@
-import mongoose, { Model, Schema, mongo } from "mongoose";
+import mongoose, { Document, Model, Schema, mongo } from "mongoose";
 import bcrypt from 'bcrypt'
 import { UserEntity } from "../../../../domain/entities";
 
+interface IAuth extends Document {
+    name: string,
+    email: string,
+    password: string,
+    role: string
+    isBlocked: boolean,
+    matchPassword(enteredPassword: string): Promise<boolean>
+}
 
-const authSchema = new Schema<UserEntity>({
+
+const authSchema = new Schema<IAuth>({
     name: {
         type: String,
         required: true
@@ -20,9 +29,9 @@ const authSchema = new Schema<UserEntity>({
         type: String,
         enum: ['user', 'company', 'admin']
     },
-    isBlocked:{
-        type:Boolean,
-        default:false,
+    isBlocked: {
+        type: Boolean,
+        default: false,
     }
 },
     {
@@ -41,4 +50,4 @@ authSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt)
 })
 
-export const authModel =  mongoose.model('auth', authSchema)
+export const authModel = mongoose.model('auth', authSchema)

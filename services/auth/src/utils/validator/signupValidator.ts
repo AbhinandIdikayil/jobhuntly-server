@@ -5,7 +5,7 @@ export const signupValidation = Joi.object({
         .string()
         .required()
         .alphanum()
-        .min(4),
+        .min(3),
     email: Joi
         .string()
         .required()

@@ -19,13 +19,12 @@ export const signupController = (dependencies: IDependencies) => {
                 if(result){
                     return res.status(200).json(result)
                 } else {
-                    return next(ErrorResponse.conflict('email already exist'))
+                    return res.status(400).json({'message':'something has happened'})
                 }
             } else {
                 return res.status(400).json({'message':"something happened"})
             }
         } catch (error) {
-            console.log(error,'error from controller')
             next(error)
         }
     }

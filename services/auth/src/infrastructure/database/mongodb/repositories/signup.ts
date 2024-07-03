@@ -9,7 +9,7 @@ export const signup = async (data: UserEntity): Promise<UserEntity | null> => {
         const { email } = data
         let existingUser = await authModel.findOne({ email })
         if (existingUser) {
-            throw new Error('user already exist--')
+            throw new Error('user already exist')
         }
         const user = await authModel.create(data);
         if (user) {

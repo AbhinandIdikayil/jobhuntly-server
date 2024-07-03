@@ -11,7 +11,7 @@ export const signupUsecase = (dependencies:IDependencies) => {
                 return await signup(data)
             } catch (error) {
                 console.log(error)
-                return null
+                throw error
             }
         }
     }
