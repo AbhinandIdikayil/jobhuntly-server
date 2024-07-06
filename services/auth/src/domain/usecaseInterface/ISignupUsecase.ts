@@ -1,7 +1,13 @@
 import { UserEntity } from "../entities";
 
+interface signupResponse {
+    email: string,
+    name: string,
+    password: string,
+    otp: string,
+}
 
 
 export interface ISignupUsecase {
-    execute(data:UserEntity): Promise<UserEntity | null>
+    execute(data:UserEntity): Promise<signupResponse | null>
 }

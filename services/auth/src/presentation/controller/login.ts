@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { loginValidator } from "../../utils/validator/loginValidator";
+import { generateToken } from "../../utils/jwt/generateToken";
 
 
 
@@ -14,10 +15,11 @@ export const loginContoller = (dependencies: IDependencies) => {
             }
             const { email, password } = value
             const result = await loginUsecase(dependencies).execute(email, password);
-            if(result){
-                return res.status(200).json(result)
+            if (result) {
+                const token = generateToken({ _id: String(result?._id), email: result?.email, role: result?.role ?? '' })
+                return res.status(200).cookie('access_token',token).json(result)
             } else {
-                return res.status(400).json({"message":"something happened"})
+                return res.status(400).json({ "message": "something happened" })
             }
         } catch (error) {
             next(error)

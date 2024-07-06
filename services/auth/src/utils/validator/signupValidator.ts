@@ -16,5 +16,4 @@ export const signupValidation = Joi.object({
         .min(4),
     role:Joi
         .string()
-        .required()
 })

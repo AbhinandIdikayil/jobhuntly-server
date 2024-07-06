@@ -17,5 +17,5 @@ export const login = async (email: string, password: string): Promise<UserEntity
         }
     } catch (error: any) {
         throw new Error(error?.message)
-    }
+    } 
 }

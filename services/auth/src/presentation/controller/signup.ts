@@ -15,7 +15,6 @@ export const signupController = (dependencies: IDependencies) => {
             }
             if(value){
                 const result = await signupUsecase(dependencies).execute(value);
-
                 if(result){
                     return res.status(200).json(result)
                 } else {

@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema, mongo } from "mongoose";
 import bcrypt from 'bcrypt'
-import { UserEntity } from "../../../../domain/entities";
+import { OtpModel } from "./otpModel";
 
 interface IAuth extends Document {
     name: string,
@@ -27,7 +27,8 @@ const authSchema = new Schema<IAuth>({
     },
     role: {
         type: String,
-        enum: ['user', 'company', 'admin']
+        enum: ['user', 'company', 'admin'],
+        required: true
     },
     isBlocked: {
         type: Boolean,
@@ -48,6 +49,16 @@ authSchema.pre('save', async function (next) {
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt)
+    next()
 })
 
-export const authModel = mongoose.model('auth', authSchema)
+authSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
+    try {
+        await OtpModel.deleteMany({ user: this._id })
+        next()
+    } catch (error: any) {
+        next(error)
+    }
+})
+
+export const authModel = mongoose.model('Auth', authSchema) 
