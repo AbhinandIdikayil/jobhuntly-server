@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    container_name: rabbitmq_management
+    ports:
+     - "5672:5672"
+     - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 30s
+      retries: 5  
+    environment:
+      RABBITMQ_DEFAULT_USERNAME: admin 
+      RABBITMQ_DEFAULT_PASSWORD: password

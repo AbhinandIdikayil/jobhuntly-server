@@ -9,12 +9,13 @@ interface signupResponse {
     name: string,
     password: string,
     otp: string,
+    role: string
 }
 
 
 export const signup = async (data: UserEntity): Promise<signupResponse | null> => {
     try {
-        const { email, password, name } = data
+        const { email, password, name,role } = data
         let existingUser = await authModel.findOne({ email })
         if (existingUser) {
             throw new Error('user already exist')
@@ -25,11 +26,12 @@ export const signup = async (data: UserEntity): Promise<signupResponse | null> =
             email,
             password,
             name,
-            otp
+            otp,
+            role,
         }
         const otpDB = await OtpModel.create({
             email: res.email,
-            otp: res.otp
+            otp: res.otp,
         })
         if (res && otpDB) {
             return res as signupResponse

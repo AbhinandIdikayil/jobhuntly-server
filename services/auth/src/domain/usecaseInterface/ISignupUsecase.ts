@@ -5,6 +5,7 @@ interface signupResponse {
     name: string,
     password: string,
     otp: string,
+    role: string
 }
 
 
