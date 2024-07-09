@@ -7,7 +7,7 @@ import { MessageHandler } from "../../infrastructure/rabbitmq/messageHandler";
 
 
 //! FOR RABBITMQ MESSAGE PRODUCER
-const URL = process.env.RABBITMQ_URL || 'amap://localhost'
+const URL = process.env.RABBITMQ_URL || 'amqp://localhost'
 const EXCHANGE = process.env.EXCHANGE || 'direct_logs'
 
 
@@ -26,6 +26,7 @@ export const signupController = (dependencies: IDependencies) => {
             }
             if(value){
                 const result = await signupUsecase(dependencies).execute(value);
+                console.log(result)
                 if(result){
                     await messageHandler.sendEmail(result)
                     return res.status(200).json(result)

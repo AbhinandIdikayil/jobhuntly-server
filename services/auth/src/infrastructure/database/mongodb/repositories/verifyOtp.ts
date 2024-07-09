@@ -9,8 +9,10 @@ export const verifyOtp = async (email:string,otp:string,name:string,password:str
         if(!otp){
             throw new Error('where is otp')
         }
-        const userOtp = await OtpModel.findOne({email}).sort({ createdAt: -1 })
-        if(userOtp?.otp === otp.toString()){
+        const userOtp = await OtpModel.find({email}).sort({createdAt: -1}).limit(1)
+        const user = userOtp[0]
+        console.log(userOtp)
+        if(user?.otp === Number(otp)){
             const user = await authModel.create({
                 name,
                 email,

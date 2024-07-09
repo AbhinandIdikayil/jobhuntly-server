@@ -34,7 +34,7 @@ export class RabbitMQ {
 
         this.connection = await amqplib.connect(this.url);
         this.channel = await this.connection.createChannel();
-        if (this.exchange) {
+        if (this.exchange && this.channel) {
             await this.channel.assertExchange(this.exchange, 'direct', { durable: false })
         }
     }

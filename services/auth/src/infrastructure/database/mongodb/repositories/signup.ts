@@ -31,7 +31,7 @@ export const signup = async (data: UserEntity): Promise<signupResponse | null> =
         }
         const otpDB = await OtpModel.create({
             email: res.email,
-            otp: res.otp,
+            otp: Number(res.otp),
         })
         if (res && otpDB) {
             return res as signupResponse

@@ -24,7 +24,7 @@ export const googleAuthContoller = (dependencies: IDependencies) => {
                     const token = generateToken({
                         _id: String(result?._id),
                         email: result?.email!,
-                        role: result?.email!
+                        role: result?.role!
                     },)
 
                     const response = {

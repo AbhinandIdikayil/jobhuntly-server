@@ -10,7 +10,7 @@ export class MessageHandler {
     
     async sendEmail(message: any): Promise<void> {
         console.log(message)
-        this.rabbitMQ.connect();
+        await this.rabbitMQ.connect();
         try {
             switch (message.role) {
                 case 'user':

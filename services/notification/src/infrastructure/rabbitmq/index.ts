@@ -1,9 +1,9 @@
-import amqplib, { Channel, Connection, Message } from 'amqplib'
+import amqplib, { Channel, Connection } from 'amqplib'
 
-export interface IMessage  {
+export interface IMessage {
     content: string;
     routingKey: string;
-  }
+}
 
 export class RabbitMQ {
     private connection: Connection | null = null;
@@ -21,14 +21,17 @@ export class RabbitMQ {
     }
 
     async connect(): Promise<void> {
-        this.connection = await amqplib.connect(this.url);
-        this.channel = await this.connection.createChannel();
+        try {
+            this.connection = await amqplib.connect(this.url);
+            this.channel = await this.connection.createChannel();
 
-        await this.channel.assertExchange(this.exchange, 'direct', { durable: false });
-        await this.channel.assertQueue(this.queueName, { durable: false, exclusive: false });
-
-        for (const element of this.routingKeys) {
-            await this.channel.bindQueue(this.queueName, this.exchange, element)
+            await this.channel.assertExchange(this.exchange, 'direct', { durable: false });
+            await this.channel.assertQueue(this.queueName, { durable: false, exclusive: false });
+            for (const key of this.routingKeys) {
+                await this.channel.bindQueue(this.queueName, this.exchange, key);
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -37,23 +40,24 @@ export class RabbitMQ {
             throw new Error('Channel is not initialized')
         }
 
-        await this.channel.consume(this.queueName,(msg) => {
-            if(msg) {
+        await this.channel.consume(this.queueName, (msg) => {
+            if (msg) {
+                const parsed = JSON.parse(msg.content.toString())
                 const message: IMessage = {
-                    content: msg.content.toString(),
+                    content: parsed,
                     routingKey: msg.fields.routingKey
                 }
                 callback(message)
                 this.channel?.ack(msg)
             }
-        },{noAck: false})
+        }, { noAck: false })
     }
 
-    async close(): Promise<void>{
-        if(this.channel) {
+    async close(): Promise<void> {
+        if (this.channel) {
             await this.channel.close()
-        } 
-        if(this.connection) {
+        }
+        if (this.connection) {
             await this.connection.close()
         }
     }

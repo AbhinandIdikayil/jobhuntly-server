@@ -3,10 +3,10 @@ import mongoose,{ Schema } from 'mongoose'
 
 const otpSchema = new Schema({
     email :String,
-    otp: String,
+    otp: Number,
     createdAt:{
         type: Date,
-        expires:60,
+        expires:120,
         default: Date.now
     }
 })

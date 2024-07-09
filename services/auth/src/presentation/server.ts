@@ -17,7 +17,7 @@ export class Server {
         this.setUp()
     }
 
-    setUp() {
+    public setUp(): void {
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }))
         this.app.use(cors({
@@ -29,12 +29,11 @@ export class Server {
         this.app.use('/api/v1/auth', routes(dependencies));
         this.app.use(errorHandler)
 
-        console.log(typeof port)
-        this.app.listen(port,() => {`
+        this.app.listen(port,() => console.log(`
 ----------------------------------
 - AUTH SRV IS RUNNING ON ${port}  -
 ---------------------------------- 
-        `})
+        `))
     }
 
 }

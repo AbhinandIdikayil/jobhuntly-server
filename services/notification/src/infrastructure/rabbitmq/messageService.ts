@@ -1,4 +1,5 @@
-import { RabbitMQ,IMessage } from './index'
+import { sendOtpToUser } from './function/sendOtpMail';
+import { RabbitMQ, IMessage } from './index'
 
 
 
@@ -10,9 +11,15 @@ export class MessageService {
     }
 
     async start(): Promise<void> {
-        await this.rabbitMQ.connect()
-        await this.rabbitMQ.consumeMessage(this.handleMessage)
-        console.log('-------------- starting to consume ------------')
+        try {
+            
+            await this.rabbitMQ.connect()
+            await this.rabbitMQ.consumeMessage(this.handleMessage)
+    
+            console.log('-------------- starting to consume ------------')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     private handleMessage = (message: IMessage): void => {
@@ -20,11 +27,12 @@ export class MessageService {
         switch (message.routingKey) {
             case 'email-otp-user':
                 console.log(message)
+                sendOtpToUser(message)
                 break;
             case 'email-otp-cmpany':
                 console.log(message)
                 break;
-        
+
             default:
                 break;
         }
