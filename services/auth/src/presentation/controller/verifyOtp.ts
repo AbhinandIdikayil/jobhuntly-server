@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
+import { messageHandler } from "../../infrastructure/rabbitmq/instance";
 
 
 export const verifyOtpContoller = (dependencies: IDependencies) => {
@@ -10,6 +11,7 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
             console.log(req.body, 'reqeust body');
             let data = await verifyOtpUsecase(dependencies).execute(email,otp,name,password,role)
             if(data){
+                await messageHandler.sendUserData(data)
                 const response = {
                     name:data?.name,
                     email: data?.email,

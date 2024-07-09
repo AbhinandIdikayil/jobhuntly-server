@@ -7,7 +7,7 @@ export class MessageHandler {
     constructor(rabbitMQ: RabbitMQ) {
         this.rabbitMQ = rabbitMQ
     }
-    
+
     async sendEmail(message: any): Promise<void> {
         console.log(message)
         await this.rabbitMQ.connect();
@@ -36,7 +36,33 @@ export class MessageHandler {
                 process.exit(0);
             });
         }
+    }
 
-
+    async sendUserData(message: any): Promise<void> {
+        console.log(message);
+        await this.rabbitMQ.connect();
+        try {
+            switch (message.role) {
+                case 'user':
+                    await this.rabbitMQ.publishMessage('user', message)
+                    break;
+                case 'company':
+                    break;
+                default:
+                    console.log('Invalid role')
+                    break;
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            process.on('SIGINT', async () => {
+                await this.rabbitMQ.close();
+                process.exit(0);
+            });
+            process.on('SIGTERM', async () => {
+                await this.rabbitMQ.close();
+                process.exit(0);
+            });
+        }
     }
 }
