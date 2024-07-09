@@ -2,11 +2,16 @@ import express, { Application } from 'express'
 import { MQ_URL, PORT, ROUTING_KEY } from '../config/config';
 import { MessageHandler } from '../infratructure/rabbitmq/messageHandler';
 import { RABBIT_MQ } from '../infratructure/rabbitmq/instance';
+import { routes } from '../infratructure/routes';
+import { dependencies } from '../config/dependencies';
 
 
 
 const app: Application = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+
+app.use('/api/v1/user', routes(dependencies))
 
 
 RABBIT_MQ.connect(MQ_URL)
@@ -25,7 +30,7 @@ RABBIT_MQ.connect(MQ_URL)
 app.listen(PORT, () => {
     console.log(`
 ------------------------------------
-- AUTH SERVICE IS RUNNING ON ${PORT}-
+- USER SERVICE IS RUNNING ON ${PORT}-
 ------------------------------------
         `)
 })

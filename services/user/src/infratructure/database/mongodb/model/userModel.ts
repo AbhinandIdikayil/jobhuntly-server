@@ -19,9 +19,9 @@ const userSchema = new Schema(
             type: String,
             enum: ["user", "admin", "company"],
         },
-        blockStatus: {
+        isBlocked: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         status: {
             type: Boolean,
