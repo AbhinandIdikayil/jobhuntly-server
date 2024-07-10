@@ -5,16 +5,16 @@ config();
 
 export const PORT = Number(process.env.PORT)
 export const MQ_URL = String(process.env.RABBITMQ_URL)
-export const ROUTING_KEY = ['company', 'user']
+export const ROUTING_KEY = ['user']
 
 
 
 export const connectDB = async () => {
     try {
-        let URL = process.env.MONGO_URI as string
+        let URL = process.env.MONGO_URI as string  
         if (URL) {
             let res = await mongoose.connect(URL)
-            if (res) {
+            if (res) {  
                 console.log(`
 -----------------------------
 - USER SERVICE DB CONNECTED -       

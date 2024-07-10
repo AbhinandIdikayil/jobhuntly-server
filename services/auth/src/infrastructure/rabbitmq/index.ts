@@ -37,16 +37,19 @@ export class RabbitMQ {
         if (this.exchange && this.channel) {
             await this.channel.assertExchange(this.exchange, 'direct', { durable: false })
         }
+
+        process.on('SIGINT', () => this.close());
+        process.on('SIGTERM', () => this.close());
     }
 
     async publishMessage(routingKey: string, message: any): Promise<void> {
-        if (!this.channel) {
+        if (!this.channel) {  
             throw new Error('Channel is not initialized')
         }
         if (this.exchange) {
             this.channel.publish(this.exchange, routingKey, Buffer.from(JSON.stringify(message)))
         }
-    }
+    }  
 
     async close(): Promise<void> {
         if (this.channel) {

@@ -7,13 +7,13 @@ export class MessageHandler {
     constructor(rabbitMQ: RabbitMQ) {
         this.rabbitMQ = rabbitMQ
     }
-
+    
     async sendEmail(message: any): Promise<void> {
-        console.log(message)
         await this.rabbitMQ.connect();
+        console.log(message)
         try {
             switch (message.role) {
-                case 'user':
+                case 'user': 
                     await this.rabbitMQ.publishMessage('email-otp-user', message)
                     break;
                 case 'company':
@@ -26,27 +26,25 @@ export class MessageHandler {
             }
         } catch (error) {
             console.log(error);
-        } finally {
-            process.on('SIGINT', async () => {
-                await this.rabbitMQ.close();
-                process.exit(0);
-            });
-            process.on('SIGTERM', async () => {
-                await this.rabbitMQ.close();
-                process.exit(0);
-            });
         }
     }
 
     async sendUserData(message: any): Promise<void> {
         console.log(message);
-        await this.rabbitMQ.connect();
+        // await this.rabbitMQ.connect();
         try {
             switch (message.role) {
                 case 'user':
                     await this.rabbitMQ.publishMessage('user', message)
                     break;
                 case 'company':
+                    console.log(`
+                   ----------------
+                   ----------------
+                   ----------------
+                   ----------------      
+                        `)
+                    await this.rabbitMQ.publishMessage('company',message)
                     break;
                 default:
                     console.log('Invalid role')
@@ -54,15 +52,6 @@ export class MessageHandler {
             }
         } catch (error) {
             console.log(error)
-        } finally {
-            process.on('SIGINT', async () => {
-                await this.rabbitMQ.close();
-                process.exit(0);
-            });
-            process.on('SIGTERM', async () => {
-                await this.rabbitMQ.close();
-                process.exit(0);
-            });
         }
     }
 }

@@ -47,11 +47,11 @@ export class RabbitMQ {
                     content: parsed,
                     routingKey: msg.fields.routingKey
                 }
-                callback(message)
+                callback(message)  
                 this.channel?.ack(msg)
             }
-        }, { noAck: false })
-    }
+        }, { noAck: false }) 
+    }  
 
     async close(): Promise<void> {
         if (this.channel) {

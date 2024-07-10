@@ -1,6 +1,7 @@
+import { CompanyEntity } from "../../domain/entities";
 
 
 
 export interface IRepositories {
-    // createCompany()
+    createCompany(data:CompanyEntity): Promise<CompanyEntity | null>
 }

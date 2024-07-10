@@ -1,3 +1,4 @@
+import { IRepositories } from "./IRepositories";
 import { IUsecases } from "./IUsecases";
 
 

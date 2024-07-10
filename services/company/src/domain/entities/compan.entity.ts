@@ -2,8 +2,8 @@
 
 export interface CompanyEntity {
     _id?: string,
-    email: string,
     name: string,
+    email: string,
     password: string,
     description?: string,
     contact?: string,

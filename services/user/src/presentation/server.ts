@@ -23,10 +23,10 @@ RABBIT_MQ.connect(MQ_URL)
             .catch((error) => console.error('Error setting up consumer:', error));
 
 
-        // Set up producer
+        // Set up producer 
         // const producerHandler = new ProducerHandler();
     })
-
+ 
 app.listen(PORT, () => {
     console.log(`
 ------------------------------------
