@@ -6,10 +6,10 @@ export const forgotpasswordController = (dependencies: IDependencies) => {
     const {usecases:{forgotPasswordUsecase}} = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { email , password } = req.body
+            const { email , newPassword } = req.body
             console.log(req.body)
             if (email) {
-                let data = await forgotPasswordUsecase(dependencies).execute(email , password)
+                let data = await forgotPasswordUsecase(dependencies).execute(email , newPassword)
                 if(data) {
                     return res.status(200).json(data)
                 } else {

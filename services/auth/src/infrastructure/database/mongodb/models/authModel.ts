@@ -45,8 +45,7 @@ authSchema.methods.matchPassword = async function (enteredPassword: string) {
 }
 
 authSchema.methods.updatePassword = async function (enteredPassword:string) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt)
+    this.password = enteredPassword
     await this.save()
     return this;
 }
