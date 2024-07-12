@@ -38,8 +38,6 @@ export class RabbitMQ {
             await this.channel.assertExchange(this.exchange, 'direct', { durable: false })
         }
 
-        process.on('SIGINT', () => this.close());
-        process.on('SIGTERM', () => this.close());
     }
 
     async publishMessage(routingKey: string, message: any): Promise<void> {
@@ -52,11 +50,16 @@ export class RabbitMQ {
     }  
 
     async close(): Promise<void> {
-        if (this.channel) {
-            await this.channel.close();
-        }
-        if (this.connection) {
-            await this.connection.close();
+        try {
+            
+            if (this.channel) {
+                await this.channel.close();
+            }
+            if (this.connection) {
+                await this.connection.close();
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 }

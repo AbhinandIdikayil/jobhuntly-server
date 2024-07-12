@@ -7,4 +7,5 @@ const EXCHANGE = process.env.EXCHANGE || 'direct_logs'
 
 
 export const rabbitMQ = new RabbitMQ(URL,EXCHANGE)
+
 export const messageHandler = new MessageHandler(rabbitMQ)  

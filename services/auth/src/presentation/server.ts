@@ -19,7 +19,7 @@ export class Server {
 
     public setUp(): void {
         this.app.use(express.json())
-        this.app.use(express.urlencoded({ extended: true }))
+        this.app.use(express.urlencoded({ extended: false }))
         this.app.use(cors({
             origin: 'http://localhost:5173', // Allow requests from this origin
             methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods

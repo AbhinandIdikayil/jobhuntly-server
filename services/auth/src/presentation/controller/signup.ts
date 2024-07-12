@@ -5,7 +5,6 @@ import { signupValidation } from "../../utils/validator/signupValidator";
 import { messageHandler } from "../../infrastructure/rabbitmq/instance";
 
 
-//! FOR RABBITMQ MESSAGE PRODUCER
 
 
 

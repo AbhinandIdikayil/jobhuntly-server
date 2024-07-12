@@ -8,7 +8,8 @@ interface IAuth extends Document {
     password: string,
     role: string
     isBlocked: boolean,
-    matchPassword(enteredPassword: string): Promise<boolean>
+    matchPassword(enteredPassword: string): Promise<boolean>,
+    updatePassword(enteredPassword:string): Promise<any>
 }
 
 
@@ -41,6 +42,13 @@ const authSchema = new Schema<IAuth>({
 )
 authSchema.methods.matchPassword = async function (enteredPassword: string) {
     return await bcrypt.compare(enteredPassword, this.password)
+}
+
+authSchema.methods.updatePassword = async function (enteredPassword:string) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
+    await this.save()
+    return this;
 }
 
 authSchema.pre('save', async function (next) {

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { messageHandler } from "../../infrastructure/rabbitmq/instance";
+import { generateToken } from "../../utils/jwt/generateToken";
 
 
 export const verifyOtpContoller = (dependencies: IDependencies) => {
@@ -12,13 +13,24 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
             let data = await verifyOtpUsecase(dependencies).execute(email,otp,name,password,role)
             if(data){
                 await messageHandler.sendUserData(data)
-                const response = {
-                    name:data?.name,
-                    email: data?.email,
-                    isBlocked: data?.isBlocked,
-                    role:data?.role
+                //! Iam using this same api for the forgotpassword otp also
+                // ! In frontend iam passing a key as intention with true or a string
+                if(req.body.intention) {
+                    const response = {
+                        name:data?.name,
+                        email: data?.email,
+                    }
+                    return res.status(200).json(response)
+                } else {
+                    const response = {
+                        name:data?.name,
+                        email: data?.email,
+                        isBlocked: data?.isBlocked,
+                        role:data?.role
+                    }
+                    const token = generateToken({ _id: String(data?._id), email: data?.email, role: data?.role ?? '' })
+                    return res.status(200).cookie('access_token',token).json(response)
                 }
-                return res.status(200).json(response)
             } else {
                 throw new Error('some thing happened')
             }

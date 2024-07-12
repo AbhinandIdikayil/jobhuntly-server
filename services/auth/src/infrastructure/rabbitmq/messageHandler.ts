@@ -7,13 +7,16 @@ export class MessageHandler {
     constructor(rabbitMQ: RabbitMQ) {
         this.rabbitMQ = rabbitMQ
     }
-    
-    async sendEmail(message: any): Promise<void> {
+
+    async startConsumer(): Promise<void> {
         await this.rabbitMQ.connect();
+    }
+
+    async sendEmail(message: any): Promise<void> {
         console.log(message)
         try {
             switch (message.role) {
-                case 'user': 
+                case 'user':
                     await this.rabbitMQ.publishMessage('email-otp-user', message)
                     break;
                 case 'company':
@@ -44,7 +47,7 @@ export class MessageHandler {
                    ----------------
                    ----------------      
                         `)
-                    await this.rabbitMQ.publishMessage('company',message)
+                    await this.rabbitMQ.publishMessage('company', message)
                     break;
                 default:
                     console.log('Invalid role')

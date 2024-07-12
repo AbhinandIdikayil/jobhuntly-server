@@ -8,3 +8,8 @@ export interface UserEntity {
     role?:string,
     isBlocked:boolean
 }
+
+
+export interface Email {
+    email: string
+}

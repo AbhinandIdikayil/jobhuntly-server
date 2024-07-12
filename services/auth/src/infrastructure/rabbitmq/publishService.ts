@@ -1,14 +1,14 @@
-import { RabbitMQ } from ".";
+// import { RabbitMQ } from ".";
 
 
 
-export class  PublishService {
-    private rabbitMQ: RabbitMQ
-    constructor(rabbitMQ: RabbitMQ) {
-        this.rabbitMQ = rabbitMQ
-    }
+// export class  PublishService {
+//     private rabbitMQ: RabbitMQ
+//     constructor(rabbitMQ: RabbitMQ) {
+//         this.rabbitMQ = rabbitMQ
+//     }
 
-    async start(): Promise<void> {
-        await this.rabbitMQ.connect()
-    }
-}
+//     // async start(): Promise<void> {
+//     //     await this.rabbitMQ.connect()
+//     // }
+// }

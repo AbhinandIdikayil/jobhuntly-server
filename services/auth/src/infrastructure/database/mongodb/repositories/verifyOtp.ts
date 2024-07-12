@@ -28,6 +28,6 @@ export const verifyOtp = async (email:string,otp:string,name:string,password:str
             throw new Error('invalid otp')
         }
     } catch (error: any) {
-        throw new Error(error)
+        throw new Error(error?.message)
     }
 }

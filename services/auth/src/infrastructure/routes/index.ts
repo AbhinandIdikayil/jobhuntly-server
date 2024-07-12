@@ -4,11 +4,11 @@ import { controller } from "../../presentation/controller";
 
 export const routes = (dependencies: IDependencies) => {
 
-    
-    
-    
+
+
+
     const router = Router()
-    const { signup, login , googleAuth , logout  , verifyOtp} = controller(dependencies)
+    const { signup, login, googleAuth, logout, verifyOtp, verifyEmail ,forgotPassword } = controller(dependencies)
 
     router.route('/signup').post(signup);
 
@@ -18,8 +18,11 @@ export const routes = (dependencies: IDependencies) => {
 
     router.route('/logout').post(logout)
 
-    router.route('/verify-otp').post(verifyOtp)
+    router.route('/verify-otp').post(verifyOtp);
 
+    router.route('/verify-email').post(verifyEmail)
+
+    router.route('/forgot-password').put(forgotPassword)
 
     return router;
 }
