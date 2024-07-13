@@ -18,7 +18,8 @@ export async function startConsumer() {
                 console.log(msg.fields)
                 let key = msg.fields.routingKey
                 console.log(parsed)
-                consumeMessage(parsed,key, Channel)
+                consumeMessage(parsed,key, Channel,msg)
+                Channel.ack(msg)
             } catch (error) {
                 console.log(error)
                 Channel.nack(msg,false,false)

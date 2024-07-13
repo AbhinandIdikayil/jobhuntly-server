@@ -1,9 +1,9 @@
-import { Channel } from "amqplib";
+import { Channel, ConsumeMessage } from "amqplib";
 import { createCompany, updatePassword } from "../../database/mongodb/repositories";
 
 
 
-export async function consumeMessage(msg: any | null,key:string, channel: Channel | null): Promise<void> {
+export async function consumeMessage(msg: any | null,key:string, channel: Channel | null,rawMsg:ConsumeMessage): Promise<void> {
     try {
         console.log('Recieved message', msg)
         console.log(key)
@@ -16,7 +16,6 @@ export async function consumeMessage(msg: any | null,key:string, channel: Channe
             if(data){
                 console.log('----------- company has been created -------')
             }
-            channel?.ack(msg)
         } else if (key == 'fg-ps-company') {
             let email = msg?.email;
             let password = msg?.password
@@ -25,7 +24,9 @@ export async function consumeMessage(msg: any | null,key:string, channel: Channe
                 console.log('----------- company password updated ------------')
             }
         }
+        channel?.ack(rawMsg)
     } catch (error: any) {
+        channel?.nack(rawMsg,false,false)
         console.log(error)
         // throw new Error(error)
     }
