@@ -47,7 +47,7 @@ authSchema.methods.matchPassword = async function (enteredPassword: string) {
 authSchema.methods.updatePassword = async function (enteredPassword:string) {
     this.password = enteredPassword
     await this.save()
-    return this;
+    return this.password;
 }
 
 authSchema.pre('save', async function (next) {

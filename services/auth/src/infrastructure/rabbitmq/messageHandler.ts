@@ -41,16 +41,30 @@ export class MessageHandler {
                     await this.rabbitMQ.publishMessage('user', message)
                     break;
                 case 'company':
-                    console.log(`
-                   ----------------
-                   ----------------
-                   ----------------
-                   ----------------      
-                        `)
                     await this.rabbitMQ.publishMessage('company', message)
                     break;
                 default:
                     console.log('Invalid role')
+                    break;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    async sendNewPassword(message: any): Promise<void> {
+        console.log(message)
+        try {
+            switch (message.role) {
+                case 'user':
+                    await this.rabbitMQ.publishMessage('fg-ps-user',message)
+                    break;
+                case 'company':
+                    await this.rabbitMQ.publishMessage('fg-ps-company',message)
+                    break;  
+
+                default:
                     break;
             }
         } catch (error) {

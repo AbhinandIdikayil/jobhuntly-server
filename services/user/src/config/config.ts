@@ -5,7 +5,7 @@ config();
 
 export const PORT = Number(process.env.PORT)
 export const MQ_URL = String(process.env.RABBITMQ_URL)
-export const ROUTING_KEY = ['user']
+export const ROUTING_KEY = ['user','fg-ps-user']
 
 
 

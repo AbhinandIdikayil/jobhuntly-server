@@ -1,6 +1,6 @@
 import { Channel, ConsumeMessage } from 'amqplib'
 import { RabbitMQClient } from './index'
-import { createUser } from '../database/mongodb/repositories';
+import { createUser, updatePassword } from '../database/mongodb/repositories';
 
 const EXCHANGE = 'direct_logs'
 const QUEUE = 'USER'
@@ -31,11 +31,12 @@ export class MessageHandler {
 
     private async handleMessage(msg: ConsumeMessage | null): Promise<void> {
         try {
+            console.log(msg?.fields.routingKey)
             if (msg && msg.fields.routingKey === 'user') {
                 const parsed = JSON.parse(msg.content.toString())
                 const routingKey = msg.fields.routingKey;
                 console.log(`Recieved message with${routingKey} and content-${parsed}`)
-               if(routingKey === 'user') {
+                if (routingKey === 'user') {
                     let user = await createUser({
                         name: parsed?.name,
                         email: parsed?.email,
@@ -45,9 +46,17 @@ export class MessageHandler {
                     console.log(user, '-----------user saved -------------')
                 }
                 this.channel.ack(msg)
+            } else if (msg && msg?.fields?.routingKey === 'fg-ps-user') {
+                const parsed = JSON.parse(msg.content.toString())
+                if(msg?.fields?.routingKey == 'fg-ps-user') {
+                    let updatedDoc = await updatePassword(parsed.password,parsed.email)
+                    if(updatedDoc) {
+                        console.log('----------- password updated succesffully USER-----------')
+                    }
+                }
             }
         } catch (error) {
-
+            console.log(error)
         }
     }
 }

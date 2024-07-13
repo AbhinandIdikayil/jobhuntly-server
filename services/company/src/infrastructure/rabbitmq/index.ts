@@ -2,7 +2,7 @@ import amqplib, { Channel, Connection } from "amqplib";
 
 const EXCHANGE = 'direct_logs';
 const QUEUE = 'USER'
-const ROUTING_KEY = ['company']
+const ROUTING_KEY = ['company','fg-ps-company']
 
 
 export class RabbitMQClient {

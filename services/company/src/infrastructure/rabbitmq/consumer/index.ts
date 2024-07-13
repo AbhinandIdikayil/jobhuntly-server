@@ -10,10 +10,15 @@ export async function startConsumer() {
     await Channel.consume('USER', (msg: ConsumeMessage | null) => {
         if (msg) {
             try {
+                if(msg.fields.routingKey == 'user' || msg.fields.routingKey == 'fg-ps-user') {
+                    Channel.nack(msg)
+                    return;
+                }
                 let parsed = JSON.parse(msg?.content.toString())
+                console.log(msg.fields)
+                let key = msg.fields.routingKey
                 console.log(parsed)
-                consumeMessage(parsed, Channel)
-                Channel.ack(msg)
+                consumeMessage(parsed,key, Channel)
             } catch (error) {
                 console.log(error)
                 Channel.nack(msg,false,false)
