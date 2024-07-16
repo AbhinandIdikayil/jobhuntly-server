@@ -30,8 +30,9 @@ const companySchema = new Schema({
         profile: String,
         designation: String,
     }],
-    techStack: [{ name: String, icon: String }],
-    website: String,    
+    techStack: [String],
+    website: String,
+    employees: String,
     coverImage: String,
     approvelStatus: {
         type: String,
@@ -50,4 +51,4 @@ const companySchema = new Schema({
     registrationId: String
 }, { timestamps: true })
 
-export const companyModel =  mongoose.model('Company',companySchema)
+export const companyModel = mongoose.model('Company', companySchema)
