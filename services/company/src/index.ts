@@ -7,9 +7,9 @@ import app from "./presentation/server"
 
 const startServer = async () => {
     try {
-        await RabbitMQ.connect(RABBIT_MQ_URL)
         app
         await CONNECT_DB()
+        await RabbitMQ.connect(RABBIT_MQ_URL)
 
         await startConsumer()
 
@@ -25,7 +25,7 @@ const startServer = async () => {
         })
     } catch (error) {
         console.log(error)
-        process.exit(0) 
+        // process.exit(0) 
     }
 }
  

@@ -31,7 +31,7 @@ const companySchema = new Schema({
         designation: String,
     }],
     techStack: [{ name: String, icon: String }],
-    website: String,
+    website: String,    
     coverImage: String,
     approvelStatus: {
         type: String,

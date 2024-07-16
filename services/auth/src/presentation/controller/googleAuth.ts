@@ -12,7 +12,7 @@ export const googleAuthContoller = (dependencies: IDependencies) => {
     const { usecases: { googleAuthUsecase } } = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { token } = req.body
+            const { token  , email } = req.body
             const ticket = await googleClient.verifyIdToken({
                 idToken: token,
                 audience: `${process.env.CLIENT_ID_GOOGLE}`
@@ -20,7 +20,7 @@ export const googleAuthContoller = (dependencies: IDependencies) => {
             const payload = ticket.getPayload();
             if (payload) {
                 if (payload.name && payload.email) {
-                    const result = await googleAuthUsecase(dependencies).execute(payload?.email, payload?.name)
+                    const result = await googleAuthUsecase(dependencies).execute(payload?.email, payload?.name,email);
                     const token = generateToken({
                         _id: String(result?._id),
                         email: result?.email!,
