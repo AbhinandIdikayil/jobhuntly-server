@@ -4,7 +4,6 @@ import { MessageHandler } from '../infratructure/rabbitmq/messageHandler';
 import { RABBIT_MQ } from '../infratructure/rabbitmq/instance';
 import { routes } from '../infratructure/routes';
 import { dependencies } from '../config/dependencies';
-import { ProducerHandler } from '../infratructure/rabbitmq/producerHandler';
 import cors from 'cors'
 
 
@@ -29,7 +28,6 @@ RABBIT_MQ.connect(MQ_URL)
             .catch((error) => console.error('Error setting up consumer:', error));
 
 
-        const producerHandler = new ProducerHandler();
     })
     .catch(error => {
         console.error('Failed to establish RabbitMQ connection:', error);
