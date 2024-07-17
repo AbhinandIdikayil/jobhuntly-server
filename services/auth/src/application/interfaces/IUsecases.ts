@@ -1,4 +1,5 @@
 import { IGoogleUsecase, ILoginUsecase, ISignupUsecase, IVerifyOtpUsecase , IVerifyEmail ,IForgotPasswordUsecase} from "../../domain/usecaseInterface";
+import { IAdminLoginUsecase } from "../../domain/usecaseInterface/IAdminLoginUsecase";
 import { IDependencies } from "./IDependencies";
 
 
@@ -10,4 +11,5 @@ export interface IUsecases  {
     verifyOtpUsecase:(dependencies:IDependencies) => IVerifyOtpUsecase
     verifyEmailUsecase:(dependencies:IDependencies) => IVerifyEmail;
     forgotPasswordUsecase:(dependencies:IDependencies) => IForgotPasswordUsecase
+    adminLoginUsecase:(dependencies:IDependencies) =>  IAdminLoginUsecase
 }

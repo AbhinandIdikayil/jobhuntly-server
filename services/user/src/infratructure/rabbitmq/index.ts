@@ -27,7 +27,7 @@ export class RabbitMQClient {
 
     getChannel(): Channel {
         if(!this.channel){
-            throw new Error('rabbitqm channel not initialized')
+            throw new Error('rabbitmq channel not initialized')
         }
         return this.channel
     }  

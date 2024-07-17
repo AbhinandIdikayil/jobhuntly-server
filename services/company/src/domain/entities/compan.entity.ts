@@ -2,9 +2,9 @@
 
 export interface CompanyEntity {
     _id?: string,
-    name: string,
-    email: string,
-    password: string,
+    name?: string,
+    email?: string,
+    password?: string,
     description?: string,
     contact?: string,
     officeLocations?: { name: string; icon: string }[],

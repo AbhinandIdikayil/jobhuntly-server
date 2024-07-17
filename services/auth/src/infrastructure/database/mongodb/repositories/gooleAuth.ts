@@ -4,13 +4,14 @@ import { authModel } from "../models/authModel";
 
 
 
-export const googleAuth = async (email: string,name:string): Promise<UserEntity | null> => {
+export const googleAuth = async (email: string,name:string,role: string): Promise<UserEntity | null> => {
     try {
         let user = await authModel.findOne({email});
         if(!user) {
             user = await authModel.create({
                 name,
                 email,
+                role,
                 password:generateRandomString(),
             })
         }

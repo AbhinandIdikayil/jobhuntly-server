@@ -8,6 +8,7 @@ const startServer = async () => {
         app
     } catch (error) {
         console.log(error)
+        process.exit(0)
     }
 }
 

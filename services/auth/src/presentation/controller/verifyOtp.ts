@@ -28,8 +28,14 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
                         isBlocked: data?.isBlocked,
                         role:data?.role
                     }
+
                     const token = generateToken({ _id: String(data?._id), email: data?.email, role: data?.role ?? '' })
-                    return res.status(200).cookie('access_token',token).json(response)
+                    return res.status(200).cookie('access_token',
+                        token,{
+                            httpOnly: true,
+                            maxAge: 60 
+                        }
+                    ).json(response)
                 }
             } else {
                 throw new Error('some thing happened')
