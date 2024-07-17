@@ -7,13 +7,15 @@ import { verifyToken } from "../../utils/verifyToken";
 export const routes = (dependencies: IDependencies) => {
     const router = Router()
 
-    const { getCompany, updateProfile, updateSocialLinks } = controller(dependencies)
+    const { getCompany, updateProfile, updateSocialLinks,sendRequest } = controller(dependencies)
 
     router.route('/company').get(verifyToken, getCompany);
 
     router.route('/company-overview').post(verifyToken , updateProfile);
 
-    router.route('/company-social').put(verifyToken,updateSocialLinks)
+    router.route('/company-social').put(verifyToken,updateSocialLinks);
+
+    router.route('/compnay-request').post(verifyToken ,sendRequest )
 
     return router
 }

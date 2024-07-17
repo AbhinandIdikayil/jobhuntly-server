@@ -7,4 +7,5 @@ export interface IRepositories {
     getCompany(email:string):Promise<CompanyEntity | null>
     updateProfile(data:CompanyEntity,email: string): Promise<CompanyEntity | null>
     updateSocialLinks(data:CompanyEntity,email: string): Promise<CompanyEntity | null>
+    sendRequest(id: string , email: string): Promise<boolean | null>
 }

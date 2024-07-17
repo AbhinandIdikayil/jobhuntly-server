@@ -4,6 +4,7 @@ import { routes } from '../infrastructure/router';
 import { dependencies } from '../config/dependencies';
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import errorHandler from '../utils/errorMiddleware';
 
 const app:Application = express()
 
@@ -15,8 +16,8 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(cookieParser())
-
 app.use('/api/v1/company',routes(dependencies))
+app.use(errorHandler)
 
 
 app.listen(PORT,() => {
