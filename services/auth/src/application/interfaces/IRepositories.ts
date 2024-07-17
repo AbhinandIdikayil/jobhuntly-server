@@ -17,4 +17,5 @@ export interface IRepositories {
     verifyOtp:(email:string,otp?:string,name?:string,password?:string,role?:string) => Promise<UserEntity | null>
     verifyEmail:(email:string,otp:string) => Promise<Email | null>
     forgotPassword:(email: string,password:string) => Promise<any | null>
+    adminLogin:(email: string , password: string) => Promise<UserEntity | null>
 }

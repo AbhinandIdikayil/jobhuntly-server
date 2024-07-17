@@ -1,4 +1,5 @@
 import { IDependencies } from "../../application/interfaces/IDependencies"
+import { adminLoginController } from "./AdminLogin"
 import { forgotpasswordController } from "./forgotPassword"
 import { googleAuthContoller } from "./googleAuth"
 import { loginContoller } from "./login"
@@ -17,6 +18,7 @@ export const controller = (dependencies:IDependencies) => {
         logout:logoutController(),
         verifyOtp:verifyOtpContoller(dependencies),
         verifyEmail:verifyEmailController(dependencies),
-        forgotPassword:forgotpasswordController(dependencies)
+        forgotPassword:forgotpasswordController(dependencies),
+        adminLogin:adminLoginController(dependencies)
     }
 }

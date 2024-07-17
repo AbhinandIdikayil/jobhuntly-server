@@ -8,7 +8,8 @@ export const routes = (dependencies: IDependencies) => {
 
 
     const router = Router()
-    const { signup, login, googleAuth, logout, verifyOtp, verifyEmail ,forgotPassword } = controller(dependencies)
+    const { signup, login, googleAuth, logout,
+         verifyOtp, verifyEmail ,forgotPassword,adminLogin } = controller(dependencies)
 
     router.route('/signup').post(signup);
 
@@ -23,6 +24,8 @@ export const routes = (dependencies: IDependencies) => {
     router.route('/verify-email').post(verifyEmail)
 
     router.route('/forgot-password').put(forgotPassword)
+
+    router.route('/admin').post(adminLogin)
 
     return router;
 }
