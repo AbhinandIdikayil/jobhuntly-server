@@ -58,6 +58,7 @@ export class MessageHandler {
         try {
             switch (message.role) {
                 case 'user':
+                    console.log(`--------- send data to fg-ps-user ------------`)
                     await this.rabbitMQ.publishMessage('fg-ps-user',message)
                     break;
                 case 'company':
