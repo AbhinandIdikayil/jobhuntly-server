@@ -6,6 +6,7 @@ import { IDependencies } from "../../application/interfaces/IDependencies"
 export const getAllUsersController = (dependencies:IDependencies) => {
     const {usecases:{getAllUserUsecase}} = dependencies
     return async (req:Request , res: Response , next: NextFunction) => {
+        console.log('0---------------')
         try {
             const data = await getAllUserUsecase(dependencies).execute()
             if(data) {
