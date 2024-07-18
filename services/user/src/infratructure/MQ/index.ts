@@ -2,12 +2,15 @@ import { Channel, Connection } from "amqplib";
 import amqplib from 'amqplib'
 
 const ROUTING_KEY = ['user', 'fg-ps-user']
+
 export class RabbitMQClient {
-    private connection: Connection;
+    private connection: Connection | null = null;
     private channels: Map<string, Channel> = new Map();
     private exchange = 'direct_logs'
 
-    constructor(private readonly connectionString: string) { }
+    constructor(
+        private readonly connectionString: string
+    ) { }
 
     async connect(): Promise<void> {
         this.connection = await amqplib.connect(this.connectionString)
@@ -17,12 +20,15 @@ export class RabbitMQClient {
         if (this.channels.has(queueName)) {
             return this.channels.get(queueName)!;
         }
+        if (!this.connection) {
+            throw new Error("Connection not established. Call connect() first.");
+        }
         const channel = await this.connection.createChannel();
         this.channels.set(queueName, channel);
         return channel
     }
 
-    async consumeMessages(queueName: string, callback: (message: any) => Promise<void>): Promise<void> {
+    async consumeMessages(queueName: string, callback: (message: any) => Promise<boolean>) {
         const channel = await this.getChannel(queueName);
         // await channel.assertQueue(queueName, { durable: false });
         // channel.consume(queueName, async (msg) => {
@@ -43,7 +49,9 @@ export class RabbitMQClient {
                 queue.queue, async (msg) => {
                     if (msg !== null) {
                         const message = JSON.parse(msg.content.toString());
-                        let response:any = await callback(message);
+                        console.log(message)
+                        let response: boolean = await callback(msg);
+                        console.log(response)
                         if (response) {
                             channel.ack(msg);
                         } else {
@@ -65,7 +73,9 @@ export class RabbitMQClient {
         for (const channel of this.channels.values()) {
             await channel.close();
         }
-        await this.connection.close();
+        if (this.connection) {
+            await this.connection.close();
+        }
     }
 
 }
