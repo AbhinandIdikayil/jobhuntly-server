@@ -12,7 +12,6 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
             console.log(req.body, 'reqeust body');
             let data = await verifyOtpUsecase(dependencies).execute(email,otp,name,password,role)
             if(data){
-                await messageHandler.sendUserData(data)
                 //! Iam using this same api for the forgotpassword otp also
                 // ! In frontend iam passing a key as intention with true or a string
                 if(req.body.intention) {
@@ -22,6 +21,7 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
                     }
                     return res.status(200).json(response)
                 } else {
+                    await messageHandler.sendUserData(data)
                     const response = {
                         name:data?.name,
                         email: data?.email,
