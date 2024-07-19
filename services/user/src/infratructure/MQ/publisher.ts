@@ -10,9 +10,16 @@ export class ProducerService {
 
     async start(): Promise<void> {
         await this.rabbitMQClient.connect()
+        console.log(`
+====================
+= PRODUCER STARTED =
+====================
+        `)
     }
-    publishToQueue1 = async (message: any): Promise<void> => {
-        await this.rabbitMQClient.publishMessage('queue1','hai', message);
+
+    //! SEND DATA TO USER QUEUE WHILE BLOCK OR UNBLOCK A USER
+    publishToUser = async (message: any): Promise<void> => {
+        await this.rabbitMQClient.publishMessage('USER','blocked', message);
     };
 
     publishToQueue2 = async (message: any): Promise<void> => {

@@ -3,6 +3,8 @@ import { RabbitMQClient } from ".";
 import { createCompany, updatePassword } from "../database/mongodb/repositories";
 
 
+const QUEUE = 'COMPANY'
+
 export class ConsumerService {
     private rabbitMQClient: RabbitMQClient
     private isShuttingDown = false
@@ -19,7 +21,7 @@ export class ConsumerService {
 ----------------------------
 `)
 
-        await this.rabbitMQClient.consumeMessage('USER', async (message: Message): Promise<boolean> => {
+        await this.rabbitMQClient.consumeMessage(QUEUE, async (message: Message): Promise<boolean> => {
             let msg = JSON.parse(message.content.toString());
             let key = message.fields.routingKey
             if (key == 'company') {

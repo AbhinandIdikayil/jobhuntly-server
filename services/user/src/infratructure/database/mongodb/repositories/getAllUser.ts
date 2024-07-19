@@ -4,7 +4,7 @@ import { userModel } from "../model/userModel";
 
 export const getAllUser = async (): Promise<UserEntity[] | null> => {
     try {
-        let users = await userModel.find()
+        let users = await userModel.find().select('-password')
         if(users.length > 0) {
             return users as unknown as UserEntity[]
         } else {

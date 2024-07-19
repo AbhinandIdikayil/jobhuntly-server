@@ -38,7 +38,7 @@ export class ProducerService {
                 await this.rabbitMQClient.publishMessage('USER', 'user', message)
                 break;
             case 'company':
-                await this.rabbitMQClient.publishMessage('USER', 'company', message)
+                await this.rabbitMQClient.publishMessage('COMPANY', 'company', message)
                 break;
             default:
                 console.log(`
@@ -60,7 +60,7 @@ export class ProducerService {
                 await this.rabbitMQClient.publishMessage('USER','fg-ps-user',message)
                 break;
             case 'company':
-                await this.rabbitMQClient.publishMessage('USER','fg-ps-company',message)
+                await this.rabbitMQClient.publishMessage('COMPANY','fg-ps-company',message)
                 break;
 
             default:

@@ -3,7 +3,6 @@ import { PORT, ROUTING_KEY } from '../config/config';
 import { routes } from '../infratructure/routes';
 import { dependencies } from '../config/dependencies';
 import cors from 'cors'
-import { consumer } from '../config/rabbitmq';
 
 
 const app: Application = express();
@@ -19,7 +18,6 @@ app.use(cors({
 app.use('/api/v1/user', routes(dependencies))
 
 
-consumer.start()
 
  
 app.listen(PORT, () => {

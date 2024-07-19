@@ -1,7 +1,7 @@
 import { Channel, Connection } from "amqplib";
 import amqplib from 'amqplib'
 
-const ROUTING_KEY = ['null', 'null2']
+const ROUTING_KEY = ['blocked']
 
 export class RabbitMQClient {
     private connection: Connection | null = null;
@@ -37,6 +37,21 @@ export class RabbitMQClient {
             for (const routing of ROUTING_KEY) {
                 await channel.bindQueue(queue.queue, this.exchange, routing)
             }
+            await channel.consume(
+                queue.queue, async (msg) => {
+                    if (msg !== null) {
+                        const message = JSON.parse(msg.content.toString());
+                        console.log(message)
+                        let response: boolean = await callback(msg);
+                        console.log(response)
+                        if (response) {
+                            channel.ack(msg);
+                        } else {
+                            channel.nack(msg, false, false)
+                        }
+                    }
+                },
+                { noAck: false })
         }
     }
 
@@ -50,7 +65,7 @@ export class RabbitMQClient {
         for (const channel of this.channels.values()) {
             await channel.close();
         }
-        if(this.connection){
+        if (this.connection) {
             await this.connection.close()
         }
     }

@@ -7,11 +7,15 @@ export const blockUser = async (email: string): Promise<boolean | null> => {
         if(email) {
             let blockedUser = await userModel.findOneAndUpdate(
                 {email},
-                {
-                    $set:{
-                        isBlocked:true
+                [
+                    {
+                        $set: {
+                            isBlocked: {
+                                $not: '$isBlocked'  
+                            }  
+                        }
                     }
-                },
+                ],
                 {new: true}
             )
             if(blockedUser){
