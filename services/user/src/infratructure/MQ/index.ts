@@ -55,7 +55,7 @@ export class RabbitMQClient {
                         if (response) {
                             channel.ack(msg);
                         } else {
-                            channel.nack(msg)
+                            channel.nack(msg,false,false)
                         }
                     }
                 },

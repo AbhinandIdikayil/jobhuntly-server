@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import ErrorResponse from "../../utils/common/errorResponse";
 import { signupValidation } from "../../utils/validator/signupValidator";
-import { messageHandler } from "../../infrastructure/rabbitmq/instance";
+import { producerService } from "../../config/rabbitmq";
 
 
 
@@ -23,7 +23,8 @@ export const signupController = (dependencies: IDependencies) => {
                 if(result){
 
                     //! sending user email and otp to the notification service
-                    await messageHandler.sendEmail(result);
+                    // await messageHandler.sendEmail(result);
+                    await producerService.publishToEmailQueue(result)
 
                     
                     return res.status(200).json(result)
