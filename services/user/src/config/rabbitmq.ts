@@ -7,8 +7,8 @@ export const consumer = new ConsumserSevice(MQ_URL);
 
 export const producer = new ProducerService(MQ_URL)
 
-const startServer = async () => {
+export const startProducer = async () => {
     await producer.start()
+    await producer.close()
 }
 
-startServer()

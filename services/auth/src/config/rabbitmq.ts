@@ -8,6 +8,7 @@ export const consumerService = new ConsumerService(URL)
 
 export const startProducer = async () => {
     await producerService.start()
+    await producerService.close()
 }
 
 

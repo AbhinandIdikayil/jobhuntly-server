@@ -3,6 +3,7 @@ import { RabbitMQClient } from ".";
 
 export class ProducerService {
     private rabbitMQClient: RabbitMQClient
+    private isShuttingDown = false;
     constructor(connectionString: string) {
         this.rabbitMQClient = new RabbitMQClient(connectionString)
     }
@@ -70,5 +71,19 @@ export class ProducerService {
 --------------- `)
             break;
         }
+    }
+
+
+    async close ():Promise<void> {
+        process.on('SIGINT',this.graceFulShotDown)
+        process.on('SIGTERM',this.graceFulShotDown)
+    }
+
+    private graceFulShotDown = async (): Promise<void> => {
+        if(this.isShuttingDown) return
+        this.isShuttingDown = true
+        console.log('Producer service shutting down.......')
+        await this.rabbitMQClient.close();
+        console.log('Producer service has been shut downed')
     }
 }

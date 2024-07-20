@@ -1,7 +1,8 @@
 import { Channel, Connection } from "amqplib";
 import amqplib from 'amqplib'
+import { ROUTING_KEY } from "../../config/config";
 
-const ROUTING_KEY = ['user', 'fg-ps-user']
+// const ROUTING_KEY = ['user', 'fg-ps-user']
 
 export class RabbitMQClient {
     private connection: Connection | null = null;
