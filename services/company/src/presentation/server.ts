@@ -5,8 +5,11 @@ import { dependencies } from '../config/dependencies';
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import errorHandler from '../utils/errorMiddleware';
+import { createServer } from 'http'
+import { Server as SocketIOServer } from 'socket.io'
 
 const app:Application = express()
+const httpServer = createServer(app)
 
 app.use(cors({
     origin: 'http://localhost:5173', // Allow requests from this origin
@@ -20,12 +23,24 @@ app.use('/api/v1/company',routes(dependencies))
 app.use(errorHandler)
 
 
-app.listen(PORT,() => {
+const io = new SocketIOServer(httpServer,{
+    cors:{
+        origin:[
+            process.env.CLIENT_URL as string,
+        ],
+        credentials: true
+    }
+});
+
+app.set('io', io)
+
+const server = httpServer.listen(PORT, () => {
     console.log(`
 ----------------------------------------
 - COMPANY SERVICE IS RUNNING ON ${PORT}-    
 ----------------------------------------
-        `)
+    `)
 })
 
-export default app 
+
+export {server,io} 

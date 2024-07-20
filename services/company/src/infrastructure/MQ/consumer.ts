@@ -62,6 +62,5 @@ export class ConsumerService {
         console.log('Shutting down consumer service...');
         await this.rabbitMQClient.close();
         console.log('Consumer service shut down gracefully.');
-        process.exit(0);
     };
 }

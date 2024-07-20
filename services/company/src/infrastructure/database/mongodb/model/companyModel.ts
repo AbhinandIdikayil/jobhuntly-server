@@ -1,4 +1,49 @@
 import mongoose, { Schema } from "mongoose";
+import { Document } from "mongoose";
+
+
+
+export interface CompanyDocument extends Document {
+    email: string;
+    name: string;
+    password: string;
+    description?: string;
+    contact?: string;
+    locations?: string[];
+    joinDate?: Date;
+    industry?: string;
+    images?: string[];
+    benefits?: {
+        icon: string;
+        headline: string;
+        description: string;
+    }[];
+    foundedDate?: Date;
+    teams?: {
+        name: string;
+        profile: string;
+        designation: string;
+    }[];
+    techStack?: string[];
+    website?: string;
+    employees?: string;
+    coverImage?: string;
+    approvelStatus?: {
+        type: string;
+        enum: ["Accepted", "Rejected", "Pending", "Message"];
+        description: string;
+    };
+    profileCompleted?: boolean;
+    profileCompletionStatus?: {
+        type: string;
+        enum: ["1%", "2%", "3%"];
+    };
+    socialLinks?: string[];
+    icon?: string;
+    LinkedInLink?: string;
+    certificate?: string;
+    registrationId?: string;
+}
 
 const companySchema = new Schema({
     email: {
@@ -38,6 +83,7 @@ const companySchema = new Schema({
         type: String,
         enum: ["Accepted", "Rejected", "Pending", "Message"],
         description: String,
+        default:'Rejected'
     },
     profileCompleted: Boolean,
     profileCompletionStatus: {
@@ -51,4 +97,4 @@ const companySchema = new Schema({
     registrationId: String
 }, { timestamps: true })
 
-export const companyModel = mongoose.model('Company', companySchema)
+export const companyModel = mongoose.model<CompanyDocument>('Company', companySchema)

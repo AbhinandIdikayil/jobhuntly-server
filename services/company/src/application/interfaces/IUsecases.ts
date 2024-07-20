@@ -1,4 +1,4 @@
-import { IGetCompanyUsecase, IUpdateProfieUsecase,IUpdateSocialLinksUsecase , ISendRequest } from "../../domain/usecaseInterface";
+import { IGetCompanyUsecase, IUpdateProfieUsecase,IUpdateSocialLinksUsecase , ISendRequest, IUpdateRequestUsecase, IListRequest } from "../../domain/usecaseInterface";
 import { IDependencies } from "./IDependencies";
 
 
@@ -7,4 +7,6 @@ export interface IUsecases {
     updateProfileUsecase(dependencies:IDependencies): IUpdateProfieUsecase
     updateSocialLinksUsecase(dependencies:IDependencies): IUpdateSocialLinksUsecase
     sendRequestUsecase(dependencies:IDependencies): ISendRequest
+    updateRequestUsecase(dependencies:IDependencies): IUpdateRequestUsecase
+    listRequestUsecase(dependencies:IDependencies): IListRequest
 }
