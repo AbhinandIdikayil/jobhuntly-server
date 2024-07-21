@@ -79,7 +79,7 @@ const companySchema = new Schema({
     website: String,
     employees: String,
     coverImage: String,
-    approvelStatus: {
+    approvalStatus: {
         type: String,
         enum: ["Accepted", "Rejected", "Pending", "Message"],
         description: String,

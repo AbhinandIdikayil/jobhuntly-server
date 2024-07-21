@@ -6,7 +6,7 @@ import { CompanyDocument } from "../model/companyModel";
 
 export const listRequest = async (): Promise<CompanyEntity | null> => {
     try {
-        let requests = await approvalModel.find().populate<{ companyId: CompanyDocument }>('companyId');
+        let requests = await approvalModel.find().populate<{ companyId: CompanyDocument }>({path:'companyId',select:'-password'}).select('-_id')
         if(requests) {
             return requests as unknown as CompanyEntity
         } else {

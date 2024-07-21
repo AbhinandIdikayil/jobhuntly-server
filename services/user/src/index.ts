@@ -11,7 +11,7 @@ const startServer = async () => {
         await startProducer()
     } catch (error) {
         console.log(error)
-        process.exit(0)
+        // process.exit(0)
     }
 }
 

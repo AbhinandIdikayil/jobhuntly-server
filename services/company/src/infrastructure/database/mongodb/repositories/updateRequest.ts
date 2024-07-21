@@ -12,7 +12,7 @@ export const updateRequest = async (email: string): Promise<{ email: string } | 
                 {_id:email},
                 {
                     $set:{
-                        approvelStatus: 'Accepted'
+                        approvalStatus: 'Accepted'
                     }
                 },
                 {new:true}
