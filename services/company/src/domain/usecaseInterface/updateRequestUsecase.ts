@@ -1,5 +1,5 @@
 
 
 export interface IUpdateRequestUsecase {
-    execute(email: string): Promise<{email: string} | null>
+    execute(id: string,status: string): Promise<{email: string,status: string} | null>
 }

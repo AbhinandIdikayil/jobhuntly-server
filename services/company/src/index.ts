@@ -8,13 +8,13 @@ const startServer = async () => {
     try {
         await CONNECT_DB()
         server
-        await consumerService.start()
         io.on('connection', (socket) => {
-            console.log('New client connected')
+            console.log('New client connectedd')
             socket.on('disconnect', () => {
                 console.log('Client disconnected')
             })
         })
+        await consumerService.start()
 
     } catch (error) {
         console.log(error)

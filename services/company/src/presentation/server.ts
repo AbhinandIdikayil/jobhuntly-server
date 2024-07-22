@@ -22,7 +22,6 @@ app.use(cookieParser())
 app.use('/api/v1/company',routes(dependencies))
 app.use(errorHandler)
 
-
 const io = new SocketIOServer(httpServer,{
     cors:{
         origin:[

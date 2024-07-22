@@ -6,9 +6,9 @@ export const updateCompnayRequestController = (dependencies: IDependencies) => {
     const { usecases: { updateRequestUsecase } } = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { email } = req.body;
-            if (email) {
-                const data = await updateRequestUsecase(dependencies).execute(email)
+            const { id , status } = req.body;
+            if (id) {
+                const data = await updateRequestUsecase(dependencies).execute(id, status);
                 if (data) {
                     req.app.get('io').emit('request_update',data)
                     return res.status(200).json(data)

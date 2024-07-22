@@ -10,6 +10,8 @@ export const routes = (dependencies: IDependencies) => {
     const { getCompany, updateProfile, updateSocialLinks, 
         sendRequest, updateRequest, listRequest } = controller(dependencies)
 
+    //! ROUTES FOR COMPANY
+
     router.route('/company').get(verifyToken, getCompany);
 
     router.route('/company-overview').post(verifyToken, updateProfile);
@@ -18,7 +20,9 @@ export const routes = (dependencies: IDependencies) => {
 
     router.route('/compnay-request').post(verifyToken, sendRequest);
 
-    router.route('/accept-company').post(updateRequest)
+    //! ROUTES FOR ADMIN FUNCTIONALITIES
+
+    router.route('/update-request').put(updateRequest)
 
     router.route('/list-request').get(listRequest)
 

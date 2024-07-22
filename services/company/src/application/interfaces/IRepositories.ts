@@ -8,6 +8,6 @@ export interface IRepositories {
     updateProfile(data:CompanyEntity,email: string): Promise<CompanyEntity | null>
     updateSocialLinks(data:CompanyEntity,email: string): Promise<CompanyEntity | null>
     sendRequest(id: string , email: string): Promise<boolean | null>
-    updateRequest(email: string): Promise<{email: string }| null>
+    updateRequest(id: string,status: string): Promise<{email: string,status: string }| null>
     listRequest(): Promise<CompanyEntity | null>
 }
