@@ -10,6 +10,11 @@ export class ProducerService {
 
     async start(): Promise<void> {
         await this.rabbitMQClient.connect()
+        console.log(`
+========================
+= PRODUCER SRV STARTED =
+========================
+`)
     }
 
     publishToEmailQueue = async (message: any): Promise<void> => {

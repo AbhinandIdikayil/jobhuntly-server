@@ -94,7 +94,11 @@ const companySchema = new Schema({
     icon: String,
     LinkedInLink: String,
     certificate: String,
-    registrationId: String
+    registrationId: String,
+    isBlocked: {
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true })
 
 export const companyModel = mongoose.model<CompanyDocument>('Company', companySchema)

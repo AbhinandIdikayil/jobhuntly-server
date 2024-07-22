@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { authModel } from "../../infrastructure/database/mongodb/models/authModel";
+import { userModel } from "../infratructure/database/mongodb/model/userModel";
 
 export interface ModifiedRequest extends Request {
   user?: any
@@ -32,7 +32,7 @@ export const verifyToken = (
         if (decoded) {
           console.log(decoded)
           const { _id, email, role } = decoded as CustomJwtPayload;
-          let isBlock = await authModel.findById(_id)
+          let isBlock = await userModel.findOne({email});
           if (isBlock?.isBlocked) {
             return res.status(403).json({ error: "Invalid token payload" });
           }
@@ -47,4 +47,3 @@ export const verifyToken = (
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
