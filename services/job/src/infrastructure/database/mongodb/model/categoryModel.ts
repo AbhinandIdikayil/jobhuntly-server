@@ -3,22 +3,22 @@ import mongoose from 'mongoose'
 
 const category = new mongoose.Schema(
     {
-        categoryname: {
+        name: {
             type: String,
             required: [true, "Category name is required"],
             unique: [true, "Category name mustbe unique"],
 
         },
-        categoryDescription: {
+        description: {
             type: String,
             required: [true, "Category description is required"],
         },
-        categoryImage: {
+        image: {
             type: String,
         },
         status: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
     { timestamps: true }
