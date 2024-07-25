@@ -32,12 +32,7 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
                     }
 
                     const token = generateToken({ _id: String(data?._id), email: data?.email, role: data?.role ?? '' })
-                    return res.status(200).cookie('access_token',
-                        token,{
-                            httpOnly: true,
-                            maxAge: 60 
-                        }
-                    ).json(response)
+                    return res.status(200).cookie('access_token',token,{maxAge:60*60*60*1000}).json(response)
                 }
             } else {
                 throw new Error('some thing happened')

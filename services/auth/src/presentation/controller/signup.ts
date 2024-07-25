@@ -25,7 +25,6 @@ export const signupController = (dependencies: IDependencies) => {
                     //! sending user email and otp to the notification service
                     // await messageHandler.sendEmail(result);
                     await producerService.publishToEmailQueue(result)
-
                     
                     return res.status(200).json(result)
                 } else {
