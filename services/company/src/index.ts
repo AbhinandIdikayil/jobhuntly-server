@@ -1,28 +1,21 @@
 import { CONNECT_DB, RABBIT_MQ_URL } from "./config/config"
-import { RabbitMQ } from "./infrastructure/rabbitmq"
-import { startConsumer } from "./infrastructure/rabbitmq/consumer"
-import { consumeMessage } from "./infrastructure/rabbitmq/consumer/handleMessage"
-import app from "./presentation/server"
+import { consumerService } from "./config/rabbitmq"
+import  './infrastructure/socket/index'
+import { server , io } from "./presentation/server"
 
 
 const startServer = async () => {
     try {
-        app
         await CONNECT_DB()
-        await RabbitMQ.connect(RABBIT_MQ_URL)
-
-        await startConsumer()
-
-        process.on('SIGINT', async () => {
-            console.log('Closing rabbitmq connection')
-            await RabbitMQ.close()
-            process.exit(0)
+        server
+        io.on('connection', (socket) => {
+            console.log('New client connectedd')
+            socket.on('disconnect', () => {
+                console.log('Client disconnected')
+            })
         })
-        process.on('SIGTERM', async () => {
-            console.log('Closing rabbitmq connection')
-            await RabbitMQ.close()
-            process.exit(0)
-        })
+        await consumerService.start()
+
     } catch (error) {
         console.log(error)
         // process.exit(0) 

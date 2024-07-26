@@ -5,4 +5,10 @@ import { MQ_URL } from "./config";
 
 export const consumer = new ConsumserSevice(MQ_URL);
 
-// export const producer = new ProducerService(MQ_URL)
+export const producer = new ProducerService(MQ_URL)
+
+export const startProducer = async () => {
+    await producer.start()
+    await producer.close()
+}
+

@@ -1,7 +1,8 @@
 import { Channel, Connection } from "amqplib";
 import amqplib from 'amqplib'
+import { ROUTING_KEY } from "../../config/config";
 
-const ROUTING_KEY = ['user', 'fg-ps-user']
+// const ROUTING_KEY = ['user', 'fg-ps-user']
 
 export class RabbitMQClient {
     private connection: Connection | null = null;
@@ -30,14 +31,7 @@ export class RabbitMQClient {
 
     async consumeMessages(queueName: string, callback: (message: any) => Promise<boolean>) {
         const channel = await this.getChannel(queueName);
-        // await channel.assertQueue(queueName, { durable: false });
-        // channel.consume(queueName, async (msg) => {
-        //     if (msg !== null) {
-        //         const message = JSON.parse(msg.content.toString());
-        //         await callback(message);
-        //         channel.ack(msg);
-        //     }
-        // });
+        
         await channel.assertExchange(this.exchange, 'direct', { durable: false });
         const queue = await channel.assertQueue(queueName, { durable: false, exclusive: false })
         if (ROUTING_KEY.length > 0) {
@@ -55,7 +49,7 @@ export class RabbitMQClient {
                         if (response) {
                             channel.ack(msg);
                         } else {
-                            channel.nack(msg)
+                            channel.nack(msg,false,false)
                         }
                     }
                 },

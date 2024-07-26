@@ -17,7 +17,7 @@ export const loginContoller = (dependencies: IDependencies) => {
             const result = await loginUsecase(dependencies).execute(email, password);
             if (result) {
                 const token = generateToken({ _id: String(result?._id), email: result?.email, role: result?.role ?? '' })
-                return res.status(200).cookie('access_token',token).json(result)
+                return res.status(200).cookie('access_token',token,{maxAge:60*60*60*1000}).json(result)
             } else {
                 return res.status(400).json({ "message": "something happened" })
             }

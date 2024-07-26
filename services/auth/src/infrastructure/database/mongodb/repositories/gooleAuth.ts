@@ -4,16 +4,20 @@ import { authModel } from "../models/authModel";
 
 
 
-export const googleAuth = async (email: string,name:string,role: string): Promise<UserEntity | null> => {
+export const googleAuth = async (email: string, name: string, role: string, page: string): Promise<UserEntity | null> => {
     try {
-        let user = await authModel.findOne({email});
-        if(!user) {
-            user = await authModel.create({
+        let user = await authModel.findOne({ email });
+        if (page == "login" && user) {
+            return user as UserEntity
+        }
+        if (!user) {
+            let data = await authModel.create({
                 name,
                 email,
                 role,
-                password:generateRandomString(),
+                password: generateRandomString(),
             })
+            user = await authModel.findOne({ email });
         }
         return user as UserEntity
     } catch (error: any | Error) {

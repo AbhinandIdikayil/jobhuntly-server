@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
-import { messageHandler } from "../../infrastructure/rabbitmq/instance";
 import { generateToken } from "../../utils/jwt/generateToken";
+import { producerService } from "../../config/rabbitmq";
 
 
 export const verifyOtpContoller = (dependencies: IDependencies) => {
@@ -21,7 +21,9 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
                     }
                     return res.status(200).json(response)
                 } else {
-                    await messageHandler.sendUserData(data)
+                    //$ HERE IAM SENDING THE AUTH DB DATA TO USER OR COMPANY SERVICE WHENEVER THE 
+                    //$ OTP VERIFICATION IS SUCCESSFULL
+                    await producerService.publishToUserQueue(data)
                     const response = {
                         name:data?.name,
                         email: data?.email,
@@ -30,12 +32,7 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
                     }
 
                     const token = generateToken({ _id: String(data?._id), email: data?.email, role: data?.role ?? '' })
-                    return res.status(200).cookie('access_token',
-                        token,{
-                            httpOnly: true,
-                            maxAge: 60 
-                        }
-                    ).json(response)
+                    return res.status(200).cookie('access_token',token,{maxAge:60*60*60*1000}).json(response)
                 }
             } else {
                 throw new Error('some thing happened')
