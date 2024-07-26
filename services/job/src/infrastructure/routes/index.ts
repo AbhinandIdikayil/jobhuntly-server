@@ -5,12 +5,13 @@ import { controller } from "../../presentation/controller";
 
 export const router = (dependencies: IDependencies) => {
     const router = Router()
-    const { addCategory } = controller(dependencies)
+    const { addCategory, listCategory } = controller(dependencies)
 
 
 
     //! ROUTE FOR ADMIN
     router.route('/add-category').post(addCategory)
+    router.route('/category').get(listCategory)
 
     return router
 }

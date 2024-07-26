@@ -1,10 +1,12 @@
 import { IDependencies } from "../../application/interfaces/IDependencies"
 import { addCategoryController } from "./addCategory"
+import { listCategoryController } from "./listCategory"
 
 
 
 export const controller = (dependencies:IDependencies) => {
     return {
-        addCategory:addCategoryController(dependencies)
+        addCategory:addCategoryController(dependencies),
+        listCategory:listCategoryController(dependencies)
     }
 }
