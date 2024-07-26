@@ -2,7 +2,7 @@ import { ObjectId } from "mongoose";
 
 
 export interface CategoryEntity {
-    _id:ObjectId,
+    _id:string,
     name: string,
     image: string,
     description: string,
