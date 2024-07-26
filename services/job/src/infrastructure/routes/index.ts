@@ -13,7 +13,7 @@ export const router = (dependencies: IDependencies) => {
     router.route('/add-category').post(addCategory)
     router.route('/category').get(listCategory)
     router.route('/delete-category').put(deleteCategory)
-    router.route('/update-category').patch(updateCategory)
+    router.route('/update-category').put(updateCategory)
 
     return router
 }
