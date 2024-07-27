@@ -5,7 +5,7 @@ import { controller } from "../../presentation/controller";
 
 export const router = (dependencies: IDependencies) => {
     const router = Router()
-    const { addCategory, listCategory, deleteCategory, updateCategory } = controller(dependencies)
+    const { addCategory, listCategory, deleteCategory, updateCategory, sector } = controller(dependencies)
 
 
 
@@ -15,5 +15,7 @@ export const router = (dependencies: IDependencies) => {
     router.route('/delete-category').put(deleteCategory)
     router.route('/update-category').put(updateCategory)
 
+
+    router.route('/add-sector').post(sector.addSector)
     return router
 }
