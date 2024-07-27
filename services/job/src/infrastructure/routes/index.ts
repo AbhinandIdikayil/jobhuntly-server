@@ -17,5 +17,6 @@ export const router = (dependencies: IDependencies) => {
 
 
     router.route('/add-sector').post(sector.addSector)
+    router.route('/sector').get(sector.listSector)
     return router
 }
