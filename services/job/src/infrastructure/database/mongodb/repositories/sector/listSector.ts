@@ -8,7 +8,7 @@ export const listSector = async (): Promise<SectorEntity[] | null> => {
         if(sectors.length > 0){
             return sectors as SectorEntity[]
         } else {
-            return null
+            return []
         }
     } catch (error: any) {
         throw new Error(error?.message)

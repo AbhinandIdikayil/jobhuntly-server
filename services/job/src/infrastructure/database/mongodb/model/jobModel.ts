@@ -3,9 +3,15 @@ import mongoose from 'mongoose'
 
 const jobSchema = new mongoose.Schema({
     jobTitle: String,
-    employment: String,
+    employment:  {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    },
     description: String,
-    category: mongoose.Types.ObjectId,
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Sector'
+    },
     joblocation: String,
     salaryrange: {
         status: Boolean,
