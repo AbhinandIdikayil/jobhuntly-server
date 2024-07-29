@@ -3,9 +3,15 @@ import mongoose from 'mongoose'
 
 const jobSchema = new mongoose.Schema({
     jobTitle: String,
-    employment: String,
+    employment:  {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    },
     description: String,
-    category: mongoose.Types.ObjectId,
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Sector'
+    },
     joblocation: String,
     salaryrange: {
         status: Boolean,
@@ -13,11 +19,10 @@ const jobSchema = new mongoose.Schema({
         to: Number,
     },
     vacancies: { status: Boolean, available: Number, filled: Number },
-    experince: Number,
     companyId: mongoose.Types.ObjectId,
     expiry: Date,
     experience: Number,
-    responsibilities: String,
+    responsibilities: [String],
     completdJobAdd: {
         type: String,
         enum: ["first", "second"],
