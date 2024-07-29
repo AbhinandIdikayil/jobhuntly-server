@@ -5,8 +5,13 @@ import { controller } from "../../presentation/controller";
 
 export const router = (dependencies: IDependencies) => {
     const router = Router()
-    const { addCategory, listCategory, deleteCategory, updateCategory, sector } = controller(dependencies)
+    const { addCategory, listCategory, deleteCategory, updateCategory,
+         sector ,postjob,addCompany } = controller(dependencies)
 
+
+
+    router.route('/post-job').post(postjob)
+    router.route('/add-company').post(addCompany)
 
 
     //! ROUTE FOR ADMIN

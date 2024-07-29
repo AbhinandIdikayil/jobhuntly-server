@@ -3,6 +3,7 @@ import { PORT, ROUTING_KEY } from '../config/config';
 import { routes } from '../infratructure/routes';
 import { dependencies } from '../config/dependencies';
 import cors from 'cors'
+import errorHandler from '../utils/errorHandler';
 
 
 const app: Application = express();
@@ -17,7 +18,7 @@ app.use(cors({
 
 app.use('/api/v1/user', routes(dependencies))
 
-
+app.use(errorHandler)
 
  
 app.listen(PORT, () => {

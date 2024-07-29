@@ -20,7 +20,7 @@ export class ConsumerService {
 =============================
             `)
 
-        await this.rabbitMQClient.consumeMessage(QUEUE, async function (message: any): Promise<boolean> {
+        this.rabbitMQClient.consumeMessage(QUEUE, async function (message: any): Promise<boolean> {
             try {
                 if (message) {
                     console.log(message?.fields)

@@ -32,3 +32,5 @@ const jobSchema = new mongoose.Schema({
     status: Boolean,
     expired: Boolean,
 })
+
+export const jobModel = mongoose.model('Job',jobSchema)

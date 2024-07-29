@@ -1,4 +1,4 @@
-import { CategoryEntity, JobEntity, SectorEntity } from "../../domain/entities";
+import { CategoryEntity, CompanyEntity, JobEntity, SectorEntity } from "../../domain/entities";
 
 export interface IRepositories {
     addCategory(data: CategoryEntity): Promise<CategoryEntity | null>
@@ -8,4 +8,5 @@ export interface IRepositories {
     addSector(data: SectorEntity): Promise<SectorEntity | null>
     listSector(): Promise<SectorEntity[] | null>
     postJob(data:JobEntity): Promise<JobEntity | null>
+    addCompany(data:CompanyEntity): Promise<CompanyEntity | null>
 }
