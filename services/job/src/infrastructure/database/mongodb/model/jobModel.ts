@@ -19,11 +19,10 @@ const jobSchema = new mongoose.Schema({
         to: Number,
     },
     vacancies: { status: Boolean, available: Number, filled: Number },
-    experince: Number,
     companyId: mongoose.Types.ObjectId,
     expiry: Date,
     experience: Number,
-    responsibilities: String,
+    responsibilities: [String],
     completdJobAdd: {
         type: String,
         enum: ["first", "second"],
