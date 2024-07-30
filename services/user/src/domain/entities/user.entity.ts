@@ -2,10 +2,10 @@ import {} from 'mongoose'
 
 export interface UserEntity {
     _id?: string,
-    name: string,
-    email: string,
-    password: string,
-    role: 'user' | 'admin' | 'company',
+    name?: string,
+    email?: string,
+    password?: string,
+    role?: 'user' | 'admin' | 'company',
     phoneNumber?: number,
     isBlocked?: boolean,
     resume?: string,

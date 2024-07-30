@@ -16,6 +16,7 @@ export const verifyToken = (
   next: NextFunction
 ) => {
   const token = req?.cookies?.access_token;
+  console.log(token)
   if (!token) {
     return res.status(401).json({ error: "Access denied. No token provided." });
   }

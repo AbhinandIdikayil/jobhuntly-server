@@ -4,11 +4,12 @@ import { routes } from '../infratructure/routes';
 import { dependencies } from '../config/dependencies';
 import cors from 'cors'
 import errorHandler from '../utils/errorHandler';
-
+import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 app.use(cors({
     origin: 'http://localhost:5173', // Allow requests from this origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods

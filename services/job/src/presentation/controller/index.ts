@@ -1,6 +1,7 @@
 import { IDependencies } from "../../application/interfaces/IDependencies"
 import { addCategoryController } from "./addCategory"
 import { addCompanyController } from "./addCompany"
+import { addUserController } from "./addUser"
 import { deleteCategoryController } from "./deleteCategory"
 import { listCategoryController } from "./listCategory"
 import { postJobController } from "./postJob"
@@ -18,5 +19,6 @@ export const controller = (dependencies: IDependencies) => {
         sector:sectorController(dependencies),
         postjob:postJobController(dependencies),
         addCompany:addCompanyController(dependencies),
+        addUser:addUserController(dependencies)
     }
 }

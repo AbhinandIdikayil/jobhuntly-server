@@ -6,12 +6,13 @@ import { controller } from "../../presentation/controller";
 export const router = (dependencies: IDependencies) => {
     const router = Router()
     const { addCategory, listCategory, deleteCategory, updateCategory,
-         sector ,postjob,addCompany } = controller(dependencies)
+        sector, postjob, addCompany, addUser } = controller(dependencies)
 
 
 
     router.route('/post-job').post(postjob)
     router.route('/add-company').post(addCompany)
+    router.route('/add-user').post(addUser)
 
 
     //! ROUTE FOR ADMIN

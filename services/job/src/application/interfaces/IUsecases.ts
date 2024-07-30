@@ -1,4 +1,5 @@
-import { IListCategory , IAddCategoryUsecase, IDeleteCategoryUsecase, IUpdateCategoryUsecase, IAddSectorUsecase ,listSectorUsecase, IPostJobUsecase, IAddCompanyUsecase } from "../../domain/usecaseInterface";
+import { IListCategory , IAddCategoryUsecase, IDeleteCategoryUsecase, IUpdateCategoryUsecase, 
+    IAddSectorUsecase ,listSectorUsecase, IPostJobUsecase, IAddCompanyUsecase, IAddUserUsecase } from "../../domain/usecaseInterface";
 import { IDependencies } from "./IDependencies";
 
 
@@ -12,4 +13,5 @@ export interface IUsecases {
     listSectorUsecase:(dependencies:IDependencies) => listSectorUsecase
     postJobUsecase:(dependencies:IDependencies) => IPostJobUsecase
     addCompanyUsecase:(dependencies:IDependencies) => IAddCompanyUsecase
+    addUserUsecase:(depependencies:IDependencies) => IAddUserUsecase
 }

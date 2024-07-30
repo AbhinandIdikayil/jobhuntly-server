@@ -15,7 +15,7 @@ export const updateProfile = async (data: UserEntity): Promise<UserEntity | null
                     },
                     { new: true }
                 )
-                if(user) {
+                if(createdOrUpdated) {
                     return createdOrUpdated as unknown as UserEntity
                 } else {
                     return null

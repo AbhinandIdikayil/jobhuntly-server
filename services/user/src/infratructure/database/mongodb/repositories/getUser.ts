@@ -11,6 +11,6 @@ export const getUser = async (email: string): Promise<UserEntity | null> => {
             throw new Error('user not found bitch')
         }
     } catch (error: any | Error) {
-        throw new Error(error)
+        throw new Error(error);
     }
 }

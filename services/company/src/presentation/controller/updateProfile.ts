@@ -19,7 +19,7 @@ export const updateProfileController = (dependencies:IDependencies) => {
                 await axios.post(`${process.env.JOB_SERVICE_URL}/add-company`,result)
                 return res.status(200).json(result)
             } else {
-                return res.status(400).json('something has happened')
+                return res.status(400).json('something has happened');
             }
         } catch (error) {
             console.log(error)
