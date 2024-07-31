@@ -17,9 +17,9 @@ export const updateProfileController = (dependencies: IDependencies) => {
             if (req.body.twitter || req.body.instagram || req.body.linkedin || req.body.personalwebsite) {
                 data = {
                     socialLink: [
+                        req.body?.instagram || '',
                         req.body?.twitter || '',
                         req.body?.linkedin || '',
-                        req.body?.instagram || '',
                     ],
                     email,
                     personalsite:req?.body?.personalsite || '',
@@ -33,7 +33,7 @@ export const updateProfileController = (dependencies: IDependencies) => {
                 result = await updateProfileUsecase(dependencies).execute(data);
             }
             if (result) {
-                // axios.post(`${process.env.JOB_SERVICE_URL}/add-user`,result)
+                axios.post(`${process.env.JOB_SERVICE_URL}/add-user`,result)
                 return res.status(200).json(result);
             } else {
                 return res.status(404).json('Error while updating')

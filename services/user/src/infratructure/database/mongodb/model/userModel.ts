@@ -43,6 +43,7 @@ const userSchema = new Schema(
                 image: String,
                 university: String,
                 course: String,
+                company: String,
                 year: { from: Date, to: Date },
                 description: String,
             },

@@ -3,11 +3,11 @@ import { corsOption, PORT } from '../config/config'
 import cors from 'cors'
 import { router } from '../infrastructure/routes'
 import { dependencies } from '../config/dependencies'
+
+
 const app:Application = express()
 
-
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
 app.use(cors(corsOption))
 
 

@@ -8,7 +8,7 @@ export const getUser = async (email: string): Promise<UserEntity | null> => {
         if(user) {
             return user as unknown as UserEntity
         } else {
-            throw new Error('user not found bitch')
+            throw new Error('user not found')
         }
     } catch (error: any | Error) {
         throw new Error(error);

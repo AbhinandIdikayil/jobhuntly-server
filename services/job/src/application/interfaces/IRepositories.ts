@@ -10,4 +10,5 @@ export interface IRepositories {
     postJob(data:JobEntity): Promise<JobEntity | null>
     addCompany(data:CompanyEntity): Promise<CompanyEntity | null>
     addUser(data:UserEntity): Promise<UserEntity | null>
+    getAllJobs(): Promise<JobEntity[] | null>
 }

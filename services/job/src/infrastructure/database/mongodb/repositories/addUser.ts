@@ -18,16 +18,16 @@ export const addUser = async (data: UserEntity) => {
                 }
             )
             if(updated){
-                return updated
+                return updated as unknown as UserEntity
             } else {
                 throw new Error('error while updating user')
             }
         } else {
             const user = userModel.create(data)
             if(user){
-                return user
+                return  user as unknown as UserEntity
             } else {
-                
+                throw new Error('error while creating user')
             }
         }
     } catch (error: Error | any) {
