@@ -3,14 +3,14 @@ import mongoose from 'mongoose'
 
 const jobSchema = new mongoose.Schema({
     jobTitle: String,
-    employment:  {
+    employment: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Category'
+        ref: 'Category'
     },
     description: String,
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Sector'
+        ref: 'Sector'
     },
     joblocation: String,
     salaryrange: {
@@ -19,7 +19,10 @@ const jobSchema = new mongoose.Schema({
         to: Number,
     },
     vacancies: { status: Boolean, available: Number, filled: Number },
-    companyId: mongoose.Types.ObjectId,
+    companyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company'
+    },
     expiry: Date,
     experience: Number,
     responsibilities: [String],
@@ -31,6 +34,6 @@ const jobSchema = new mongoose.Schema({
     qualification: [String],
     status: Boolean,
     expired: Boolean,
-})
+}, { timestamps: true })
 
-export const jobModel = mongoose.model('Job',jobSchema)
+export const jobModel = mongoose.model('Job', jobSchema)

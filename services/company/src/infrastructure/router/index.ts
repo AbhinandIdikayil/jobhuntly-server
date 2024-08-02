@@ -7,8 +7,8 @@ import { verifyToken } from "../../utils/verifyToken";
 export const routes = (dependencies: IDependencies) => {
     const router = Router()
 
-    const { getCompany, updateProfile, updateSocialLinks, 
-        sendRequest, updateRequest, listRequest } = controller(dependencies)
+    const { getCompany, updateProfile, updateSocialLinks,
+        sendRequest, updateRequest, listRequest, getAllCompany } = controller(dependencies)
 
     //! ROUTES FOR COMPANY
 
@@ -21,6 +21,7 @@ export const routes = (dependencies: IDependencies) => {
     router.route('/compnay-request').post(verifyToken, sendRequest);
 
     //! ROUTES FOR ADMIN FUNCTIONALITIES
+    router.route('/all-company').get(getAllCompany)
 
     router.route('/update-request').put(updateRequest)
 

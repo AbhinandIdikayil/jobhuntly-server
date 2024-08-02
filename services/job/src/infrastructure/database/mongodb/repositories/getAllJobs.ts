@@ -5,8 +5,9 @@ import { jobModel } from "../model/jobModel";
 export const getAllJobs = async (): Promise<JobEntity[] | null> => {
     try {
         const jobs = await jobModel.find()
-            // .populate('employment')
-            // .populate('category')
+            .populate('employment')
+            .populate('category')
+            .populate('companyId')
             // .exec()
         console.log(jobs)
         if(jobs.length > 0){
