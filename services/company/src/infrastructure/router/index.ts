@@ -12,7 +12,7 @@ export const routes = (dependencies: IDependencies) => {
 
     //! ROUTE FOR USER
 
-    router.route('/:id').get(getCompanyDetail)
+    router.route('/company/:id').get(getCompanyDetail)
 
     //! ROUTES FOR COMPANY
 
