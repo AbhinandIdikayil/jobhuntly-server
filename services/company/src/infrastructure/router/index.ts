@@ -8,7 +8,11 @@ export const routes = (dependencies: IDependencies) => {
     const router = Router()
 
     const { getCompany, updateProfile, updateSocialLinks,
-        sendRequest, updateRequest, listRequest, getAllCompany } = controller(dependencies)
+        sendRequest, updateRequest, listRequest, getAllCompany, getCompanyDetail } = controller(dependencies)
+
+    //! ROUTE FOR USER
+
+    router.route('/:id').get(getCompanyDetail)
 
     //! ROUTES FOR COMPANY
 

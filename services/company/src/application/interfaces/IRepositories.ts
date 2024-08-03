@@ -11,4 +11,5 @@ export interface IRepositories {
     updateRequest(id: string,status: string): Promise<{email: string,status: string }| null>
     listRequest(): Promise<CompanyEntity | null>
     getAllCompany(): Promise<CompanyEntity[] | null>
+    getCompanyDetails(id: string): Promise<CompanyEntity | null>
 }

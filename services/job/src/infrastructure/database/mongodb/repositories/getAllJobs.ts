@@ -8,8 +8,7 @@ export const getAllJobs = async (): Promise<JobEntity[] | null> => {
             .populate('employment')
             .populate('category')
             .populate('companyId')
-            // .exec()
-        console.log(jobs)
+            .exec()
         if(jobs.length > 0){
             return jobs as unknown as JobEntity[]
         } else {
