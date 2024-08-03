@@ -11,4 +11,6 @@ export interface IRepositories {
     addCompany(data:CompanyEntity): Promise<CompanyEntity | null>
     addUser(data:UserEntity): Promise<UserEntity | null>
     getAllJobs(): Promise<JobEntity[] | null>
+    applyForJob(userid: string,jobid: string, resume: string): Promise<boolean | null>
+    jobDetails(id: string): Promise<JobEntity[] | null>
 }

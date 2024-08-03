@@ -6,14 +6,25 @@ import { controller } from "../../presentation/controller";
 export const router = (dependencies: IDependencies) => {
     const router = Router()
     const { addCategory, listCategory, deleteCategory, updateCategory,
-        sector, postjob, addCompany, addUser, getAllJobs } = controller(dependencies)
+        sector, postjob, addCompany, addUser, getAllJobs, applyForJob
+        ,getJobDetails } = controller(dependencies)
 
 
-
-    router.route('/post-job').post(postjob)
     router.route('/add-company').post(addCompany)
     router.route('/add-user').post(addUser)
+
+    //! ROUTE FOR USER AND COMPANY
+    //! IN THIS ROUTE I MIGHT PASS COMPANY ID ALSO TO GET THE JOB 
+    //! THAT ARE POST BY SOME PARTICULAR COMPANY
     router.route('/all-job').get(getAllJobs)
+
+    //! ROUTE FOR COMPANY
+    router.route('/post-job').post(postjob)
+    
+    //! ROUTE FOR USER
+    router.route('/apply-job').post(applyForJob);
+    router.route('/details/:id').get(getJobDetails)
+
 
     //! ROUTE FOR ADMIN
     router.route('/add-category').post(addCategory)

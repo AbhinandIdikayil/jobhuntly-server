@@ -2,8 +2,10 @@ import { IDependencies } from "../../application/interfaces/IDependencies"
 import { addCategoryController } from "./addCategory"
 import { addCompanyController } from "./addCompany"
 import { addUserController } from "./addUser"
+import { applyJobController } from "./applyJobController"
 import { deleteCategoryController } from "./deleteCategory"
 import { getAllJobsController } from "./getAllJobsController"
+import { jobDetailsController } from "./jobDetailsController"
 import { listCategoryController } from "./listCategory"
 import { postJobController } from "./postJob"
 import { sectorController } from "./sector"
@@ -21,6 +23,8 @@ export const controller = (dependencies: IDependencies) => {
         postjob:postJobController(dependencies),
         addCompany:addCompanyController(dependencies),
         addUser:addUserController(dependencies),
-        getAllJobs:getAllJobsController(dependencies)
+        getAllJobs:getAllJobsController(dependencies),
+        applyForJob:applyJobController(dependencies),
+        getJobDetails:jobDetailsController(dependencies)
     }
 }
