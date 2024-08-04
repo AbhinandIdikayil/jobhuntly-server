@@ -13,4 +13,6 @@ export interface IRepositories {
     getAllJobs(): Promise<JobEntity[] | null>
     applyForJob(userid: string,jobid: string, resume: string): Promise<boolean | null>
     jobDetails(id: string): Promise<JobEntity[] | null>
+    removeJob(id: string): Promise<JobEntity | null>
+    updateExpiredJobs(): Promise<boolean| null>
 }
