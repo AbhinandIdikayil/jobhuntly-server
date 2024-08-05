@@ -4,7 +4,8 @@ import { IListCategory , IAddCategoryUsecase, IDeleteCategoryUsecase, IUpdateCat
     IApplyForJobUsecase,
     IJobDetailsUsecase,
     IRemoveJobUsecase,
-    IEditJobUsecase} from "../../domain/usecaseInterface";
+    IEditJobUsecase,
+    IGetAppilcationUsecase} from "../../domain/usecaseInterface";
 import { IDependencies } from "./IDependencies";
 
 
@@ -24,4 +25,5 @@ export interface IUsecases {
     jobDetailsUsecae:(dependencies:IDependencies) => IJobDetailsUsecase
     removeJobUsecase:(dependencies:IDependencies) => IRemoveJobUsecase
     editJobUsecase:(dependencies:IDependencies) => IEditJobUsecase
+    getApplicationUsecase:(dependencies:IDependencies) => IGetAppilcationUsecase
 }

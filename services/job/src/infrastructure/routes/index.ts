@@ -7,7 +7,7 @@ export const router = (dependencies: IDependencies) => {
     const router = Router()
     const { addCategory, listCategory, deleteCategory, updateCategory,
         sector, postjob, addCompany, addUser, getAllJobs, applyForJob
-        ,getJobDetails, removeJob, editJob } = controller(dependencies)
+        ,getJobDetails, removeJob, editJob,getApplication } = controller(dependencies)
 
 
     router.route('/add-company').post(addCompany)
@@ -27,6 +27,9 @@ export const router = (dependencies: IDependencies) => {
     //! ROUTE FOR USER
     router.route('/apply-job').post(applyForJob);
     router.route('/details/:id').get(getJobDetails) 
+    router.route('/application/:userid').get(getApplication) //! PASSING USERID(REQ.BODY) OR COMPANY ID(as params)
+    //! USED TO GET THE APPLICATION OF USER AND THE APPLICATION TO THE JOB OF THE COMPANY
+
 
 
     //! ROUTE FOR ADMIN

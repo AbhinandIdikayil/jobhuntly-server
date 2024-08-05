@@ -1,4 +1,4 @@
-import { CategoryEntity, CompanyEntity, JobEntity, SectorEntity, UserEntity } from "../../domain/entities";
+import { ApplicationEntity, CategoryEntity, CompanyEntity, JobEntity, SectorEntity, UserEntity } from "../../domain/entities";
 
 export interface IRepositories {
     addCategory(data: CategoryEntity): Promise<CategoryEntity | null>
@@ -16,4 +16,6 @@ export interface IRepositories {
     removeJob(id: string): Promise<JobEntity | null>
     updateExpiredJobs(): Promise<boolean| null>
     editJob(id: string,data:JobEntity): Promise<JobEntity | null>
+    getApplications(userid: string): Promise<ApplicationEntity[] | null>
+    // getApplcants(): Promise<any | null>
 }
