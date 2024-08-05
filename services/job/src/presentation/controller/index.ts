@@ -6,6 +6,7 @@ import { applyJobController } from "./applyJobController"
 import { deleteCategoryController } from "./deleteCategory"
 import { editJobController } from "./editJobController"
 import { getAllJobsController } from "./getAllJobsController"
+import { getApplicantController } from "./getApplicantsController"
 import { getApplicationController } from "./getApplicationController"
 import { jobDetailsController } from "./jobDetailsController"
 import { listCategoryController } from "./listCategory"
@@ -31,6 +32,7 @@ export const controller = (dependencies: IDependencies) => {
         getJobDetails:jobDetailsController(dependencies),
         removeJob:removeJobController(dependencies),
         editJob:editJobController(dependencies),
-        getApplication:getApplicationController(dependencies)
+        getApplication:getApplicationController(dependencies),
+        getApplicants:getApplicantController(dependencies)
     }
 }

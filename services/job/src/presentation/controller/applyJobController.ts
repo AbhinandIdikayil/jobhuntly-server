@@ -6,10 +6,10 @@ export const applyJobController = (dependencies: IDependencies) => {
     const { usecases: { applyForJobUsecase } } = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { userid, jobid, resume } = req.body
+            const { userid, jobid, resume, companyId } = req.body
             console.log(req.body)
             if (req.body) {
-                let result = await applyForJobUsecase(dependencies).execute(userid, jobid, resume)
+                let result = await applyForJobUsecase(dependencies).execute(userid, jobid, resume,companyId)
                 if(result){
                     return res.status(200).json(result)
                 } else {

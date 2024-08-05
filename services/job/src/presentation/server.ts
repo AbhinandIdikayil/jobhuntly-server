@@ -4,12 +4,13 @@ import cors from 'cors'
 import { router } from '../infrastructure/routes'
 import { dependencies } from '../config/dependencies'
 import { cronJob } from '../infrastructure/cronJob'
-
+import cookieParser from 'cookie-parser'
 
 const app:Application = express()
 
 app.use(express.json())
 app.use(cors(corsOption))
+app.use(cookieParser())
 
 cronJob(dependencies)
 

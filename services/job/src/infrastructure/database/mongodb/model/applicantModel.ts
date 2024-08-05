@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 
 const ApplicantsSchema = new mongoose.Schema({
-    // companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
     jobId: { type: mongoose.Schema.Types.ObjectId, ref: 'Job' },
     deleted: { type: Boolean, default: false },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

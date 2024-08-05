@@ -2,7 +2,7 @@ import { applicantModel } from "../model/applicantModel"
 import { userModel } from "../model/userMode"
 
 
-export const applyForJob = async (userid: string, jobid: string, resume: string): Promise<boolean | null> => {
+export const applyForJob = async (userid: string, jobid: string, resume: string,companyId: string): Promise<boolean | null> => {
     try {
         if (userid && jobid) {
             let user = await userModel.findById({ _id: userid })
@@ -10,6 +10,7 @@ export const applyForJob = async (userid: string, jobid: string, resume: string)
                 return false
             }
             let applicant = await applicantModel.create({
+                companyId,
                 jobId: jobid,
                 userId: userid,
                 resume

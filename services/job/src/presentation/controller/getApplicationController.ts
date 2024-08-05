@@ -1,14 +1,16 @@
 import { NextFunction, Request, Response } from "express"
 import { IDependencies } from "../../application/interfaces/IDependencies"
+import { ModifiedRequest } from "../../utils/verifyToken"
 
 export const getApplicationController = (dependencies: IDependencies) => {
     const { usecases: { getApplicationUsecase } } = dependencies
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (req: ModifiedRequest, res: Response, next: NextFunction) => {
         try {
-            const { userid } = req.params
+            const { _id } = req.user
             let data;
-            if (userid) {
-                data = await getApplicationUsecase(dependencies).execute(userid)
+            console.log(req.user,'000000000000000')
+            if (_id) {
+                data = await getApplicationUsecase(dependencies).execute(_id)
             } 
             if (data) {
                 return res.status(200).json(data)

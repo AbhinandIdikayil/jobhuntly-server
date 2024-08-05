@@ -1,4 +1,4 @@
-import { ApplicationEntity, CategoryEntity, CompanyEntity, JobEntity, SectorEntity, UserEntity } from "../../domain/entities";
+import { ApplicantsEntity, ApplicationEntity, CategoryEntity, CompanyEntity, JobEntity, SectorEntity, UserEntity } from "../../domain/entities";
 
 export interface IRepositories {
     addCategory(data: CategoryEntity): Promise<CategoryEntity | null>
@@ -11,11 +11,11 @@ export interface IRepositories {
     addCompany(data:CompanyEntity): Promise<CompanyEntity | null>
     addUser(data:UserEntity): Promise<UserEntity | null>
     getAllJobs(): Promise<JobEntity[] | null>
-    applyForJob(userid: string,jobid: string, resume: string): Promise<boolean | null>
+    applyForJob(userid: string,jobid: string, resume: string,companyId: string): Promise<boolean | null>
     jobDetails(id: string): Promise<JobEntity[] | null>
     removeJob(id: string): Promise<JobEntity | null>
     updateExpiredJobs(): Promise<boolean| null>
     editJob(id: string,data:JobEntity): Promise<JobEntity | null>
     getApplications(userid: string): Promise<ApplicationEntity[] | null>
-    // getApplcants(): Promise<any | null>
+    getApplicants(companyId: string): Promise<ApplicantsEntity[] | null>
 }
