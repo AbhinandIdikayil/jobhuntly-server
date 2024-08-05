@@ -15,4 +15,5 @@ export interface IRepositories {
     jobDetails(id: string): Promise<JobEntity[] | null>
     removeJob(id: string): Promise<JobEntity | null>
     updateExpiredJobs(): Promise<boolean| null>
+    editJob(id: string,data:JobEntity): Promise<JobEntity | null>
 }

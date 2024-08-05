@@ -16,6 +16,7 @@ export const removeJob = async (id: string): Promise<JobEntity | null> => {
                 new: true
             }
         )
+        console.log(job)
         if(job){
             return job as unknown as JobEntity
         } else {

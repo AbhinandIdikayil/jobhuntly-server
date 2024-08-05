@@ -8,6 +8,7 @@ export const getAllJobsController = (depependencies: IDependencies) => {
         try {
             const data = await getAllJobsUsecase(depependencies).execute()
             if(data) {
+                console.log(data)
                 return res.status(200).json(data)
             } else {
                 return res.status(404).json('data is empty')
