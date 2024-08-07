@@ -3,9 +3,13 @@ import { IDependencies } from "../interfaces/IDependencies"
 export const getAllJobsUsecase = (dependencies: IDependencies) => {
     const { repositories: { getAllJobs } } = dependencies
     return {
-        execute: async () => {
+        execute: async (companyId: string) => {
             try {
-                return await getAllJobs()
+                if (companyId) {
+                    return await getAllJobs(companyId)
+                } else {
+                    return await getAllJobs()
+                }
             } catch (error) {
                 throw error
             }

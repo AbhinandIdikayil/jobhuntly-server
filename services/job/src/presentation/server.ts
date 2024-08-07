@@ -5,6 +5,7 @@ import { router } from '../infrastructure/routes'
 import { dependencies } from '../config/dependencies'
 import { cronJob } from '../infrastructure/cronJob'
 import cookieParser from 'cookie-parser'
+import errorHandler from '../utils/ErrorHandler'
 
 const app:Application = express()
 
@@ -16,6 +17,7 @@ cronJob(dependencies)
 
 
 app.use('/api/v1/job',router(dependencies))
+app.use(errorHandler)
 
 app.listen(PORT,() => {
     console.log(`

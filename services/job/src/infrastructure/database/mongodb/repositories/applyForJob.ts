@@ -9,6 +9,10 @@ export const applyForJob = async (userid: string, jobid: string, resume: string,
             if(!user){
                 return false
             }
+            let isApplied = await applicantModel.findOne({companyId, jobId:jobid,userId:userid})
+            if(isApplied){
+                throw new Error('Already applied')
+            }
             let applicant = await applicantModel.create({
                 companyId,
                 jobId: jobid,
@@ -24,6 +28,6 @@ export const applyForJob = async (userid: string, jobid: string, resume: string,
             return false
         }
     } catch (error: any | Error) {
-        throw new Error(error)
+        throw new Error(error?.message)
     }
 }

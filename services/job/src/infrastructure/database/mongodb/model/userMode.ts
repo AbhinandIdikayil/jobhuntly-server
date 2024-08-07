@@ -49,10 +49,12 @@ const userSchema = new Schema(
         ],
         experiences: [
             {
+                working:Boolean,
                 title: String,
                 description: String,
+                company: String,
                 image: String,
-                location: String,
+                year: { from: Date, to: Date }
             },
         ],
         profileCompleted: Boolean,

@@ -18,7 +18,7 @@ export const router = (dependencies: IDependencies) => {
     //! ROUTE FOR USER AND COMPANY
     //! IN THIS ROUTE I MIGHT PASS COMPANY ID ALSO TO GET THE JOB 
     //! THAT ARE POST BY SOME PARTICULAR COMPANY
-    router.route('/all-job').get(getAllJobs)
+    router.route('/all-job/:id?').get(verifyToken,getAllJobs)
 
     //! ROUTE FOR COMPANY
     router.route('/post-job/:id')
@@ -26,7 +26,7 @@ export const router = (dependencies: IDependencies) => {
         .delete(removeJob)
         .put(editJob)
     router.route('/applicant').get(verifyToken, getApplicants)
-    router.route('/applicant/:id').get( getSpecificApplicant)
+    router.route('/applicant/:id').get(verifyToken, getSpecificApplicant)
 
     //! ROUTE FOR USER
     router.route('/apply-job').post(applyForJob);

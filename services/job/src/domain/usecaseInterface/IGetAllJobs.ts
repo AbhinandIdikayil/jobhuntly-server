@@ -1,6 +1,6 @@
-import { JobEntity } from "../entities";
+import { getAllJobsEntity, JobEntity } from "../entities";
 
 
 export interface IGetAlljobs {
-    execute(): Promise<JobEntity[] | null>
+    execute(companyId?: string): Promise<getAllJobsEntity[] | null>
 }

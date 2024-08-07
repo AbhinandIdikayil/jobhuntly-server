@@ -12,7 +12,7 @@ export const createUser =  async (data:UserEntity): Promise<UserEntity | null> =
                 ...user.toObject(),
                 _id: user?._id.toHexString()
             }
-            return res as UserEntity
+            return res as unknown as UserEntity
         } else {
             throw new Error('user creation failed')
         }
