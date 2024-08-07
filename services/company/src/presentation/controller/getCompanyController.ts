@@ -8,7 +8,6 @@ export const getCompanyController = (dependencies:IDependencies) => {
     const { usecases:{getCompanyUsecase} } = dependencies
     return async (req:ModifiedRequest , res:Response , next: NextFunction) => {
         try {
-            console.log('hiii')
             const {_id , email , role} = req.user || req.body
             if(_id) {
                 let company = await getCompanyUsecase(dependencies).execute(email)

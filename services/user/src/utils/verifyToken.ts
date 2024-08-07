@@ -16,6 +16,8 @@ export const verifyToken = (
   next: NextFunction
 ) => {
   const token = req?.cookies?.access_token;
+  console.log(token,req.cookies)
+  console.log(process.env.ACCESS_TOKEN_SECRET)
   if (!token) {
     return res.status(401).json({ error: "Access denied. No token provided." });
   }
@@ -26,6 +28,7 @@ export const verifyToken = (
       String(process.env.ACCESS_TOKEN_SECRET),
       async (err: jwt.VerifyErrors | null, decoded: any) => {
         if (err) {
+          console.log(err)
           return res.status(401).json({ message: "Failed to authenticate token" });
         }
 
@@ -34,7 +37,7 @@ export const verifyToken = (
           const { _id, email, role } = decoded as CustomJwtPayload;
           let isBlock = await userModel.findOne({email});
           if (isBlock?.isBlocked) {
-            return res.status(403).json({ error: "Invalid token payload" });
+            return res.status(403).json({ error: "you are blocked" });
           }
           (req as ModifiedRequest).user = { _id, email, role };
           next();

@@ -43,16 +43,19 @@ const userSchema = new Schema(
                 image: String,
                 university: String,
                 course: String,
+                company: String,
                 year: { from: Date, to: Date },
                 description: String,
             },
         ],
         experiences: [
             {
+                working:Boolean,
                 title: String,
                 description: String,
+                company: String,
                 image: String,
-                location: String,
+                year: { from: Date, to: Date }
             },
         ],
         profileCompleted: Boolean,

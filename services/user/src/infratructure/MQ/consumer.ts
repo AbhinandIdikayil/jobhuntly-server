@@ -21,7 +21,7 @@ consumer started
 -----------------
             `)
         // Consume messages from different queues
-        await this.rabbitMQClient.consumeMessages(QUEUE,async function (msg): Promise<boolean>  {
+        this.rabbitMQClient.consumeMessages(QUEUE,async function (msg): Promise<boolean>  {
             try {
                 if (msg) {
                     console.log(msg?.fields)
@@ -29,12 +29,7 @@ consumer started
                         const parsed = JSON.parse(msg.content.toString())
                         const routingKey = msg.fields.routingKey;
                         console.log(`Recieved message with${routingKey} and content-${parsed}`)
-                        let user = await createUser({
-                            name: parsed?.name,
-                            email: parsed?.email,
-                            password: parsed?.password,
-                            role: parsed?.role
-                        })
+                        let user = await createUser({...parsed})
                         console.log('-----user created------')
                         return true
                     } else if (msg?.fields?.routingKey === 'fg-ps-user') {

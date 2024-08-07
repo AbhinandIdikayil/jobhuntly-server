@@ -21,15 +21,11 @@ export class ConsumerService {
 ----------------------------
 `)
 
-        await this.rabbitMQClient.consumeMessage(QUEUE, async (message: Message): Promise<boolean> => {
+        this.rabbitMQClient.consumeMessage(QUEUE, async (message: Message): Promise<boolean> => {
             let msg = JSON.parse(message.content.toString());
             let key = message.fields.routingKey
             if (key == 'company') {
-                let data = await createCompany({
-                    name: msg?.name,
-                    email: msg?.email,
-                    password: msg?.password,
-                })
+                let data = await createCompany(msg)
                 if (data) {
                     console.log('----------- company has been created -------')
                     return true

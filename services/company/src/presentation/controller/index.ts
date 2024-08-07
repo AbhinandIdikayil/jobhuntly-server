@@ -1,5 +1,7 @@
 import { IDependencies } from "../../application/interfaces/IDependencies"
+import { getAllCompanyContoller } from "./getAllCompanies"
 import { getCompanyController } from "./getCompanyController"
+import { companyDetailsController } from "./getCompanyDetails"
 import { listRequestController } from "./listRequest"
 import { sendRequestController } from "./sendRequest"
 import { updateCompnayRequestController } from "./updateCompanyRequest"
@@ -14,6 +16,8 @@ export const controller = (dependencies:IDependencies) => {
         updateSocialLinks:updateSocialLinksController(dependencies),
         sendRequest:sendRequestController(dependencies),
         updateRequest:updateCompnayRequestController(dependencies),
-        listRequest:listRequestController(dependencies)
+        listRequest:listRequestController(dependencies),
+        getAllCompany:getAllCompanyContoller(dependencies),
+        getCompanyDetail:companyDetailsController(dependencies)
     }
 }

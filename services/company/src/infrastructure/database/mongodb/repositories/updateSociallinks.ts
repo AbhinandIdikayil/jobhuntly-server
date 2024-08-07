@@ -1,6 +1,6 @@
 import { CompanyEntity } from "../../../../domain/entities";
 import { companyModel } from "../model/companyModel";
-
+import axios from 'axios'
 
 
 
@@ -18,6 +18,7 @@ export const updateSocialLinks = async (data: CompanyEntity, email: string): Pro
                 { new: true }
             )
             if (company) {
+                await axios.post(`${process.env.JOB_SERVICE_URL}/add-company`,company)
                 return company as unknown as CompanyEntity
             } else {
                 throw new Error('Error while updating')
