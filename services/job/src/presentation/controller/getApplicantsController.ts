@@ -7,6 +7,7 @@ export const getApplicantController = (dependencies: IDependencies) => {
     return async (req:ModifiedRequest , res:Response ,next:NextFunction) => {
         try {
             const {_id} = req.user
+            console.log(_id)
             if(!_id){
                 return res.status(404).json('id is missing')
             }

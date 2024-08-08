@@ -24,7 +24,7 @@ export const routes = (dependencies: IDependencies) => {
 
     router.route('/compnay-request').post(verifyToken, sendRequest);
 
-    //! ROUTES FOR ADMIN FUNCTIONALITIES
+    //! ROUTES FOR ADMIN AND USER FUNCTIONALITIES
     router.route('/all-company').get(getAllCompany)
 
     router.route('/update-request').put(updateRequest)

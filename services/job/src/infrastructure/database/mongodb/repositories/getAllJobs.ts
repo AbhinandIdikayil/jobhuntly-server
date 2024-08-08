@@ -44,6 +44,11 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                     }
                 },
                 {
+                    $addFields: {
+                        'countApplicant': { $size: '$applicants' }
+                    }
+                },
+                {
                     $unwind: {
                         path: '$applicants',
                         preserveNullAndEmptyArrays: true // Include jobs with no applicants
@@ -68,12 +73,37 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                     }
                 },
                 {
-                    $group: {
-                        _id: '$_id',
-                        job: { $first: '$$ROOT' }, // Keep the job document
-                        applicantCount: { $sum: 1 } // Count the number of applicants
+                    $lookup: {
+                        from: 'users',
+                        localField: 'applicants.userId',
+                        foreignField: '_id',
+                        as: 'userDetails'
                     }
                 },
+                {
+                    $unwind: {
+                        path: '$userDetails',
+                        preserveNullAndEmptyArrays: true // Include jobs with no user details
+                    }
+                },
+                {
+                    $addFields: {
+                        'applicants.user': '$userDetails' // Add user details to each applicant
+                    }
+                },
+                {
+                    $group: {
+                        _id: '$_id',
+                        job: { $first: '$$ROOT' },
+                        applicants: { $push: '$applicants' },
+                        applicantCount: { $sum: 1 }
+                    }
+                },
+                {
+                    $addFields : {
+                        'applicantCount':'$job.countApplicant'
+                    }
+                }
             ])
         } else {
             job = await jobModel.aggregate([
@@ -121,7 +151,7 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                 },
             ])
         }
-
+        console.log(job)
         const jobs = await jobModel.find()
             .populate('employment')
             .populate('category')

@@ -21,7 +21,7 @@ export const router = (dependencies: IDependencies) => {
     router.route('/all-job/:id?').get(verifyToken,getAllJobs)
 
     //! ROUTE FOR COMPANY
-    router.route('/post-job/:id')
+    router.route('/post-job/:id?')
         .post(postjob)
         .delete(removeJob)
         .put(editJob)
@@ -29,7 +29,8 @@ export const router = (dependencies: IDependencies) => {
     router.route('/applicant/:id').get(verifyToken, getSpecificApplicant)
 
     //! ROUTE FOR USER
-    router.route('/apply-job').post(applyForJob);
+    router.route('/jobs').get(getAllJobs)
+    router.route('/apply-job').post(verifyToken,applyForJob);
     router.route('/details/:id').get(getJobDetails)
     router.route('/application').get(verifyToken, getApplication)
 
