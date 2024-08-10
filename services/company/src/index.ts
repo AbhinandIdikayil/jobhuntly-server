@@ -15,7 +15,6 @@ const startServer = async () => {
             })
         })
         await consumerService.start()
-
     } catch (error) {
         console.log(error)
         // process.exit(0) 

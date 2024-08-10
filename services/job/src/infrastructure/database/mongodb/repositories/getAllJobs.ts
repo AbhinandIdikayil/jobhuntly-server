@@ -1,12 +1,13 @@
 import { Types } from "mongoose";
-import { getAllJobsEntity, JobEntity } from "../../../../domain/entities";
+import { filterPagination, getAllJobsEntity, JobEntity } from "../../../../domain/entities";
 import { jobModel } from "../model/jobModel";
 
 
-export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] | null> => {
+export const getAllJobs = async (companyId: string,option?:filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
-        let job;
+        let job:any;
         if (companyId) {
+    
             job = await jobModel.aggregate([
                 {
                     $match: { companyId: new Types.ObjectId(companyId) }
@@ -103,9 +104,25 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                     $addFields : {
                         'applicantCount':'$job.countApplicant'
                     }
+                },
+                {
+                    $sort: {
+                        'job.createdAt': -1 // Replace 'createdAt' with your date field and adjust sorting order as needed
+                    }
+                },
+                {
+                    $facet: {
+                        jobs: [
+                            { $skip: (option?.page || 0) * (option?.pageSize || 5) },
+                            { $limit: option?.pageSize || 5 }
+                        ],
+                        totalCount: [
+                            { $count: 'count' }
+                        ]
+                    }
                 }
             ])
-        } else {
+        } else { 
             job = await jobModel.aggregate([
                 {
                     $lookup: {
@@ -151,14 +168,14 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                 },
             ])
         }
-        console.log(job)
+        console.log(job[0],'---')
         const jobs = await jobModel.find()
             .populate('employment')
             .populate('category')
             .populate('companyId')
             .exec()
         if (job.length > 0) {
-            return job as unknown as getAllJobsEntity[]
+            return job[0] as unknown as getAllJobsEntity[]
         } else {
             return []
         }

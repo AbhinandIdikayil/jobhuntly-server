@@ -6,6 +6,8 @@ import { categoryModel } from "../model/categoryModel";
 export const addCategory = async (data:CategoryEntity): Promise<CategoryEntity | null> => {
     try {       
         if(data){
+            console.log(data)
+            // await categoryModel.dropSearchIndex('categoryname_1');
             const category = await categoryModel.create(data)
             if(category){
                 return category as unknown as CategoryEntity

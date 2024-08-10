@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import { IDependencies } from "../../application/interfaces/IDependencies"
 import { dependencies } from "../../config/dependencies"
+import { filterPagination } from "../../domain/entities"
 
 
 export const getAllJobsController = (depependencies: IDependencies) => {
@@ -8,9 +9,17 @@ export const getAllJobsController = (depependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
+            const option:filterPagination = {
+                page: parseInt(req?.query?.page as string) -1 || 0,
+                pageSize: parseInt(req.query?.pageSize as string) ?? 10,
+                name: req.query?.name as string || null ,
+                category: req.query?.category as string ?? null ,
+                employment: req.query?.employment as string ?? null ,
+            }
+            console.log(option,'--------',req.params,req.query)
             let data
-            if(id){
-                data = await getAllJobsUsecase(dependencies).execute(id)
+            if (id) {
+                data = await getAllJobsUsecase(dependencies).execute(id,option)
             } else {
                 data = await getAllJobsUsecase(depependencies).execute()
             }

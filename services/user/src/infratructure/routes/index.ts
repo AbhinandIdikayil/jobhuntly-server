@@ -13,9 +13,9 @@ export const routes = (dependencies: IDependencies) => {
     router.route('/update-profile').post(verifyToken,updateProfile)
 
     //! ------------ ROUTES FOR ADMIN SIDE -------------
-    router.route('/get-allusers').get(getAllUsers);
+    router.route('/get-allusers').get(verifyToken,getAllUsers);
 
-    router.route('/block-user').put(blockUser);
+    router.route('/block-user').put(verifyToken,blockUser);
 
     return router
 }

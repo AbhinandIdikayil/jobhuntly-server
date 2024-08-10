@@ -7,8 +7,9 @@ export const adminLogin = async (email: string,password: string): Promise<UserEn
         if(email && password) {
             const admin = await authModel.findOne({email})
             if(admin && admin.role == 'admin') {
-                if(await admin.password == password){
-                    return admin as UserEntity
+                if(admin.password === password){
+                    const data = await authModel.findOne({email})?.select('-password')
+                    return data as UserEntity
                 } else {
                     throw new Error('Password is incorrect')
                 }

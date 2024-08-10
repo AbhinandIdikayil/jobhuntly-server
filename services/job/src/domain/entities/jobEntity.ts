@@ -98,3 +98,12 @@ export interface getAllJobsEntity {
     },
     applicantCount?: number
 }
+
+
+export interface filterPagination {
+    name?: string | null,
+    pageSize?: number,
+    page?: number,
+    category?: string | null,
+    employment?: string | null
+}
