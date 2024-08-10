@@ -32,7 +32,10 @@ const jobSchema = new mongoose.Schema({
     },
     skills: [String],
     qualification: [String],
-    status: Boolean,
+    status: {
+        type: Boolean,
+        default:false
+    },
     expired: Boolean,
 }, { timestamps: true })
 

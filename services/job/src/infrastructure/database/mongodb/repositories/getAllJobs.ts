@@ -10,7 +10,15 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
     
             job = await jobModel.aggregate([
                 {
-                    $match: { companyId: new Types.ObjectId(companyId) }
+                    $match: { companyId: new Types.ObjectId(companyId),
+                        ...(option?.name ? {
+                            jobTitle: {
+                                $regex: option?.name, // Search term
+                                $options: 'i' // Case-insensitive search
+                            }
+                        } : {})
+                     },
+                    
                 },
                 {
                     $lookup: {
