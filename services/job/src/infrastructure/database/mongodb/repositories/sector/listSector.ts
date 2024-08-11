@@ -22,7 +22,6 @@ export const listSector = async (): Promise<SectorEntity[] | null> => {
                 }
             }
         ])
-        console.log(data)
         // let sectors = await sectorModel.find({isDeleted:false});
         if(data.length > 0){
             return data as SectorEntity[]

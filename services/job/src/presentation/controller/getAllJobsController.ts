@@ -10,18 +10,19 @@ export const getAllJobsController = (depependencies: IDependencies) => {
         try {
             const { id } = req.params
             const option:filterPagination = {
-                page: parseInt(req?.query?.page as string) -1 || 0,
-                pageSize: parseInt(req.query?.pageSize as string) ?? 10,
+                page: (parseInt(req?.query?.page as string) - 1) || 0,
+                pageSize: parseInt(req.query?.pageSize as string ?? 0) ,
                 name: req.query?.name as string || null ,
-                category: req.query?.category as string ?? null ,
-                employment: req.query?.employment as string ?? null ,
+                category: req.query?.category as [string] ?? null ,
+                employment: req.query?.employment as [string] ?? null ,
+                price: parseInt(req.query?.price  as string) ?? 0
             }
             console.log(option,'--------',req.params,req.query)
             let data
             if (id) {
                 data = await getAllJobsUsecase(dependencies).execute(id,option)
             } else {
-                data = await getAllJobsUsecase(depependencies).execute()
+                data = await getAllJobsUsecase(depependencies).execute('',option)
             }
             if (data) {
                 return res.status(200).json(data)

@@ -6,6 +6,7 @@ import { jobModel } from "../model/jobModel";
 export const getAllJobs = async (companyId: string,option?:filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
         let job:any;
+        console.log(companyId,option)
         if (companyId) {
     
             job = await jobModel.aggregate([
@@ -131,7 +132,25 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                 }
             ])
         } else { 
+            console.log('hii--------')
+            const objectIds = option?.category?.map(id => new Types.ObjectId(id)) ?? [];
             job = await jobModel.aggregate([
+                {
+                    $match: {
+                        ...(option?.name ? {
+                            jobTitle: {
+                                $regex: option?.name, // Search term
+                                $options: 'i' // Case-insensitive search
+                            }
+                        } : {}),
+                        ...(option?.category?.length ? {
+                            category: {
+                                $in: objectIds
+                            }
+                        } : {}),
+                     },
+                    
+                },
                 {
                     $lookup: {
                         from: 'companies', // The name of the collection in MongoDB
@@ -174,9 +193,25 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                         preserveNullAndEmptyArrays: true // Include jobs with no company info
                     }
                 },
+                {
+                    $sort: {
+                        'job.createdAt': -1 // Replace 'createdAt' with your date field and adjust sorting order as needed
+                    }
+                },
+                {
+                    $facet: {
+                        jobs: [
+                            { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
+                            { $limit: option?.pageSize ?? 1 }
+                        ],
+                        totalCount: [
+                            { $count: 'count' }
+                        ]
+                    }
+                }
             ])
         }
-        console.log(job[0],'---')
+        console.log(job[0].jobs?.length,'---')
         const jobs = await jobModel.find()
             .populate('employment')
             .populate('category')
