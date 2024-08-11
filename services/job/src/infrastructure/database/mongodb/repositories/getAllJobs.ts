@@ -134,6 +134,7 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
         } else { 
             console.log('hii--------')
             const objectIds = option?.category?.map(id => new Types.ObjectId(id)) ?? [];
+            const employmentIds = option?.employment?.map(id => new Types.ObjectId(id) ?? [])
             job = await jobModel.aggregate([
                 {
                     $match: {
@@ -148,6 +149,11 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                                 $in: objectIds
                             }
                         } : {}),
+                        ...(option?.employment?.length ? {
+                            employment: {
+                                $in: employmentIds
+                            }
+                        }: {})
                      },
                     
                 },
