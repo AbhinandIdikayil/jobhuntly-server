@@ -3,23 +3,24 @@ import { filterPagination, getAllJobsEntity, JobEntity } from "../../../../domai
 import { jobModel } from "../model/jobModel";
 
 
-export const getAllJobs = async (companyId: string,option?:filterPagination): Promise<getAllJobsEntity[] | null> => {
+export const getAllJobs = async (companyId: string, option?: filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
-        let job:any;
-        console.log(companyId,option)
+        let job: any;
+        console.log(companyId, option)
         if (companyId) {
-    
+
             job = await jobModel.aggregate([
                 {
-                    $match: { companyId: new Types.ObjectId(companyId),
+                    $match: {
+                        companyId: new Types.ObjectId(companyId),
                         ...(option?.name ? {
                             jobTitle: {
                                 $regex: option?.name, // Search term
                                 $options: 'i' // Case-insensitive search
                             }
                         } : {})
-                     },
-                    
+                    },
+
                 },
                 {
                     $lookup: {
@@ -110,8 +111,8 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                     }
                 },
                 {
-                    $addFields : {
-                        'applicantCount':'$job.countApplicant'
+                    $addFields: {
+                        'applicantCount': '$job.countApplicant'
                     }
                 },
                 {
@@ -131,10 +132,13 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                     }
                 }
             ])
-        } else { 
+        } else {
             console.log('hii--------')
             const objectIds = option?.category?.map(id => new Types.ObjectId(id)) ?? [];
             const employmentIds = option?.employment?.map(id => new Types.ObjectId(id) ?? [])
+            // Convert salary range strings to numbers
+            const salaryRange = option?.price?.map(Number) ?? [];
+            const [minSalary, maxSalary] = salaryRange.length === 2 ? salaryRange : [undefined, undefined];
             job = await jobModel.aggregate([
                 {
                     $match: {
@@ -153,9 +157,14 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                             employment: {
                                 $in: employmentIds
                             }
-                        }: {})
-                     },
-                    
+                        } : {}),
+                        ...(salaryRange.length === 2 ? {
+                            'salaryrange.from': { $gte: minSalary }, // From greater than or equal to minSalary
+                            'salaryrange.to': { $lte: maxSalary } // To less than or equal to maxSalary
+                        } : {})
+
+                    },
+
                 },
                 {
                     $lookup: {
@@ -217,7 +226,7 @@ export const getAllJobs = async (companyId: string,option?:filterPagination): Pr
                 }
             ])
         }
-        console.log(job[0].jobs?.length,'---')
+        console.log(job[0].jobs?.length, '---')
         const jobs = await jobModel.find()
             .populate('employment')
             .populate('category')

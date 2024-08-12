@@ -15,7 +15,7 @@ export const getAllJobsController = (depependencies: IDependencies) => {
                 name: req.query?.name as string || null ,
                 category: req.query?.category as [string] ?? null ,
                 employment: req.query?.employment as [string] ?? null ,
-                price: parseInt(req.query?.price  as string) ?? 0
+                price: req.query?.price  as [string] ?? []
             }
             console.log(option,'--------',req.params,req.query)
             let data

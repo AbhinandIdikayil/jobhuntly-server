@@ -106,5 +106,5 @@ export interface filterPagination {
     page?: number,
     category?: [string] | [],
     employment?: [string] | [],
-    price?: number
+    price?: [string] | []
 }
