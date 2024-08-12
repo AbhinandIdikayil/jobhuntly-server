@@ -12,4 +12,5 @@ export interface IRepositories {
     listRequest(): Promise<CompanyEntity | null>
     getAllCompany(): Promise<CompanyEntity[] | null>
     getCompanyDetails(id: string): Promise<CompanyEntity | null>
+    searchCompanies(value: string): Promise<CompanyEntity[] | null>
 }

@@ -3,6 +3,7 @@ import { getAllCompanyContoller } from "./getAllCompanies"
 import { getCompanyController } from "./getCompanyController"
 import { companyDetailsController } from "./getCompanyDetails"
 import { listRequestController } from "./listRequest"
+import { searchCompaniesController } from "./searchCompaniesController"
 import { sendRequestController } from "./sendRequest"
 import { updateCompnayRequestController } from "./updateCompanyRequest"
 import { updateProfileController } from "./updateProfile"
@@ -18,6 +19,7 @@ export const controller = (dependencies:IDependencies) => {
         updateRequest:updateCompnayRequestController(dependencies),
         listRequest:listRequestController(dependencies),
         getAllCompany:getAllCompanyContoller(dependencies),
-        getCompanyDetail:companyDetailsController(dependencies)
+        getCompanyDetail:companyDetailsController(dependencies),
+        searchCompanies:searchCompaniesController(dependencies)
     }
 }

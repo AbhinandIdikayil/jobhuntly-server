@@ -12,7 +12,7 @@ const jobSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Sector'
     },
-    joblocation: String,
+    location: [String],
     salaryrange: {
         status: Boolean,
         from: Number,
@@ -32,7 +32,10 @@ const jobSchema = new mongoose.Schema({
     },
     skills: [String],
     qualification: [String],
-    status: Boolean,
+    status: {
+        type: Boolean,
+        default:false
+    },
     expired: Boolean,
 }, { timestamps: true })
 

@@ -1,15 +1,26 @@
 import { Types } from "mongoose";
-import { getAllJobsEntity, JobEntity } from "../../../../domain/entities";
+import { filterPagination, getAllJobsEntity, JobEntity } from "../../../../domain/entities";
 import { jobModel } from "../model/jobModel";
 
 
-export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] | null> => {
+export const getAllJobs = async (companyId: string, option?: filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
-        let job;
+        let job: any;
+        console.log(companyId, option)
         if (companyId) {
+
             job = await jobModel.aggregate([
                 {
-                    $match: { companyId: new Types.ObjectId(companyId) }
+                    $match: {
+                        companyId: new Types.ObjectId(companyId),
+                        ...(option?.name ? {
+                            jobTitle: {
+                                $regex: option?.name, // Search term
+                                $options: 'i' // Case-insensitive search
+                            }
+                        } : {})
+                    },
+
                 },
                 {
                     $lookup: {
@@ -44,6 +55,11 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                     }
                 },
                 {
+                    $addFields: {
+                        'countApplicant': { $size: '$applicants' }
+                    }
+                },
+                {
                     $unwind: {
                         path: '$applicants',
                         preserveNullAndEmptyArrays: true // Include jobs with no applicants
@@ -68,15 +84,88 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                     }
                 },
                 {
-                    $group: {
-                        _id: '$_id',
-                        job: { $first: '$$ROOT' }, // Keep the job document
-                        applicantCount: { $sum: 1 } // Count the number of applicants
+                    $lookup: {
+                        from: 'users',
+                        localField: 'applicants.userId',
+                        foreignField: '_id',
+                        as: 'userDetails'
                     }
                 },
+                {
+                    $unwind: {
+                        path: '$userDetails',
+                        preserveNullAndEmptyArrays: true // Include jobs with no user details
+                    }
+                },
+                {
+                    $addFields: {
+                        'applicants.user': '$userDetails' // Add user details to each applicant
+                    }
+                },
+                {
+                    $group: {
+                        _id: '$_id',
+                        job: { $first: '$$ROOT' },
+                        applicants: { $push: '$applicants' },
+                        applicantCount: { $sum: 1 }
+                    }
+                },
+                {
+                    $addFields: {
+                        'applicantCount': '$job.countApplicant'
+                    }
+                },
+                {
+                    $sort: {
+                        'job.createdAt': -1 // Replace 'createdAt' with your date field and adjust sorting order as needed
+                    }
+                },
+                {
+                    $facet: {
+                        jobs: [
+                            { $skip: (option?.page || 0) * (option?.pageSize || 5) },
+                            { $limit: option?.pageSize || 5 }
+                        ],
+                        totalCount: [
+                            { $count: 'count' }
+                        ]
+                    }
+                }
             ])
         } else {
+            console.log('hii--------')
+            const objectIds = option?.category?.map(id => new Types.ObjectId(id)) ?? [];
+            const employmentIds = option?.employment?.map(id => new Types.ObjectId(id) ?? [])
+            // Convert salary range strings to numbers
+            const salaryRange = option?.price?.map(Number) ?? [];
+            const [minSalary, maxSalary] = salaryRange.length === 2 ? salaryRange : [undefined, undefined];
             job = await jobModel.aggregate([
+                {
+                    $match: {
+                        ...(option?.name ? {
+                            jobTitle: {
+                                $regex: option?.name, // Search term
+                                $options: 'i' // Case-insensitive search
+                            }
+                        } : {}),
+                        ...(option?.category?.length ? {
+                            category: {
+                                $in: objectIds
+                            }
+                        } : {}),
+                        ...(option?.employment?.length ? {
+                            employment: {
+                                $in: employmentIds
+                            }
+                        } : {}),
+                        ...(salaryRange.length === 2 ? {
+                            'salaryrange.from': { $gte: minSalary }, // From greater than or equal to minSalary
+                            'salaryrange.to': { $lte: maxSalary } // To less than or equal to maxSalary
+                        } : {})
+
+                    },
+
+                },
                 {
                     $lookup: {
                         from: 'companies', // The name of the collection in MongoDB
@@ -119,16 +208,32 @@ export const getAllJobs = async (companyId: string): Promise<getAllJobsEntity[] 
                         preserveNullAndEmptyArrays: true // Include jobs with no company info
                     }
                 },
+                {
+                    $sort: {
+                        'job.createdAt': -1 // Replace 'createdAt' with your date field and adjust sorting order as needed
+                    }
+                },
+                {
+                    $facet: {
+                        jobs: [
+                            { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
+                            { $limit: option?.pageSize ?? 1 }
+                        ],
+                        totalCount: [
+                            { $count: 'count' }
+                        ]
+                    }
+                }
             ])
         }
-
+        console.log(job[0].jobs?.length, '---')
         const jobs = await jobModel.find()
             .populate('employment')
             .populate('category')
             .populate('companyId')
             .exec()
         if (job.length > 0) {
-            return job as unknown as getAllJobsEntity[]
+            return job[0] as unknown as getAllJobsEntity[]
         } else {
             return []
         }
