@@ -1,5 +1,5 @@
 import { IDependencies } from "./IDependencies";
-import { addUserUsecase, IBlockUserUsecase, IGetAllUserUsecase, IGetUserUsecase, IUpdateProfileUsecase } from '../../domain/usecaseInterface/index'
+import { addUserUsecase, IBlockUserUsecase, IGetAllUserUsecase, IGetUserUsecase, ISearchUsersUsecase, IUpdateProfileUsecase } from '../../domain/usecaseInterface/index'
 
 export interface IUsecases {
     addUserUsecase:(dependencies:IDependencies) => addUserUsecase
@@ -7,4 +7,5 @@ export interface IUsecases {
     blockUserUsecase:(dependencies:IDependencies) => IBlockUserUsecase
     getUserUsecase:(dependencies:IDependencies) => IGetUserUsecase
     updateProfileUsecase:(dependencies:IDependencies) => IUpdateProfileUsecase
+    searchUsersUsecase:(dependencies:IDependencies) => ISearchUsersUsecase
 }

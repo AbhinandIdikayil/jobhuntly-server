@@ -17,7 +17,6 @@ export const verifyToken = (
 ) => {
   const token = req?.cookies?.access_token;
   console.log(token,req.cookies)
-  console.log(process.env.ACCESS_TOKEN_SECRET)
   if (!token) {
     return res.status(401).json({ error: "Access denied. No token provided." });
   }
