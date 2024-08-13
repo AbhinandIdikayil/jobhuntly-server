@@ -1,19 +1,16 @@
-import { Server as SocketIoServer } from 'socket.io'
-import { CLIENT_URL } from '../../config/env'
 
-export const setUpSocketIo = (server: any) => {
-    const io = new SocketIoServer(server,{
-        cors:{
-            origin:CLIENT_URL
-        }
-    })
+export const setUpSocketIo = (io: any) => {
+   console.log("______________________ we reached here");
+   
+    io.on('connection', (socket:any) => {
+        console.log('client connected');
 
-    io.on('connection',(socket) => {
-        console.log('client connected')
+        // Emit an event to the client when connected
+        socket.emit('connected', 'Welcome!');
 
-        socket.on('disconnected',() => {
-            console.log('client disconnected')
-        })
+        socket.on('disconnect', () => {
+            console.log('client disconnected');
+        });
     })
 
 
