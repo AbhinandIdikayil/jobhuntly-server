@@ -9,18 +9,14 @@ export const getMessages = async (id: string): Promise<MessageEntity[] | null> =
                 $match: { chatId: new Types.ObjectId(id) }
             },
             {
-                $lookup: {
-                    from: 'chats',
-                    localField: 'chatId',
-                    foreignField: '_id',
-                    as: 'chat'
-                }
+                $sort: { 'createdAt': 1 }
             }
         ])
         if (messages.length > 0) {
+            console.log(id,messages)
             return messages as MessageEntity[]
         } else {
-            return null
+            return []
         }
     } catch (error: any) {
         throw new Error(error?.message)
