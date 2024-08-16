@@ -8,7 +8,6 @@ const startServer = async () => {
         await connectDB();
         await consumerService.start()
         await startProducer()
-        
     } catch (error) {
         console.log(error)
     }

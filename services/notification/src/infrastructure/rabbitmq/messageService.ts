@@ -1,4 +1,4 @@
-import { sendOtpToUser } from './function/sendOtpMail';
+import { sendOtpToUser, sendShortListedEmail } from './function/sendOtpMail';
 import { RabbitMQ, IMessage } from './index'
 
 
@@ -32,7 +32,9 @@ export class MessageService {
             case 'email-otp-cmpany':
                 console.log(message)
                 break;
-
+            case 'shortlisted':
+                sendShortListedEmail(message)
+                break;
             default:
                 break;
         }
