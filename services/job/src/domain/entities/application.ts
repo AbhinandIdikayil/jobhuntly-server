@@ -1,6 +1,7 @@
 
 export interface ApplicationEntity {
     _id: string;
+    companyId: any,
     jobId: {
         _id?: string,
         jobTitle?: string,
@@ -39,6 +40,7 @@ export interface ApplicationEntity {
 
 export interface ApplicantsEntity {
     _id: string;
+    companyId: any
     jobId: {
         _id?: string,
         jobTitle?: string,

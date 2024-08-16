@@ -15,9 +15,9 @@ export const updateApplicationStatus = async (applicationId: string): Promise<Ap
             applicationId,
             { hiring_status: nextStatus },
             { new: true } // Return the updated document
-        );
+        ).populate('companyId').populate('userId').populate('jobId');
 
-        return updatedApplicant as unknown as ApplicantsEntity;
+        return updatedApplicant  as unknown as ApplicantsEntity;
     } catch (error: any) {
         throw new Error(error?.message)
     }

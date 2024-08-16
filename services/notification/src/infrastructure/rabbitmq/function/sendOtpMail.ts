@@ -42,12 +42,13 @@ export const sendShortListedEmail = (data:any) => {
     console.log('--------------', data);
 
     // Read the HTML template file
-    const templatePath = path.join(__dirname, 'shortlisted_template.html');
+    const templatePath = path.join(__dirname, '../../../../templates/shortlisted.html');
     let htmlContent = fs.readFileSync(templatePath, 'utf-8');
 
     // Replace placeholders with actual data
-    htmlContent = htmlContent.replace('{{company}}', data.content.company);
-    htmlContent = htmlContent.replace('{{role}}', data.content.role);
+    htmlContent = htmlContent.replace(/{{user}}/g, data.content.email);
+    htmlContent = htmlContent.replace(/{{company}}/g, data.content.company);
+    htmlContent = htmlContent.replace(/{{role}}/g, data.content.jobRole);
 
 
     let message = {
@@ -56,6 +57,7 @@ export const sendShortListedEmail = (data:any) => {
         subject: 'Your job application has been shortlisted',
         html: htmlContent
     };
+
 
     transporter.sendMail(message, (err, info) => {
         if (err) {
