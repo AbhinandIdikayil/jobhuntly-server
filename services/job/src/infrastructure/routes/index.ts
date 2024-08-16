@@ -9,7 +9,7 @@ export const router = (dependencies: IDependencies) => {
     const { addCategory, listCategory, deleteCategory, updateCategory,
         sector, postjob, addCompany, addUser, getAllJobs, applyForJob
         , getJobDetails, removeJob, editJob, getApplication, getApplicants
-        , getSpecificApplicant } = controller(dependencies)
+        , getSpecificApplicant, updateApplicationStatus } = controller(dependencies)
 
 
     router.route('/add-company').post(addCompany)
@@ -27,6 +27,7 @@ export const router = (dependencies: IDependencies) => {
         .put(editJob)
     router.route('/applicant').get(verifyToken, getApplicants)
     router.route('/applicant/:id').get(verifyToken, getSpecificApplicant)
+    router.route('/application/:applicationID').put(verifyToken,updateApplicationStatus)
 
     //! ROUTE FOR USER
     router.route('/jobs').get(getAllJobs)

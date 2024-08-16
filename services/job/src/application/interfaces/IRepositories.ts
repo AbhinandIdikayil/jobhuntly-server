@@ -19,5 +19,5 @@ export interface IRepositories {
     getApplications(userid: string): Promise<ApplicationEntity[] | null>
     getApplicants(companyId: string): Promise<ApplicantsEntity[] | null>
     getSpecificApplicant(id: string): Promise<ApplicantsEntity | null>
-
+    updateApplicationStatus(id: string): Promise<ApplicantsEntity | null>
 }
