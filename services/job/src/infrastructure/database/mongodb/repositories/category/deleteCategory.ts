@@ -1,5 +1,5 @@
-import { CategoryEntity } from "../../../../domain/entities";
-import { categoryModel } from "../model/categoryModel";
+import { CategoryEntity } from "../../../../../domain/entities";
+import { categoryModel } from "../../model/categoryModel";
 
 
 

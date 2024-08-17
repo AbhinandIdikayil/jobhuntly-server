@@ -20,6 +20,7 @@ const ApplicantsSchema = new mongoose.Schema({
             feedback: { type: String }
         },
     ],
+    mark:Number,
 });
 
 
