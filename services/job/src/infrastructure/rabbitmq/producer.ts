@@ -22,6 +22,9 @@ export class ProducerService {
             case 'shortlisted':
                 await this.rabbitMQClient.publishMessage('OTPEMAIL', 'shortlisted', message)
                 break;
+            case 'interview':
+                await this.rabbitMQClient.publishMessage('OTPEMAIL', 'interview', message)
+                break;
             default:
                 console.log(`
 ####################################

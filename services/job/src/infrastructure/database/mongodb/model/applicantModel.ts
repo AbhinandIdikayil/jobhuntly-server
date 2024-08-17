@@ -10,11 +10,17 @@ const ApplicantsSchema = new mongoose.Schema({
     hiring_status: { type: String, enum: ['in-review', 'shortlisted', 'interview', 'hired', 'rejected'], default: 'in-review' },
     resume: { type: String },
     answers: { type: Array },
-    hiring_info: [{
-        name: { type: String },
-        notes: { type: String },
-    }],
+    schedule: [
+        {
+            testType: { type: String },
+            date: { type: String },
+            // roomId: { type: String },
+            time: { type: String },
+            status: { type: String, default: "pending" },
+            feedback: { type: String }
+        },
+    ],
 });
 
 
-export const applicantModel = mongoose.model('Applicant',ApplicantsSchema)
+export const applicantModel = mongoose.model('Applicant', ApplicantsSchema)

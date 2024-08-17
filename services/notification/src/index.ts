@@ -44,7 +44,7 @@ const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://localhost:5672'
 const EXCHANGE = 'direct_logs'
 const QUEUENAME = 'OTPEMAIL'
 //! WHEN CHANGING THE ROUTING KEY CHECK THE HANDLEMESSAGE FUNCTION ON MESSSAGESERVICE
-const ROUTINGKEYS = ['email-otp-user', 'email-otp-cmpny','shortlisted']
+const ROUTINGKEYS = ['email-otp-user', 'email-otp-cmpny','shortlisted','interview']
 console.log(RABBITMQ_URL)
 
 async function main() {

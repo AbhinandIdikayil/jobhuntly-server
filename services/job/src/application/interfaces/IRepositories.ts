@@ -20,4 +20,5 @@ export interface IRepositories {
     getApplicants(companyId: string): Promise<ApplicantsEntity[] | null>
     getSpecificApplicant(id: string): Promise<ApplicantsEntity | null>
     updateApplicationStatus(id: string): Promise<ApplicantsEntity | null>
+    scheduleInterview(applicantId: string,time:string,date:string,type:string): Promise<ApplicantsEntity | null>
 }

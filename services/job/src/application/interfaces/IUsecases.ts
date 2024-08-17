@@ -8,7 +8,8 @@ import { IListCategory , IAddCategoryUsecase, IDeleteCategoryUsecase, IUpdateCat
     IGetAppilcationUsecase,
     IGetAppilcantsUsecase,
     IGetSpecificApplicantUsecase,
-    IUpdateApplicationUsecase} from "../../domain/usecaseInterface";
+    IUpdateApplicationUsecase,
+    IScheduleInterviewUsecase} from "../../domain/usecaseInterface";
 import { IDependencies } from "./IDependencies";
 
 
@@ -32,4 +33,5 @@ export interface IUsecases {
     getApplicantsUsecase:(dependencies:IDependencies) => IGetAppilcantsUsecase
     getSpecificApplicantUsecase:(dependencies:IDependencies) => IGetSpecificApplicantUsecase
     updateApplicationStatusUsecase:(dependencies:IDependencies) => IUpdateApplicationUsecase
+    scheduleInterviewUsecase:(dependencies:IDependencies) => IScheduleInterviewUsecase
 }

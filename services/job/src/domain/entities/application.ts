@@ -36,6 +36,16 @@ export interface ApplicationEntity {
     answers: any[];
     createdAt: string;
     hiring_info: any[];
+    schedule: [
+        {
+            testType: string,
+            date: string,
+            roomId: string,
+            time: string,
+            status: string,
+            feedback: string
+        },
+    ],
 }
 
 export interface ApplicantsEntity {
@@ -109,4 +119,14 @@ export interface ApplicantsEntity {
     answers: any[];
     createdAt: string;
     hiring_info: any[];
+    schedule: [
+        {
+            testType: string,
+            date: string,
+            roomId: string,
+            time: string,
+            status: string,
+            feedback: string
+        },
+    ],
 }

@@ -9,6 +9,7 @@ import { getAllJobsController } from "./getAllJobsController"
 import { getApplicantController } from "./getApplicantsController"
 import { getApplicationController } from "./getApplicationController"
 import { getSpecificApplicantController } from "./getSpecificApplicantController"
+import { interviewController } from "./interview"
 import { jobDetailsController } from "./jobDetailsController"
 import { listCategoryController } from "./listCategory"
 import { postJobController } from "./postJob"
@@ -37,6 +38,7 @@ export const controller = (dependencies: IDependencies) => {
         getApplication:getApplicationController(dependencies),
         getApplicants:getApplicantController(dependencies),
         getSpecificApplicant:getSpecificApplicantController(dependencies),
-        updateApplicationStatus:updateApplicationStatusController(dependencies)
+        updateApplicationStatus:updateApplicationStatusController(dependencies),
+        interview:interviewController(dependencies),
     }
 }

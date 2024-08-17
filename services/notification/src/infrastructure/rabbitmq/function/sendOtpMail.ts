@@ -66,27 +66,32 @@ export const sendShortListedEmail = (data:any) => {
             console.log('Email sent:', info);
         }
     });
+}
 
-    // let response = {
-    //     body: {
-    //         name: `${data.content.email}`,
-    //         intro: `Your otp is ${data.content.otp}`
-    //     }
-    // }
-    // let mail = mailgenerator.generate(response);
+export const sendInterviewMail = (data:any) => {
+    console.log('--------------', data);
+    const templatePath = path.join(__dirname, '../../../../templates/interview.html');
+    let htmlContent = fs.readFileSync(templatePath, 'utf-8');
 
-    // let message = {
-    //     from: process.env.EMAIL,
-    //     to: data.content.email,
-    //     subject: 'your otp has been successfully sented',
-    //     html: mail
-    // }
+    // Replace placeholders with actual data
+    htmlContent = htmlContent.replace(/{{user}}/g, data.content.user);
+    htmlContent = htmlContent.replace(/{{company}}/g, data.content.company);
+    htmlContent = htmlContent.replace(/{{role}}/g, data.content.jobRole);
+    htmlContent = htmlContent.replace(/{{date}}/g, data.content.date);
+    htmlContent = htmlContent.replace(/{{time}}/g, data.content.time);
 
-    // transporter.sendMail(message, (err, info) => {
-    //     if (err) {
-    //         console.error('Error sending email:', err);
-    //     } else {
-    //         console.log('Email sent:', info);
-    //     }
-    // });
+    let message = {
+        from: process.env.EMAIL,
+        to: data.content.email,
+        subject: 'Your job application has been shortlisted',
+        html: htmlContent
+    };
+
+    transporter.sendMail(message, (err, info) => {
+        if (err) {
+            console.error('Error sending email:', err);
+        } else {
+            console.log('Email sent:', info);
+        }
+    });
 }

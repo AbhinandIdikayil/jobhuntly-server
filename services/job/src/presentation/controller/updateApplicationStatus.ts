@@ -18,12 +18,17 @@ export const updateApplicationStatusController = (dependencies: IDependencies) =
                             role: 'shortlisted'
                         })
                     }
-                    console.log({
-                        companyEmail: data?.companyId?.email,
-                        userEmail: data?.userId?.email,
-                        jobRole: data?.jobId?.jobTitle,
-                        role: 'shortlisted'
-                    })
+                    // if(data?.hiring_status == 'interview') {
+                    //     await producerService.publishToEmailQueue({
+                    //         user:data?.userId?.name,
+                    //         company:data?.companyId?.name,
+                    //         jobRole:data?.jobId?.jobTitle,
+                    //         // date:data?.,
+                    //         // time:data?.,
+                    //         email:data?.userId?.email,
+                    //         role:'interview'
+                    //     })
+                    // }
                     let response = {
                         _id: data?._id,
                         hiring_status: data?.hiring_status
