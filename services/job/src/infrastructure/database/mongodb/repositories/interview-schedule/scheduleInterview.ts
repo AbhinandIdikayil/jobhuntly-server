@@ -19,7 +19,7 @@ export const scheduleInterview = async (applicantId: string, time: string, date:
                 }
             },
             { new: true }
-        )
+        ).populate('userId').populate('companyId')
         if(applicant) {
             return applicant as unknown as ApplicantsEntity
         } else {

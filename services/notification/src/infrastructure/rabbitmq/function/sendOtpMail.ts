@@ -75,6 +75,7 @@ export const sendInterviewMail = (data:any) => {
 
     // Replace placeholders with actual data
     htmlContent = htmlContent.replace(/{{user}}/g, data.content.user);
+    htmlContent = htmlContent.replace(/{{test}}/g, data.content.test);
     htmlContent = htmlContent.replace(/{{company}}/g, data.content.company);
     htmlContent = htmlContent.replace(/{{role}}/g, data.content.jobRole);
     htmlContent = htmlContent.replace(/{{date}}/g, data.content.date);
