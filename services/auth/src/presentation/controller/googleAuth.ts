@@ -38,7 +38,7 @@ export const googleAuthContoller = (dependencies: IDependencies) => {
                     //! SENDING USER DATA TO QUEUE BASED ON THE ROLE
                     await producerService.publishToUserQueue(result)
 
-                    return res.status(200).cookie('accesss_token',token,{
+                    return res.status(200).cookie('access_token',token,{
                         httpOnly: true
                     }).json(response)
 
