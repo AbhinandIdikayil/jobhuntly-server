@@ -37,3 +37,11 @@ export interface CompanyEntity {
     certificate?: string,
     registrationId?: string
 }
+
+
+export interface filterPagination {
+    name?: string | null,
+    pageSize?: number,
+    page?: number,
+    category?: [string] | [],
+}

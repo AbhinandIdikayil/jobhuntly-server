@@ -1,4 +1,4 @@
-import { CompanyEntity } from "../../domain/entities";
+import { CompanyEntity, filterPagination } from "../../domain/entities";
 
 
 
@@ -10,7 +10,7 @@ export interface IRepositories {
     sendRequest(id: string , email: string): Promise<boolean | null>
     updateRequest(id: string,status: string): Promise<{email: string,status: string }| null>
     listRequest(): Promise<CompanyEntity | null>
-    getAllCompany(): Promise<CompanyEntity[] | null>
+    getAllCompany(option?:filterPagination): Promise<CompanyEntity[] | null>
     getCompanyDetails(id: string): Promise<CompanyEntity | null>
     searchCompanies(value: string): Promise<CompanyEntity[] | null>
 }

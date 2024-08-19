@@ -9,7 +9,7 @@ export const verifyOtp = async (email:string,otp?:string,name?:string,password?:
         if(!otp){
             throw new Error('where is otp')
         }
-        const userOtp = await OtpModel.find({email}).sort({createdAt: -1}).limit(1);
+        const userOtp = await OtpModel.find({email}).sort({createdAt: 1}).limit(1);
 
         let checkEmailForgotPs = await authModel.findOne({email});
 
