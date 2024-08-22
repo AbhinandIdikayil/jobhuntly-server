@@ -44,4 +44,5 @@ export interface filterPagination {
     pageSize?: number,
     page?: number,
     category?: [string] | [],
+    location?: string
 }

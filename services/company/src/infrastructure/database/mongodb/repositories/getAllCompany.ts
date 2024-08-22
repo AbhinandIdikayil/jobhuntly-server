@@ -14,6 +14,14 @@ export const getAllCompany = async (option?: filterPagination): Promise<CompanyE
                             $options: 'i' // Case-insensitive search
                         }
                     } : {}),
+                    ...(option?.location ? {
+                        locations: {
+                            $elemMatch: {
+                                $regex: option.location,
+                                $options: 'i' // Case-insensitive search
+                            }
+                        }
+                    } : {}),
                     ...(option?.category?.length ? {
                         $or: option.category.map(category => ({
                             industry: {

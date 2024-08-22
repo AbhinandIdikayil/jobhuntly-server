@@ -13,6 +13,7 @@ export const getAllCompanyContoller = (dependencies: IDependencies) => {
                 pageSize: parseInt(req.query?.pageSize as string ?? 0),
                 name: req.query?.name as string || null,
                 category: req.query?.category as [string] ?? null,
+                location: req.query?.location as string
             }
             console.log(option,req.query)
             const data = await getAllCompanyUsecase(dependencies).execute(option)
