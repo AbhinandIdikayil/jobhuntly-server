@@ -13,7 +13,6 @@ export const getMessages = async (id: string): Promise<MessageEntity[] | null> =
             }
         ])
         if (messages.length > 0) {
-            console.log(id,messages)
             return messages as MessageEntity[]
         } else {
             return []

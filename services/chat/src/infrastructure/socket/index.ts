@@ -1,32 +1,30 @@
 import { Socket } from "socket.io";
 
 export const setUpSocketIo = (io: any) => {
-
-    const userSocketMap: { [key: string]: string } = {}
+    let onlineUsers: any = [];
 
     io.on('connection', (socket: Socket) => {
         console.log('client connected');
-        // Emit an event to the client when connected
         socket.on('setup', (user: any) => {
-            userSocketMap[user?._id] = socket.id
-            socket.join(socket.id)
-            socket.emit('connected',)
+            socket.join(user?._id)
+            socket.emit('connected')
+            const isUserOnline = onlineUsers.some((onlineUser: any) => onlineUser.userId === user._id);
+            if (!isUserOnline) {
+                onlineUsers.push({ userId: user._id, socketId: socket.id, role: user?.role ?? 'company' });
+            }
+
+            io.emit("get-online-users", onlineUsers);
         });
-        
-        socket.on('send-message', (data) => {
-            console.log(userSocketMap)
-            console.log(data, '-----')
-            console.log("________ this is data",data);
-            
-            console.log("____socket id of reciecver",userSocketMap[data?.recieverId]);
-            
-            io.to(userSocketMap[data?.recieverId]).emit('recieve-message', data)
+
+        socket.on('send-message', (data) => {   //! USER WHILE SENDING MESSAGE
+            io.to(data?.recieverId).emit('recieve-message', data)
         })
+
         socket.on('disconnect', () => {
-            console.log('client disconnected');
+            onlineUsers = onlineUsers.filter((user: any) => user.socketId !== socket.id)
+            io.emit("get-online-users", onlineUsers);
+            console.log('client disconnected', onlineUsers);
         });
     })
-
-
     return io
 }
