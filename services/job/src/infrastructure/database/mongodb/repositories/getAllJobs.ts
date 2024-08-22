@@ -147,6 +147,14 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                                 $options: 'i' // Case-insensitive search
                             }
                         } : {}),
+                        ...(option?.location ? {
+                            location: {
+                                $elemMatch: {
+                                    $regex: option.location,
+                                    $options: 'i' // Case-insensitive search
+                                }
+                            }
+                        } : {}),
                         ...(option?.category?.length ? {
                             category: {
                                 $in: objectIds

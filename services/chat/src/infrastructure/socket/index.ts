@@ -10,7 +10,7 @@ export const setUpSocketIo = (io: any) => {
             socket.emit('connected')
             const isUserOnline = onlineUsers.some((onlineUser: any) => onlineUser.userId === user._id);
             if (!isUserOnline) {
-                onlineUsers.push({ userId: user._id, socketId: socket.id, role: user?.role ?? 'company' });
+                onlineUsers.push({ userId: user._id, socketId: socket.id, role: user?.role || 'company' });
             }
 
             io.emit("get-online-users", onlineUsers);
