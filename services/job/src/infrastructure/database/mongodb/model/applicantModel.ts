@@ -14,7 +14,7 @@ const ApplicantsSchema = new mongoose.Schema({
         {
             testType: { type: String },
             date: { type: String },
-            // roomId: { type: String },
+            roomId: { type: String },
             time: { type: String },
             status: { type: String, default: "pending" },
             feedback: { type: String }

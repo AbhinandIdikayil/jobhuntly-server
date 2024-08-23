@@ -7,10 +7,10 @@ export const scheduleInterviewController = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { applicationID } = req.params
-            const { date, time, type } = req.body
+            const { date, time, type, room } = req.body
             console.log(req.body, req.params)
             if (applicationID && date && time && type) {
-                const data = await scheduleInterviewUsecase(dependencies).execute(applicationID, time, date, type)
+                const data = await scheduleInterviewUsecase(dependencies).execute(applicationID, time, date, type, room)
                 if (data) {
                     await producerService.publishToEmailQueue({
                         user: data?.userId?.name,
