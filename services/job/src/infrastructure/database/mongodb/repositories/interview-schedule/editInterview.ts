@@ -4,6 +4,7 @@ import { applicantModel } from "../../model/applicantModel"
 
 export const editInterview = async (applicantId: string, data:any, index:number): Promise<ApplicantsEntity | null> => {
     try {
+        console.log(applicantId, data, index)
         const editInterview = applicantModel.findByIdAndUpdate(
             { _id: applicantId},
             {

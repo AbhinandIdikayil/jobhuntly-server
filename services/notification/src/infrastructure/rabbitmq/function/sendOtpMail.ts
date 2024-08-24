@@ -96,3 +96,7 @@ export const sendInterviewMail = (data:any) => {
         }
     });
 }
+
+export const sendInterviewLinkMial = (data:any) => {
+    
+}

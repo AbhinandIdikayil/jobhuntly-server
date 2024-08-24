@@ -7,8 +7,9 @@ export const EditScheduledInterview = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { applicationID } = req.params
-            const { date, time, type, room, ind } = req.body
-            const data = await editInterviewUsecase(dependencies).execute(applicationID, { date, time, type, room }, ind)
+            const { date, time, testType, roomId, ind } = req.body
+            console.log(req.body)
+            const data = await editInterviewUsecase(dependencies).execute(applicationID, { date, time, testType, roomId }, ind)
             if (data) {
                 return res.status(200).json(data)
             } else {
