@@ -29,7 +29,6 @@ export const verifyToken = (
         }
 
         if (decoded) {
-          console.log(decoded)
           const { _id, email, role } = decoded as CustomJwtPayload;
           (req as ModifiedRequest).user = { _id, email, role };
           next();

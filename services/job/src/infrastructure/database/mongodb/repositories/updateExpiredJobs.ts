@@ -4,9 +4,10 @@ import { jobModel } from "../model/jobModel"
 
 export const updateExpiredJobs = async (): Promise<boolean | null> => {
     try {
-        const now = Date.now()
+        const now = new Date(); // Create a Date object
+        const nowISOString = now.toISOString(); 
         const expiredJobs = await jobModel.updateMany(
-            { expiry: { $lt: now }, expired: false },
+            { expiry: { $lte: nowISOString}, expired: false },
             { $set: {expired: true} },
         )
         if(expiredJobs){

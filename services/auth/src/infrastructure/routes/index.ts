@@ -22,7 +22,7 @@ export const routes = (dependencies: IDependencies) => {
 
     router.route('/verify-otp').post(verifyOtp);
 
-    router.route('/verify-email').post(verifyToken, verifyEmail)
+    router.route('/verify-email').post(verifyEmail)
 
     router.route('/forgot-password').put(forgotPassword)
 

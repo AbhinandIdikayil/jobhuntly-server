@@ -3,10 +3,11 @@ import { config } from 'dotenv'
 import { MessageService } from './infrastructure/rabbitmq/messageService';
 import { RabbitMQ } from './infrastructure/rabbitmq';
 import cors from 'cors'
+import { router } from './infrastructure/routes';
 config()
 
 const PORT = Number(process.env.PORT)
-
+const CLIENT_URL = process.env.CLIENT_URL as string
 class Server {
     private app: Application
     private messageService: MessageService
@@ -19,9 +20,16 @@ class Server {
     async start(port: number): Promise<void> {
         try {
             await this.messageService.start()
-
-            this.app.use(cors())
+            const corsOption = {
+                origin: CLIENT_URL, // Allow requests from this origin
+                methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+                allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allowed headers
+                credentials: true // Allow cookies to be sent with requests
+            }
+            this.app.use(cors(corsOption))
             this.app.use(express.json())
+
+            this.app.use('/api', router())
 
             this.app.listen(port, () => {
                 console.log(`
@@ -44,7 +52,7 @@ const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://localhost:5672'
 const EXCHANGE = 'direct_logs'
 const QUEUENAME = 'OTPEMAIL'
 //! WHEN CHANGING THE ROUTING KEY CHECK THE HANDLEMESSAGE FUNCTION ON MESSSAGESERVICE
-const ROUTINGKEYS = ['email-otp-user', 'email-otp-cmpny']
+const ROUTINGKEYS = ['email-otp-user', 'email-otp-cmpny', 'shortlisted', 'interview']
 console.log(RABBITMQ_URL)
 
 async function main() {
@@ -64,7 +72,7 @@ async function main() {
     }
 }
 
-main().catch((error) => {  
+main().catch((error) => {
     console.log(error)
     process.exit(1)
 })

@@ -102,6 +102,7 @@ export interface getAllJobsEntity {
 
 export interface filterPagination {
     name?: string | null,
+    location?: string,
     pageSize?: number,
     page?: number,
     category?: [string] | [],

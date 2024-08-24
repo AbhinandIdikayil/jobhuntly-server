@@ -10,13 +10,26 @@ export const createChatController = (dependencies: IDependencies) => {
             const { _id } = req?.user || {}
             const { data } = req.body
             console.log(req.body, _id)
-            if (req.body && _id) {
-                const value = {
-                    members:[
-                        _id,
-                        data
-                    ]
+            if (data?.data && data?.role && _id) {
+                let value: any
+                if(data?.role == 'user'){
+                    value = {
+                        // ...value,
+                        members:[
+                            _id,
+                            data?.data
+                        ]
+                    }
+                } else {
+                    value = {
+                        // ...value,
+                        members:[
+                            data?.data,
+                            _id,
+                        ]
+                    }
                 }
+                console.log(value)
                 const result = await createOneToOneChatUsecase(dependencies).execute(value)
                 if (result) {
                     return res.status(200).json(result)

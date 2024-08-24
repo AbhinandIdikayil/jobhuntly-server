@@ -133,7 +133,6 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                 }
             ])
         } else {
-            console.log('hii--------')
             const objectIds = option?.category?.map(id => new Types.ObjectId(id)) ?? [];
             const employmentIds = option?.employment?.map(id => new Types.ObjectId(id) ?? [])
             // Convert salary range strings to numbers
@@ -146,6 +145,14 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                             jobTitle: {
                                 $regex: option?.name, // Search term
                                 $options: 'i' // Case-insensitive search
+                            }
+                        } : {}),
+                        ...(option?.location ? {
+                            location: {
+                                $elemMatch: {
+                                    $regex: option.location,
+                                    $options: 'i' // Case-insensitive search
+                                }
                             }
                         } : {}),
                         ...(option?.category?.length ? {

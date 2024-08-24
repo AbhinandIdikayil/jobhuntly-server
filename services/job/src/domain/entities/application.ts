@@ -1,6 +1,7 @@
 
 export interface ApplicationEntity {
     _id: string;
+    companyId: any,
     jobId: {
         _id?: string,
         jobTitle?: string,
@@ -35,10 +36,21 @@ export interface ApplicationEntity {
     answers: any[];
     createdAt: string;
     hiring_info: any[];
+    schedule: [
+        {
+            testType: string,
+            date: string,
+            roomId: string,
+            time: string,
+            status: string,
+            feedback: string
+        },
+    ],
 }
 
 export interface ApplicantsEntity {
     _id: string;
+    companyId: any
     jobId: {
         _id?: string,
         jobTitle?: string,
@@ -107,4 +119,14 @@ export interface ApplicantsEntity {
     answers: any[];
     createdAt: string;
     hiring_info: any[];
+    schedule: [
+        {
+            testType: string,
+            date: string,
+            roomId: string,
+            time: string,
+            status: string,
+            feedback: string
+        },
+    ],
 }

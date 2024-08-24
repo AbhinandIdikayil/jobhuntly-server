@@ -15,7 +15,8 @@ export const getAllJobsController = (depependencies: IDependencies) => {
                 name: req.query?.name as string || null ,
                 category: req.query?.category as [string] ?? null ,
                 employment: req.query?.employment as [string] ?? null ,
-                price: req.query?.price  as [string] ?? []
+                price: req.query?.price  as [string] ?? [],
+                location: req.query?.location as string
             }
             console.log(option,'--------',req.params,req.query)
             let data

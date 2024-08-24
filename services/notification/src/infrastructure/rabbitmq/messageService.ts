@@ -1,4 +1,4 @@
-import { sendOtpToUser } from './function/sendOtpMail';
+import { sendInterviewMail, sendOtpToUser, sendShortListedEmail } from './function/sendOtpMail';
 import { RabbitMQ, IMessage } from './index'
 
 
@@ -12,10 +12,10 @@ export class MessageService {
 
     async start(): Promise<void> {
         try {
-            
+
             await this.rabbitMQ.connect()
             await this.rabbitMQ.consumeMessage(this.handleMessage)
-    
+
             console.log('-------------- starting to consume ------------')
         } catch (error) {
             console.log(error)
@@ -32,7 +32,12 @@ export class MessageService {
             case 'email-otp-cmpany':
                 console.log(message)
                 break;
-
+            case 'shortlisted':
+                sendShortListedEmail(message)
+                break;
+            case 'interview':
+                sendInterviewMail(message)
+                break;
             default:
                 break;
         }

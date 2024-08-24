@@ -9,11 +9,13 @@ import { getAllJobsController } from "./getAllJobsController"
 import { getApplicantController } from "./getApplicantsController"
 import { getApplicationController } from "./getApplicationController"
 import { getSpecificApplicantController } from "./getSpecificApplicantController"
+import { interviewController } from "./interview"
 import { jobDetailsController } from "./jobDetailsController"
 import { listCategoryController } from "./listCategory"
 import { postJobController } from "./postJob"
 import { removeJobController } from "./removeJob"
 import { sectorController } from "./sector"
+import { updateApplicationStatusController } from "./updateApplicationStatus"
 import { updateCategoryController } from "./updateCategory"
 
 
@@ -35,6 +37,8 @@ export const controller = (dependencies: IDependencies) => {
         editJob:editJobController(dependencies),
         getApplication:getApplicationController(dependencies),
         getApplicants:getApplicantController(dependencies),
-        getSpecificApplicant:getSpecificApplicantController(dependencies)
+        getSpecificApplicant:getSpecificApplicantController(dependencies),
+        updateApplicationStatus:updateApplicationStatusController(dependencies),
+        interview:interviewController(dependencies),
     }
 }

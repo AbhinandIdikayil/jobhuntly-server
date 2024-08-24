@@ -1,6 +1,6 @@
-import { CompanyEntity } from "../entities";
+import { CompanyEntity, filterPagination } from "../entities";
 
 
 export interface IGetAllCompanyUsecasee {
-    execute(): Promise<CompanyEntity[] | null>
+    execute(option?:filterPagination): Promise<CompanyEntity[] | null>
 }
