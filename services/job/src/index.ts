@@ -9,7 +9,7 @@ const cloudinaryUrl = 'https://res.cloudinary.com/dghv07eag/image/upload/v172294
 
 const startServer = async () => {
     try {
-        await resumeAnalyzer(cloudinaryUrl)
+        // await resumeAnalyzer(cloudinaryUrl)
         // await analyzeResume(cloudinaryUrl)
         
         app

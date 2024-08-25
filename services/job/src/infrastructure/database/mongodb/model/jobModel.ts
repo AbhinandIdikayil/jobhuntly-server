@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import { applicantModel } from './applicantModel'
+import { resumeAnalyzer } from '../../../../utils/resumeAnalyzer'
 
 
 const jobSchema = new mongoose.Schema({
@@ -34,9 +36,28 @@ const jobSchema = new mongoose.Schema({
     qualification: [String],
     status: {
         type: Boolean,
-        default:false
+        default: false
     },
     expired: Boolean,
 }, { timestamps: true })
+
+jobSchema.post('findOneAndUpdate', async function (doc, next) {
+    if (!doc.isNew) {
+        console.log('HIiiiiiiiiiiiiii')
+        try {
+            const applicants = await applicantModel.find({ jobId: doc._id })
+            for (let applicant of applicants) {
+                if (applicant?.resume) {
+                    const newScore = await resumeAnalyzer(applicant?.resume, doc.skills, doc.qualification)
+                    applicant.mark = newScore;
+                    await applicant.save();
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    next()
+})
 
 export const jobModel = mongoose.model('Job', jobSchema)
