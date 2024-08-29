@@ -10,7 +10,7 @@ const skillSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-})
+},{timestamps:true})
 
 export const SkillModel = mongoose.model('Skill',skillSchema)
 

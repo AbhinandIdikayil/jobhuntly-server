@@ -47,9 +47,9 @@ export const router = (dependencies: IDependencies) => {
     router.route('/delete-category').put(deleteCategory)
     router.route('/update-category').put(updateCategory)
     router.route('/skill')
-        .post(skill.addSkill)
-        .put(skill.editSkill)
-        .get(skill.listSkill)
+        .post(verifyToken,skill.addSkill)
+        .put(verifyToken,skill.editSkill)
+        .get(verifyToken,skill.listSkill)
     router.route('/add-sector').post(sector.addSector)
     router.route('/sector').get(sector.listSector)
     return router

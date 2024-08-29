@@ -5,6 +5,10 @@ import { SkillModel } from "../../model/skillsModel"
 export const editSkill = async (data: SkillEntity): Promise<SkillEntity | null> => {
     try {
         if (data._id) {
+            const exist = await SkillModel.findOne({ name: { $regex: new RegExp(`^${data?.name}$`, 'i') } })
+            if(exist){
+                throw new Error('Skill exist')
+            }
             const editedSkill = await SkillModel.findByIdAndUpdate(
                 { _id: data?._id },
                 { $set: { ...data } },
