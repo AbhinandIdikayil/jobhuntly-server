@@ -15,6 +15,7 @@ import { listCategoryController } from "./listCategory"
 import { postJobController } from "./postJob"
 import { removeJobController } from "./removeJob"
 import { sectorController } from "./sector"
+import { SkillController } from "./skill"
 import { updateApplicationStatusController } from "./updateApplicationStatus"
 import { updateCategoryController } from "./updateCategory"
 
@@ -40,5 +41,6 @@ export const controller = (dependencies: IDependencies) => {
         getSpecificApplicant:getSpecificApplicantController(dependencies),
         updateApplicationStatus:updateApplicationStatusController(dependencies),
         interview:interviewController(dependencies),
+        skill:SkillController(dependencies)
     }
 }
