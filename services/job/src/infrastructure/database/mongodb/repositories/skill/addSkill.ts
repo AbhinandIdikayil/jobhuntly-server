@@ -5,7 +5,7 @@ export const addSkill = async (data:SkillEntity): Promise<SkillEntity | null> =>
     try {
         if(data){
             const skill = await SkillModel.create(data)
-            return skill ? skill as SkillEntity : null
+            return skill ? skill as unknown as SkillEntity : null
         } else {
             return null
         }

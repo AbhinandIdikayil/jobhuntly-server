@@ -24,4 +24,5 @@ export interface IRepositories {
     scheduleInterview(applicantId: string,time:string,date:string,type:string, room:string): Promise<ApplicantsEntity | null>
     editInterview(applicantId: string,data:any, index:number): Promise<ApplicantsEntity | null>
     addSkill(data:SkillEntity): Promise<SkillEntity | null>
+    editSkill(data:SkillEntity): Promise<SkillEntity | null>
 }
