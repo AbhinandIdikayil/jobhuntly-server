@@ -25,4 +25,5 @@ export interface IRepositories {
     editInterview(applicantId: string,data:any, index:number): Promise<ApplicantsEntity | null>
     addSkill(data:SkillEntity): Promise<SkillEntity | null>
     editSkill(data:SkillEntity): Promise<SkillEntity | null>
+    listSkills(): Promise<SkillEntity[] | null>
 }
