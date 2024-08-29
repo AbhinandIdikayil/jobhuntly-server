@@ -1,4 +1,5 @@
 import { ApplicantsEntity, ApplicationEntity, CategoryEntity, CompanyEntity, filterPagination, getAllJobsEntity, JobEntity, SectorEntity, UserEntity } from "../../domain/entities";
+import { SkillEntity } from "../../domain/entities/SkillEntity";
 
 export interface IRepositories {
     addCategory(data: CategoryEntity): Promise<CategoryEntity | null>
@@ -22,4 +23,5 @@ export interface IRepositories {
     updateApplicationStatus(id: string): Promise<ApplicantsEntity | null>
     scheduleInterview(applicantId: string,time:string,date:string,type:string, room:string): Promise<ApplicantsEntity | null>
     editInterview(applicantId: string,data:any, index:number): Promise<ApplicantsEntity | null>
+    addSkill(data:SkillEntity): Promise<SkillEntity | null>
 }

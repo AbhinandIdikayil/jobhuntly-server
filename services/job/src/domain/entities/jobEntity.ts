@@ -104,7 +104,7 @@ export interface filterPagination {
     name?: string | null,
     location?: string,
     pageSize?: number,
-    page?: number,
+    page: number,
     category?: [string] | [],
     employment?: [string] | [],
     price?: [string] | []
