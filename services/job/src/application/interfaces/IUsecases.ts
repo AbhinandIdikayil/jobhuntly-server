@@ -14,6 +14,7 @@ import { IListCategory , IAddCategoryUsecase, IDeleteCategoryUsecase, IUpdateCat
     IaddSkillUsecase,
     IEditSkillUsecae,
     IListSkillUsecae,
+    IDownloadHiredAndDeclined,
     } from "../../domain/usecaseInterface";
 import { IDependencies } from "./IDependencies";
 
@@ -43,4 +44,5 @@ export interface IUsecases {
     addSkillUsecase:(dependencies:IDependencies) => IaddSkillUsecase
     editSkillUsecase:(dependencies:IDependencies) => IEditSkillUsecae
     listSkillsUsecase:(dependencies:IDependencies) => IListSkillUsecae
+    downloadHiredAndDeclinedCandidateUsecase:(dependencies:IDependencies) => IDownloadHiredAndDeclined
 }

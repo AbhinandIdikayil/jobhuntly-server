@@ -26,4 +26,5 @@ export interface IRepositories {
     addSkill(data:SkillEntity): Promise<SkillEntity | null>
     editSkill(data:SkillEntity): Promise<SkillEntity | null>
     listSkills(): Promise<SkillEntity[] | null>
+    downloadHiredAndRejectedCandidate(id: string): Promise<ApplicantsEntity[] | null>
 }

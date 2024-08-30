@@ -9,7 +9,7 @@ export const router = (dependencies: IDependencies) => {
     const { addCategory, listCategory, deleteCategory, updateCategory,
         sector, postjob, addCompany, addUser, getAllJobs, applyForJob
         , getJobDetails, removeJob, editJob, getApplication, getApplicants
-        , getSpecificApplicant, updateApplicationStatus, interview, skill } = controller(dependencies)
+        , getSpecificApplicant, updateApplicationStatus, interview, skill, download } = controller(dependencies)
 
 
     router.route('/add-company').post(addCompany)
@@ -32,6 +32,7 @@ export const router = (dependencies: IDependencies) => {
     router.route('/schedule-interview/:applicationID')
         .put(verifyToken, interview.scheduleInterview)
         .patch(verifyToken, interview.editInterview)
+    router.route('/download').post(verifyToken,download)
 
     //! ROUTE FOR USER
     router.route('/jobs').get(getAllJobs)
