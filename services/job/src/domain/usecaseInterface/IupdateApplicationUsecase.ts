@@ -2,5 +2,5 @@ import { ApplicantsEntity } from "../entities";
 
 
 export interface IUpdateApplicationUsecase {
-    execute(id: string): Promise<ApplicantsEntity | null>
+    execute(id: string,hired?:boolean): Promise<ApplicantsEntity | null>
 }

@@ -5,9 +5,13 @@ import { IDependencies } from "../interfaces/IDependencies"
 export const updateApplicationStatusUsecase = (dependencies: IDependencies) => {
     const { repositories: { updateApplicationStatus } } = dependencies
     return {
-        execute: async (applicationId: string) => {
+        execute: async (applicationId: string,hired?:boolean) => {
             try {
-                return await updateApplicationStatus(applicationId)
+                if(hired === true || hired === false){
+                    return await updateApplicationStatus(applicationId,hired)
+                } else {
+                    return await updateApplicationStatus(applicationId)
+                }
             } catch (error) {
                 throw error
             }
