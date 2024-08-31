@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 export enum MessageStatusEnum {
     SENT = 'sent',
-    DELIVERED = 'delivered',
+    DELIVERED = 'unread',
     READ = 'read'
 }
 

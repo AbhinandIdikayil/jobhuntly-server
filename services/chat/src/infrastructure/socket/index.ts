@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+import { updateMessageStatus } from "../database/mongodb/repositories/updateMessageStatus";
 
 export const setUpSocketIo = (io: any) => {
     let onlineUsers: any = [];
@@ -40,11 +41,15 @@ export const setUpSocketIo = (io: any) => {
 
 
         //! READ AND UNREAD
-        socket.on('select_user',(data) => {
-            
+        // { messageId, senderId }:{messageId: string, senderId: string}
+        socket.on('mark-as-read', (data) => {
+            console.log(data )
+            io.to(data?.senderId).emit('message-read', { messageId:data?.messageId, status: 'read' })
+            updateMessageStatus({id:data?.messageId,status:'read'})
         })
 
         socket.on('send-message', (data) => {   //! USER WHILE SENDING MESSAGE
+            console.log('send message----------',data)
             io.to(data?.recieverId).emit('recieve-message', data)
         })
 
