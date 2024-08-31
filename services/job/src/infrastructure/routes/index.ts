@@ -2,6 +2,7 @@ import { Router } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { controller } from "../../presentation/controller";
 import { verifyToken } from "../../utils/verifyToken";
+import { recommendJobsController } from "../../presentation/controller/recommendJobs";
 
 
 export const router = (dependencies: IDependencies) => {
@@ -34,11 +35,15 @@ export const router = (dependencies: IDependencies) => {
         .patch(verifyToken, interview.editInterview)
     router.route('/download').post(verifyToken,download)
 
+
+
+
     //! ROUTE FOR USER
     router.route('/jobs').get(getAllJobs)
     router.route('/apply-job').post(verifyToken, applyForJob);
     router.route('/details/:id').get(getJobDetails)
     router.route('/application').get(verifyToken, getApplication)
+    router.route('/recommend/:userId').get(recommendJobsController())
 
 
 

@@ -8,10 +8,14 @@
     "dev": "tsc-watch --onSuccess \"npm start\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "nodemonConfig": {
+    "ignore": ["services/job/models/*"]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tensorflow/tfjs": "^4.20.0",
     "@types/natural": "^5.1.5",
     "amqplib": "^0.10.4",
     "axios": "^1.7.4",
@@ -24,6 +28,7 @@
     "mongoose": "^8.5.1",
     "natural": "^8.0.1",
     "pdf-parse": "^1.1.1",
+    "tfjs-node-save": "^0.0.2",
     "wink-eng-lite-web-model": "^1.8.0",
     "wink-nlp": "^2.3.0"
   },

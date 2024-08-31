@@ -38,6 +38,12 @@ export const setUpSocketIo = (io: any) => {
             io.emit('call-ended', { callId });
         });
 
+
+        //! READ AND UNREAD
+        socket.on('select_user',(data) => {
+            
+        })
+
         socket.on('send-message', (data) => {   //! USER WHILE SENDING MESSAGE
             io.to(data?.recieverId).emit('recieve-message', data)
         })

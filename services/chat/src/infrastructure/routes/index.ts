@@ -6,7 +6,7 @@ import { verifyToken } from "../../utils/verifyToken"
 
 export const routes = (dependencies: IDependencies) => {
     const router = Router()
-    const { createChat, listChats, sendMessage, allMessages } = controller(dependencies)
+    const { createChat, listChats, sendMessage, allMessages, updateMessage } = controller(dependencies)
 
     router.route('/create').post(verifyToken, createChat) //! USED TO CREATE THE CHAT
 
@@ -16,6 +16,7 @@ export const routes = (dependencies: IDependencies) => {
         .post(verifyToken,sendMessage)
         .get(verifyToken,allMessages)
 
+    router.route('/update').put(verifyToken, updateMessage)
 
     return router
 }

@@ -11,8 +11,20 @@ export const downloadHiredAndRejectedCandidate = async (id: string): Promise<App
                     companyId: new Types.ObjectId(id),
                     hiring_status: { $in: ['hired', 'rejected'] }
                 }
-            }
+            },
+            {
+                $lookup:{
+                    from:'users',
+                    foreignField:'_id',
+                    localField:'userId',
+                    as:'user'
+                }
+            },
+            {
+                $unwind:'$user'
+            },
         ])
+        console.log(applicants)
         return applicants as ApplicantsEntity[]
     } catch (error: any) {
         throw new Error(error?.message)
