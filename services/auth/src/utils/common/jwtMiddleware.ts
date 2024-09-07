@@ -30,7 +30,6 @@ export const verifyToken = (
         }
 
         if (decoded) {
-          console.log(decoded)
           const { _id, email, role } = decoded as CustomJwtPayload;
           let isBlock = await authModel.findById(_id)
           if (isBlock?.isBlocked) {

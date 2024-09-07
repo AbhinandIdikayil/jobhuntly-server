@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 export const PORT = Number(process.env.PORT)
+export const maxAge = { maxAge: 60 * 60 * 24 * 1000 } //! for 1 day
+export const refreshTokenMaxage = { maxAge: 60 * 60 * 24 * 30 * 1000 } //! for 30 days
 console.log(PORT)
 
 

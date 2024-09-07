@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { controller } from "../../presentation/controller";
-import { verifyToken } from '../../utils/common/jwtMiddleware'
 
 export const routes = (dependencies: IDependencies) => {
 
@@ -10,7 +9,8 @@ export const routes = (dependencies: IDependencies) => {
 
     const router = Router()
     const { signup, login, googleAuth, logout,
-        verifyOtp, verifyEmail, forgotPassword, adminLogin } = controller(dependencies)
+        verifyOtp, verifyEmail, forgotPassword,
+         adminLogin, refreshToken } = controller(dependencies)
 
     router.route('/signup').post(signup);
 
@@ -27,6 +27,8 @@ export const routes = (dependencies: IDependencies) => {
     router.route('/forgot-password').put(forgotPassword)
 
     router.route('/admin').post(adminLogin)
+
+    router.route('/refresh').post(refreshToken)
 
     return router;
 }
