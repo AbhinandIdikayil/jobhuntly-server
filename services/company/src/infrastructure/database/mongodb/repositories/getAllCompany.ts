@@ -29,6 +29,7 @@ export const getAllCompany = async (option?: filterPagination): Promise<CompanyE
                             }
                         }))
                     } : {}),
+                    approvalStatus:'Accepted',
                 },
             },
             {
