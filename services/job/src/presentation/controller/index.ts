@@ -4,6 +4,7 @@ import { addCompanyController } from "./addCompany"
 import { addUserController } from "./addUser"
 import { applyJobController } from "./applyJobController"
 import { deleteCategoryController } from "./deleteCategory"
+import { downloadController } from "./downloadController"
 import { editJobController } from "./editJobController"
 import { getAllJobsController } from "./getAllJobsController"
 import { getApplicantController } from "./getApplicantsController"
@@ -15,6 +16,7 @@ import { listCategoryController } from "./listCategory"
 import { postJobController } from "./postJob"
 import { removeJobController } from "./removeJob"
 import { sectorController } from "./sector"
+import { SkillController } from "./skill"
 import { updateApplicationStatusController } from "./updateApplicationStatus"
 import { updateCategoryController } from "./updateCategory"
 
@@ -40,5 +42,7 @@ export const controller = (dependencies: IDependencies) => {
         getSpecificApplicant:getSpecificApplicantController(dependencies),
         updateApplicationStatus:updateApplicationStatusController(dependencies),
         interview:interviewController(dependencies),
+        skill:SkillController(dependencies),
+        download:downloadController(dependencies)
     }
 }

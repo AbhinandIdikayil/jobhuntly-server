@@ -1,5 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
+export enum MessageStatusEnum {
+    SENT = 'sent',
+    DELIVERED = 'unread',
+    READ = 'read'
+}
 
 const messageSchema = new Schema({
     senderId: {
@@ -21,9 +26,12 @@ const messageSchema = new Schema({
     },
     status:{
         type: String,
-        enum:['sent','delivered','read'],
+        enum:Object.values(MessageStatusEnum),
         default:'sent'
     }
 }, { timestamps: true })
+
+
+
 
 export const messageModel = mongoose.model('Messages', messageSchema)

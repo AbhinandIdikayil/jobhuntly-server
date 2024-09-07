@@ -2,13 +2,11 @@ import { Types } from "mongoose";
 import { filterPagination, getAllJobsEntity, JobEntity } from "../../../../domain/entities";
 import { jobModel } from "../model/jobModel";
 
-
 export const getAllJobs = async (companyId: string, option?: filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
         let job: any;
-        console.log(companyId, option)
-        if (companyId) {
 
+        if (companyId) {
             job = await jobModel.aggregate([
                 {
                     $match: {
@@ -124,7 +122,7 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                     $facet: {
                         jobs: [
                             { $skip: (option?.page || 0) * (option?.pageSize || 5) },
-                            { $limit: option?.pageSize || 5 }
+                            { $limit: option?.pageSize ?? 5 }
                         ],
                         totalCount: [
                             { $count: 'count' }
@@ -224,7 +222,7 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                     $facet: {
                         jobs: [
                             { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
-                            { $limit: option?.pageSize ?? 1 }
+                            { $limit:option?.pageSize ?? 5 }
                         ],
                         totalCount: [
                             { $count: 'count' }
@@ -233,7 +231,6 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                 }
             ])
         }
-        console.log(job[0].jobs?.length, '---')
         const jobs = await jobModel.find()
             .populate('employment')
             .populate('category')

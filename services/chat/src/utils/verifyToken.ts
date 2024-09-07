@@ -23,7 +23,7 @@ export const verifyToken = (
     jwt.verify(
       token,
       String(process.env.ACCESS_TOKEN_SECRET),
-      async (err: jwt.VerifyErrors | null, decoded: any) => {
+       (err: jwt.VerifyErrors | null, decoded: any) => {
         if (err) {
           return res.status(401).json({ message: "Failed to authenticate token" });
         }

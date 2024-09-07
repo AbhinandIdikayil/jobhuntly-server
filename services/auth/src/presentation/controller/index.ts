@@ -4,6 +4,7 @@ import { forgotpasswordController } from "./forgotPassword"
 import { googleAuthContoller } from "./googleAuth"
 import { loginContoller } from "./login"
 import { logoutController } from "./logout"
+import { RefreshTokenController } from "./RefreshTokenController"
 import { signupController } from "./signup"
 import { verifyEmailController } from "./verifyEmail"
 import { verifyOtpContoller } from "./verifyOtp"
@@ -19,6 +20,7 @@ export const controller = (dependencies:IDependencies) => {
         verifyOtp:verifyOtpContoller(dependencies),
         verifyEmail:verifyEmailController(dependencies),
         forgotPassword:forgotpasswordController(dependencies),
-        adminLogin:adminLoginController(dependencies)
+        adminLogin:adminLoginController(dependencies),
+        refreshToken:RefreshTokenController()
     }
 }

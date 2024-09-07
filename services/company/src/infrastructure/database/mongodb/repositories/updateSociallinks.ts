@@ -26,7 +26,7 @@ export const updateSocialLinks = async (data: CompanyEntity, email: string): Pro
         } else {
             throw new Error('provice email and data')
         }
-    } catch (error: any | Error) {
+    } catch (error: any | Error) { 
         throw new Error(error)
     }
 }

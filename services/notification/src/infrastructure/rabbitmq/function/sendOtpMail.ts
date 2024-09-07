@@ -114,7 +114,7 @@ export const sendInterviewLinkMial = (data: any) => {
     let message = {
         from: process.env.EMAIL,
         to: data?.email,
-        subject: 'Your job application has been shortlisted',
+        subject: 'Your interview just started join asap',
         html: htmlContent
     };
 

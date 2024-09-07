@@ -2,6 +2,7 @@ import { Router } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { controller } from "../../presentation/controller";
 import { verifyToken } from "../../utils/verifyToken";
+import { recommendJobsController } from "../../presentation/controller/recommendJobs";
 
 
 export const router = (dependencies: IDependencies) => {
@@ -9,7 +10,7 @@ export const router = (dependencies: IDependencies) => {
     const { addCategory, listCategory, deleteCategory, updateCategory,
         sector, postjob, addCompany, addUser, getAllJobs, applyForJob
         , getJobDetails, removeJob, editJob, getApplication, getApplicants
-        , getSpecificApplicant, updateApplicationStatus, interview } = controller(dependencies)
+        , getSpecificApplicant, updateApplicationStatus, interview, skill, download } = controller(dependencies)
 
 
     router.route('/add-company').post(addCompany)
@@ -32,12 +33,17 @@ export const router = (dependencies: IDependencies) => {
     router.route('/schedule-interview/:applicationID')
         .put(verifyToken, interview.scheduleInterview)
         .patch(verifyToken, interview.editInterview)
+    router.route('/download').post(verifyToken,download)
+
+
+
 
     //! ROUTE FOR USER
     router.route('/jobs').get(getAllJobs)
     router.route('/apply-job').post(verifyToken, applyForJob);
     router.route('/details/:id').get(getJobDetails)
     router.route('/application').get(verifyToken, getApplication)
+    router.route('/recommend/:userId').get(recommendJobsController())
 
 
 
@@ -46,7 +52,10 @@ export const router = (dependencies: IDependencies) => {
     router.route('/category').get(listCategory)
     router.route('/delete-category').put(deleteCategory)
     router.route('/update-category').put(updateCategory)
-
+    router.route('/skill')
+        .post(verifyToken,skill.addSkill)
+        .put(verifyToken,skill.editSkill)
+        .get(verifyToken,skill.listSkill)
     router.route('/add-sector').post(sector.addSector)
     router.route('/sector').get(sector.listSector)
     return router

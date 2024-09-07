@@ -8,7 +8,7 @@ export const controller = () => {
             console.log('hiiiiiiiiii')
             try {
                 const {data} = req.body
-                console.log(req.body)
+                console.log(req.body)  
                 let result = sendInterviewLinkMial(data)
                 if(result) {
                     return res.status(200).json('Email sented successfully');
