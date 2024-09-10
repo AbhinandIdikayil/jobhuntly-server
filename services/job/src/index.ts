@@ -12,7 +12,7 @@ const startServer = async () => {
     try {
         // await resumeAnalyzer(cloudinaryUrl)
         // await analyzeResume(cloudinaryUrl)
-        main().catch(console.error);
+        // main().catch(console.error);
         app
         await connectDB()
         await startProducer()
