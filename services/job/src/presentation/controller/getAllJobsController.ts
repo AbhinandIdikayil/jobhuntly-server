@@ -11,13 +11,14 @@ export const getAllJobsController = (depependencies: IDependencies) => {
             const { id } = req.params
             const option:filterPagination = {
                 page: (parseInt(req?.query?.page as string) - 1) || 0,
-                pageSize: parseInt(req.query?.pageSize as string ?? 5) ,
+                pageSize: parseInt(req.query?.pageSize as string ?? 0) || Infinity ,
                 name: req.query?.name as string || null ,
                 category: req.query?.category as [string] ?? null ,
                 employment: req.query?.employment as [string] ?? null ,
                 price: req.query?.price  as [string] ?? [],
                 location: req.query?.location as string
             }
+            console.log(option)
             let data
             if (id) {
                 data = await getAllJobsUsecase(dependencies).execute(id,option)

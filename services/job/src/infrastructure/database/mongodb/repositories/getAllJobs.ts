@@ -5,7 +5,13 @@ import { jobModel } from "../model/jobModel";
 export const getAllJobs = async (companyId: string, option?: filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
         let job: any;
-
+        let f = [
+            { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
+            { $limit: option?.pageSize ?? 5 }
+        ]
+        if(option?.pageSize === Infinity){
+            f = []
+        }
         if (companyId) {
             job = await jobModel.aggregate([
                 {
@@ -121,8 +127,9 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                 {
                     $facet: {
                         jobs: [
-                            { $skip: (option?.page || 0) * (option?.pageSize || 5) },
-                            { $limit: option?.pageSize ?? 5 }
+                            // { $skip: (option?.page || 0) * (option?.pageSize || 5) },
+                            // { $limit: option?.pageSize ?? 5 }
+                            ...f
                         ],
                         totalCount: [
                             { $count: 'count' }
@@ -222,7 +229,7 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                     $facet: {
                         jobs: [
                             { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
-                            { $limit:option?.pageSize ?? 5 }
+                            { $limit: option?.pageSize ?? 5 }
                         ],
                         totalCount: [
                             { $count: 'count' }
