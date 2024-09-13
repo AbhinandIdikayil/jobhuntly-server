@@ -43,7 +43,7 @@ export const router = (dependencies: IDependencies) => {
     router.route('/apply-job').post(verifyToken, applyForJob);
     router.route('/details/:id').get(getJobDetails)
     router.route('/application').get(verifyToken, getApplication)
-    router.route('/recommend/:userId').get(recommendJobsController())
+    router.route('/recommend').get(verifyToken,recommendJobsController())
 
 
 

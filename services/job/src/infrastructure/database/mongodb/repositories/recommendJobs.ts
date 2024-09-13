@@ -3,7 +3,6 @@ import { userModel } from '../model/userMode';
 import { createSkillVector, getAllSkills } from './dataPrepration';
 import { jobModel } from '../model/jobModel';
 import path from 'path';
-import 'tfjs-node-save'
 
 export async function recommendJobs(userId: string, topN = 5, threshold = 0.7) {
     const modelLoadPath = `file://${path.resolve(__dirname, '..', '..', '..', '..', '..', 'models', 'job-recommendation-model', 'model.json')}`;
@@ -24,7 +23,22 @@ export async function recommendJobs(userId: string, topN = 5, threshold = 0.7) {
     const userEmbedding = prediction.arraySync()[0] as number[]; // Get the prediction as an array
 
     // Fetch job data
-    const jobs = await jobModel.find({});
+    const jobs = await jobModel.aggregate([
+        {
+            $lookup:{
+                from: 'companies', // The name of the collection in MongoDB
+                localField: 'companyId',
+                foreignField: '_id',
+                as: 'company'
+            }
+        },
+        {
+            $unwind: {
+                path: '$company',
+                preserveNullAndEmptyArrays: true // Include jobs with no company info
+            }
+        },
+    ]);
     const jobVectors = jobs.map(job => createSkillVector(job.skills, allSkills));
 
     // Convert job vectors to tensor
