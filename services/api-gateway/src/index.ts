@@ -1,7 +1,8 @@
 import express, { Application } from 'express'
 import cors from 'cors'
 import { createProxyMiddleware } from 'http-proxy-middleware'
-
+import { verifyToken } from './utils/verify';
+import parser from 'cookie-parser'
 const app: Application = express()
 const port = 8000;
 
@@ -20,7 +21,9 @@ const corsOptions = {
     credentials: true,
 };
 
+app.use(parser())
 app.use(cors(corsOptions));
+
 
 app.use('/api/v1/auth', createProxyMiddleware({
     target: services.auth,
@@ -28,7 +31,7 @@ app.use('/api/v1/auth', createProxyMiddleware({
   
 }));
 
-app.use('/api/v1/chat', createProxyMiddleware({
+app.use('/api/v1/chat',verifyToken, createProxyMiddleware({
     target: services.chat,
     changeOrigin: true,
 }));
@@ -49,7 +52,7 @@ app.use('/api', createProxyMiddleware({
     changeOrigin: true,
 }));
 
-app.use('/api/v1/user', createProxyMiddleware({
+app.use('/api/v1/user',verifyToken, createProxyMiddleware({
     target: services.user,
     changeOrigin: true,
 }));

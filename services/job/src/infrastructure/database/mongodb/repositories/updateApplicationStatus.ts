@@ -3,12 +3,10 @@ import { applicantModel } from "../model/applicantModel"
 
 export const updateApplicationStatus = async (applicationId: string, hired?: boolean): Promise<ApplicantsEntity | null> => {
     try {
-
         const applicant = await applicantModel.findById(applicationId);
         if (!applicant) {
             throw new Error('Applicant not found');
         }
-        console.log(hired)
         console.log(hired)
 
         if (hired == undefined) {

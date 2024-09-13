@@ -1,6 +1,5 @@
 import { ApplicantsEntity } from "../../../../domain/entities"
 import { applicantModel } from "../model/applicantModel"
-import { jobModel } from "../model/jobModel"
 
 
 export const getApplicants = async (companyId: string): Promise<ApplicantsEntity[] | null> => {
