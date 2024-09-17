@@ -12,7 +12,7 @@ const services = {
     company: 'http://localhost:4000/api/v1/company',
     job: 'http://localhost:5000/api/v1/job',
     notification: 'http://localhost:6000/api',
-    user: 'http://localhost:7000/api/v1/user',
+    user: 'http://localhost:7000/api/v1/user', 
 };
 
 const corsOptions = {
@@ -28,10 +28,10 @@ app.use(cors(corsOptions));
 app.use('/api/v1/auth', createProxyMiddleware({
     target: services.auth,
     changeOrigin: true,
-  
+
 }));
 
-app.use('/api/v1/chat',verifyToken, createProxyMiddleware({
+app.use('/api/v1/chat', createProxyMiddleware({
     target: services.chat,
     changeOrigin: true,
 }));
@@ -39,7 +39,7 @@ app.use('/api/v1/chat',verifyToken, createProxyMiddleware({
 app.use('/api/v1/company', createProxyMiddleware({
     target: services.company,
     changeOrigin: true,
-  
+
 }));
 
 app.use('/api/v1/job', createProxyMiddleware({
@@ -47,15 +47,17 @@ app.use('/api/v1/job', createProxyMiddleware({
     changeOrigin: true,
 }));
 
+app.use('/api/v1/user', createProxyMiddleware({
+    target: services.user,
+    changeOrigin: true,
+}));
+
+
 app.use('/api', createProxyMiddleware({
     target: services.notification,
     changeOrigin: true,
 }));
 
-app.use('/api/v1/user',verifyToken, createProxyMiddleware({
-    target: services.user,
-    changeOrigin: true,
-}));
 
 app.listen(port, () => {
     console.log('Gateway running successfully');

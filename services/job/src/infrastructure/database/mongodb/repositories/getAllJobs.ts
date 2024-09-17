@@ -229,8 +229,9 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                 {
                     $facet: {
                         jobs: [
-                            { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
-                            { $limit: option?.pageSize ?? 5 }
+                            // { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
+                            // { $limit: option?.pageSize ?? 5 }
+                            ...f
                         ],
                         totalCount: [
                             { $count: 'count' }

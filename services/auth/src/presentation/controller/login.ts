@@ -19,7 +19,6 @@ export const loginContoller = (dependencies: IDependencies) => {
             if (result) {
                 const token = generateToken({ _id: String(result?._id), email: result?.email, role: result?.role ?? '' })
                 const refreshToken = generateRefreshToken({ _id: String(result?._id), email: result?.email, role: result?.role ?? '' })
-                console.log(token, '--------',refreshToken)
                 return res.status(200)
                     .cookie('access_token', token, { maxAge: maxAge?.maxAge})
                     .cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: refreshTokenMaxage?.maxAge })
