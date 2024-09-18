@@ -7,6 +7,7 @@ import { routes } from '../infrastructure/routes'
 import { dependencies } from '../config/dependencies'
 import cors from 'cors'
 import { Server as SocketIoServer } from 'socket.io'
+import errorHandler from '../utils/errorMiddleware'
 const app: Application = express()
 
 const server = http.createServer(app)
@@ -16,6 +17,7 @@ app.use(cors(corsOption))
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api/v1/chat', routes(dependencies))
+app.use(errorHandler)
 const io = new SocketIoServer(server, {
     cors: {
         origin: CLIENT_URL

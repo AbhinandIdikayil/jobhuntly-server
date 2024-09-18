@@ -5,7 +5,13 @@ import { jobModel } from "../model/jobModel";
 export const getAllJobs = async (companyId: string, option?: filterPagination): Promise<getAllJobsEntity[] | null> => {
     try {
         let job: any;
-
+        let f = [
+            { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
+            { $limit: option?.pageSize ?? 5 }
+        ]
+        if(option?.pageSize === Infinity){
+            f = []
+        }
         if (companyId) {
             job = await jobModel.aggregate([
                 {
@@ -121,8 +127,9 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                 {
                     $facet: {
                         jobs: [
-                            { $skip: (option?.page || 0) * (option?.pageSize || 5) },
-                            { $limit: option?.pageSize ?? 5 }
+                            // { $skip: (option?.page || 0) * (option?.pageSize || 5) },
+                            // { $limit: option?.pageSize ?? 5 }
+                            ...f
                         ],
                         totalCount: [
                             { $count: 'count' }
@@ -136,6 +143,7 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
             // Convert salary range strings to numbers
             const salaryRange = option?.price?.map(Number) ?? [];
             const [minSalary, maxSalary] = salaryRange.length === 2 ? salaryRange : [undefined, undefined];
+            console.log(minSalary, maxSalary , salaryRange)
             job = await jobModel.aggregate([
                 {
                     $match: {
@@ -164,8 +172,8 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                             }
                         } : {}),
                         ...(salaryRange.length === 2 ? {
-                            'salaryrange.from': { $gte: minSalary }, // From greater than or equal to minSalary
-                            'salaryrange.to': { $lte: maxSalary } // To less than or equal to maxSalary
+                            'salaryrange.from': { $gte: minSalary }, // From less than or equal to maxSalary
+                            'salaryrange.to': { $lte: maxSalary } // To greater than or equal to minSalary
                         } : {})
 
                     },
@@ -221,8 +229,9 @@ export const getAllJobs = async (companyId: string, option?: filterPagination): 
                 {
                     $facet: {
                         jobs: [
-                            { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
-                            { $limit:option?.pageSize ?? 5 }
+                            // { $skip: (option?.page || 0) * (option?.pageSize ?? 5) },
+                            // { $limit: option?.pageSize ?? 5 }
+                            ...f
                         ],
                         totalCount: [
                             { $count: 'count' }

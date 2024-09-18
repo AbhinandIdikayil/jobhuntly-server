@@ -11,7 +11,8 @@ export async function getAllSkills() {
 
 
 export function createSkillVector(userSkills: string[], allSkills: any[]) {
-  return allSkills?.map(skill => userSkills?.includes(skill?.name) ? 1 : 0)
+  const vector = allSkills?.map(skill => userSkills?.includes(skill?.name) ? 1 : 0)
+  return vector
 }
 
 export async function prepareData() {
@@ -21,8 +22,8 @@ export async function prepareData() {
   const jobs = await jobModel.find({}).select('skills');
 
   // Create skill vectors for all users and jobs
-  const userVectors = users.map(user => createSkillVector(user?.skills.map(s => s), allSkills));
-  const jobVectors = jobs.map(job => createSkillVector(job?.skills?.map(s => s), allSkills));
+  const userVectors = users.map(user => createSkillVector(user?.skills, allSkills));
+  const jobVectors = jobs.map(job => createSkillVector(job?.skills, allSkills));
 
 
   // Find the maximum number of samples
