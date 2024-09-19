@@ -9,6 +9,7 @@ import ErrorResponse from "../../utils/common/errorResponse";
 export const loginContoller = (dependencies: IDependencies) => {
     const { usecases: { loginUsecase } } = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
+        console.log('h)))))))))))))))))))))))))))')
         try {
             const { value, error } = loginValidator.validate(req.body)
             if (error) {
