@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express"
 import { recommendJobs } from "../../infrastructure/database/mongodb/repositories/recommendJobs"
+import { ModifiedRequest } from "../../utils/verifyToken"
 
 
 export const recommendJobsController = () => {
-    return async (req:Request, res:Response, next:NextFunction) => {
+    return async (req: ModifiedRequest, res: Response, next: NextFunction) => {
         try {
-            console.log('HII',req.params)
-            const {userId}  = req.params
-            if(userId){
-                const recommendation = await recommendJobs(userId)
+            const { _id } = req.user
+            if (_id) {
+                const recommendation = await recommendJobs(_id)
 
                 console.log(recommendation)
                 return res.status(200).json(recommendation)

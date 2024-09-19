@@ -22,13 +22,14 @@ export const getAllCompany = async (option?: filterPagination): Promise<CompanyE
                             }
                         }
                     } : {}),
-                    ...(option?.category?.length ? {
-                        $or: option.category.map(category => ({
+                    ...(Array.isArray(option?.category) && option.category.length > 0 ? {
+                        $or: option?.category?.map(category => ({
                             industry: {
                                 $regex: new RegExp(`^${category}$`, 'i') // Case-insensitive match for each category
                             }
                         }))
                     } : {}),
+                    approvalStatus:'Accepted',
                 },
             },
             {

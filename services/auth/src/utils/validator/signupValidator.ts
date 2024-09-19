@@ -4,8 +4,13 @@ export const signupValidation = Joi.object({
     name: Joi
         .string()
         .required()
-        .alphanum()
-        .min(3),
+        .pattern(/^[a-zA-Z\s]+$/, 'letters and spaces only')
+        .min(3)
+        .messages({
+            'string.pattern.name': 'Name can only contain letters and spaces.',
+            'string.empty': 'Name is required.',
+            'string.min': 'Name should have at least 3 characters.'
+        }),
     email: Joi
         .string()
         .required()

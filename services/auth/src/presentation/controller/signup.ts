@@ -15,7 +15,8 @@ export const signupController = (dependencies: IDependencies) => {
         try {
             const {error , value} = signupValidation.validate(req.body);
             if(error){
-                throw new Error(error?.message)
+                console.log(error?.message)
+                throw  ErrorResponse.badRequest(error?.message || 'Invalid request data');
             }
             if(value){
                 const result = await signupUsecase(dependencies).execute(value);

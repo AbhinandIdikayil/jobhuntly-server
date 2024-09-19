@@ -28,7 +28,7 @@ export interface CompanyDocument extends Document {
     website?: string;
     employees?: string;
     coverImage?: string;
-    approvelStatus?: {
+    approvalStatus?: {
         type: string;
         enum: ["Accepted", "Rejected", "Pending", "Message"];
         description: string;

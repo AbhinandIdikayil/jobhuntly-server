@@ -8,13 +8,18 @@ import * as tf from '@tensorflow/tfjs'
 async function trainModel(model: tf.Sequential, userVectors: tf.Tensor2D, jobVectors: tf.Tensor2D) {
     try {
 
-        const history = await model.fit(userVectors, jobVectors, {
-            epochs: 100,
+        const normalizedUserVectors = tf.div(userVectors, tf.norm(userVectors, 'euclidean'));
+        const normalizedJobVectors = tf.div(jobVectors, tf.norm(jobVectors, 'euclidean'));
+
+        const history = await model.fit(normalizedUserVectors, normalizedJobVectors, {
+            epochs: 300,
             batchSize: 32,
             validationSplit: 0.2,
             callbacks: {
                 onEpochEnd: (epoch: number, logs: any) => {
-                    console.log(`Epoch ${epoch}: loss = ${logs.loss.toFixed(4)}, accuracy = ${logs.acc.toFixed(4)}`);
+                    if (epoch % 10 === 0) {
+                        console.log(`Epoch ${epoch}: loss = ${logs.loss.toFixed(4)}, accuracy = ${logs.acc.toFixed(4)}, val_loss = ${logs.val_loss.toFixed(4)}, val_acc = ${logs.val_acc.toFixed(4)}`);
+                    }
                 },
             }
         });

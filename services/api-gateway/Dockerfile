@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /job
+WORKDIR /auth
 
 COPY package*.json .
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8000
 
-CMD [ "npm","run","dev" ]
+CMD [ "npm", "run", "dev" ]
