@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobhuntly-notification-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobhuntly-notification
+  template:
+    metadata:
+      labels:
+        app: jobhuntly-notification
+    spec:
+      containers:
+      - image: abhinandidikayil/jobhuntly-notification:latest
+        name: jobhuntly-notification
+        envFrom:
+          - configMapRef:
+              name: jobhuntly-notification-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobhuntly-notification-srv
+spec:
+  selector:
+    app: jobhuntly-notification
+  ports:
+  - protocol: TCP
+    port: 6000
+    targetPort: 6000
