@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobhuntly-company-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobhuntly-company
+  template:
+    metadata:
+      labels:
+        app: jobhuntly-company
+    spec:
+      containers:
+      - image: abhinandidikayil/jobhuntly-company:latest
+        name: jobhuntly-company
+        envFrom:
+          - configMapRef:
+              name: jobhuntly-company-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobhuntly-company-srv
+spec:
+  selector:
+    app: jobhuntly-company
+  ports:
+  - protocol: TCP
+    port: 4000
+    targetPort: 4000

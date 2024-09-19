@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobhuntly-chat-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobhuntly-chat
+  template:
+    metadata:
+      labels:
+        app: jobhuntly-chat
+    spec:
+      containers:
+      - image: abhinandidikayil/jobhuntly-chat:latest
+        name: jobhuntly-chat
+        envFrom:
+          - configMapRef:
+              name: jobhuntly-chat-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobhuntly-chat-srv
+spec:
+  selector:
+    app: jobhuntly-chat
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
