@@ -1,6 +1,6 @@
 import { CLIENT_URL, CONNECT_DB, RABBIT_MQ_URL } from "./config/config"
 import { consumerService } from "./config/rabbitmq"
-import  './infrastructure/socket/index'
+// import  './infrastructure/socket/index'
 import { server , io } from "./presentation/server"
 
 
