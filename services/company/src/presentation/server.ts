@@ -1,5 +1,5 @@
 import express, { Application } from 'express'
-import { PORT } from '../config/config';
+import { CLIENT_URL, PORT } from '../config/config';
 import { routes } from '../infrastructure/router';
 import { dependencies } from '../config/dependencies';
 import cookieParser from 'cookie-parser'
@@ -12,7 +12,7 @@ const app:Application = express()
 const httpServer = createServer(app)
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from this origin
+    origin: CLIENT_URL, // Allow requests from this origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allowed headers
     credentials: true // Allow cookies to be sent with requests

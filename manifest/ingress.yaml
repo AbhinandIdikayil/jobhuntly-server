@@ -3,8 +3,8 @@ kind: Ingress
 metadata:
   name: ingress-controller
   annotations:
-    # nginx.ingress.kubernetes.io/use-regex: "true"
-    # cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "https://jobhunty-client.vercel.app"
 spec:
