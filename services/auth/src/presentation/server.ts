@@ -1,5 +1,5 @@
 import express, { Application } from 'express'
-import { PORT } from '../config/config';
+import { PORT, ClIENT } from '../config/config';
 import { routes } from '../infrastructure/routes';
 import { dependencies } from '../config/dependencies';
 import errorHandler from '../utils/common/errorHandler';
@@ -28,11 +28,12 @@ export class Server {
         this.app.use(express.json())
         // this.app.use(express.urlencoded({ extended: false }))
         this.app.use(cors({
-            origin: 'http://localhost:5173', // Allow requests from this origin
+            origin: ClIENT, // Allow requests from this origin
             methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
             allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allowed headers
             credentials: true // Allow cookies to be sent with requests
         }))
+        console.log('------------------------- URL',ClIENT)
         this.app.use('/api/v1/auth', routes(dependencies));
         this.app.use(errorHandler)
 

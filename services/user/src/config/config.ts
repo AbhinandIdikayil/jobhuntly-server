@@ -6,7 +6,7 @@ config();
 export const PORT = Number(process.env.PORT)
 export const MQ_URL = String(process.env.RABBITMQ_URL)
 export const ROUTING_KEY = ['user','fg-ps-user']
-
+export const CLIENT_URL = String(process.env.CLIENT_UR)
 
 
 export const connectDB = async () => {

@@ -19,6 +19,7 @@ class Server {
 
     async start(port: number): Promise<void> {
         try {
+            console.log('----------------------- CLIENT',CLIENT_URL)
             await this.messageService.start()
             const corsOption = {
                 origin: CLIENT_URL, // Allow requests from this origin

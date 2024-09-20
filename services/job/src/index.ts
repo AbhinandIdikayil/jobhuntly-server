@@ -1,3 +1,4 @@
+import { HttpStatusCode } from "axios";
 import { connectDB } from "./config/config"
 import { startProducer } from "./config/rabbitmq"
 import app from "./presentation/server"
@@ -7,9 +8,9 @@ import { main } from "./utils/tf.train";
 
 const cloudinaryUrl = 'https://res.cloudinary.com/dghv07eag/image/upload/v1722945870/jobhunty/fazal_mpuocj.pdf';
 
-
 const startServer = async () => {
     try {
+        console.log(process.env.CLIENT_URL)
         // await resumeAnalyzer(cloudinaryUrl)
         // await analyzeResume(cloudinaryUrl)
         main().catch(console.error);
