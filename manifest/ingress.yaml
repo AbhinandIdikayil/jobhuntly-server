@@ -27,6 +27,13 @@ spec:
             name: jobhuntly-chat-srv
             port:
               number: 3000
+      - path: /socket.io
+        pathType: Prefix
+        backend:
+          service:
+            name: jobhuntly-chat-srv
+            port:
+              number: 3000
       - path: /api/v1/company
         pathType: Prefix
         backend:

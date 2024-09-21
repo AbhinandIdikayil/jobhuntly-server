@@ -16,8 +16,8 @@ const server = http.createServer(app)
 app.use(cors(corsOption))
 app.use(express.json())
 app.use(cookieParser())
-// app.use('/api/v1/chat', routes(dependencies))
-app.use('/', routes(dependencies))
+app.use('/api/v1/chat', routes(dependencies))
+// app.use('/', routes(dependencies))
 app.use(errorHandler)
 const io = new SocketIoServer(server, {
     cors: {
