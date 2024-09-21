@@ -4,7 +4,7 @@ import { createSkillVector, getAllSkills } from './dataPrepration';
 import { jobModel } from '../model/jobModel';
 import path from 'path';
 
-export async function recommendJobs(userId: string, topN = 5, threshold = 0.7) {
+export async function recommendJobs(userId: string, topN = 5, threshold = 0.75) {
     const modelLoadPath = `file://${path.resolve(__dirname, '..', '..', '..', '..', '..', 'models', 'job-recommendation-model', 'model.json')}`;
 
     const model = await tf.loadLayersModel(modelLoadPath);
@@ -25,16 +25,44 @@ export async function recommendJobs(userId: string, topN = 5, threshold = 0.7) {
     // Fetch job data
     const jobs = await jobModel.aggregate([
         {
-            $lookup:{
-                from: 'companies', // The name of the collection in MongoDB
-                localField: 'companyId',
-                foreignField: '_id',
-                as: 'company'
+            $lookup: {
+              from: 'companies', // The name of the collection in MongoDB
+              localField: 'companyId',
+              foreignField: '_id',
+              as: 'company'
+            }
+          },
+          {
+            $lookup: {
+              from: 'categories',
+              localField: 'employment',
+              foreignField: '_id',
+              as: 'employmentDetails'
+            }
+          },
+          {
+            $lookup: {
+              from: 'sectors',
+              localField: 'category',
+              foreignField: '_id',
+              as: 'categoryDetails'
+            }
+          },
+          {
+            $unwind: {
+                path: '$company',
+                preserveNullAndEmptyArrays: true // Include jobs with no company info
             }
         },
         {
             $unwind: {
-                path: '$company',
+                path: '$employmentDetails',
+                preserveNullAndEmptyArrays: true // Include jobs with no company info
+            }
+        },
+        {
+            $unwind: {
+                path: '$categoryDetails',
                 preserveNullAndEmptyArrays: true // Include jobs with no company info
             }
         },
