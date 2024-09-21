@@ -37,7 +37,7 @@ export const verifyOtpContoller = (dependencies: IDependencies) => {
                     const refreshToken = generateRefreshToken({ _id: String(data?._id), email: data?.email, role: data?.role ?? '' })
                     return res.status(200)
                         .cookie('access_token', token, {  maxAge: maxAge?.maxAge }).json(response)
-                        .cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: refreshTokenMaxage?.maxAge })
+                        .cookie('refresh_token', refreshToken, { httpOnly: true, sameSite:'none', secure:true, maxAge: refreshTokenMaxage?.maxAge })
                 }
             } else {
                 throw new Error('some thing happened')

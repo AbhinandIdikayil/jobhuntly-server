@@ -12,8 +12,27 @@ export class RabbitMQClient {
         private readonly connectionString: string
     ) { }
 
-    async connect(): Promise<void> {
-        this.connection = await amqplib.connect(this.connectionString)
+    async connect(retries = 5, delay = 3000): Promise<void> {
+        // this.connection = await amqplib.connect(this.connectionString)
+        let attempt = 0;
+
+        while (attempt < retries) {
+            try {
+                this.connection = await amqplib.connect(this.connectionString);
+                console.log("RabbitMQ connection established");
+                return;
+            } catch (error) {
+                attempt++;
+                console.error(`RabbitMQ connection failed (Attempt ${attempt}/${retries})`);
+                
+                if (attempt >= retries) {
+                    console.error("Max retries reached. Unable to establish RabbitMQ connection.");
+                    throw new Error("Failed to connect to RabbitMQ after several retries");
+                }
+    
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
     }
 
     async getChannel(queueName: string): Promise<Channel> {
