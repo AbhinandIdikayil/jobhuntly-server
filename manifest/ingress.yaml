@@ -41,6 +41,13 @@ spec:
             name: jobhuntly-company-srv
             port:
               number: 4000
+      - path: /company-socket/
+        pathType: Prefix
+        backend:
+          service:
+            name: jobhuntly-company-srv
+            port:
+              number: 4000
       - path: /api/v1/job
         pathType: Prefix
         backend:
