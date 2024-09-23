@@ -29,8 +29,9 @@ export class MessageService {
                 console.log(message)
                 sendOtpToUser(message)
                 break;
-            case 'email-otp-cmpany':
+            case 'email-otp-cmpny':
                 console.log(message)
+                sendOtpToUser(message)
                 break;
             case 'shortlisted':
                 sendShortListedEmail(message)
