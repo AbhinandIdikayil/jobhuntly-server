@@ -40,7 +40,7 @@ export class RabbitMQ {
             throw new Error('Channel is not initialized')
         }
 
-        await this.channel.consume(this.queueName, (msg) => {
+        this.channel.consume(this.queueName, (msg) => {
             if (msg) {
                 const parsed = JSON.parse(msg.content.toString())
                 const message: IMessage = {
