@@ -27,7 +27,8 @@ const io = new SocketIOServer(httpServer,{
             process.env.CLIENT_URL as string,
         ],
         credentials: true
-    }
+    },
+    path: '/company-socket'
 });
 
 app.set('io', io)
