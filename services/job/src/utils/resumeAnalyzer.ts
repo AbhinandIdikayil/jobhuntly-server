@@ -93,7 +93,7 @@ export async function resumeAnalyzer(url: string, companySkill: any, companyEduc
 }
 
 
-function getFrequentStemmedTerms(stemmedTokens: any) {
+export function getFrequentStemmedTerms(stemmedTokens: any) {
     const termFrequency: any = {};
     stemmedTokens.forEach((term: any) => {
         termFrequency[term] = (termFrequency[term] || 0) + 1;
@@ -106,17 +106,17 @@ function getFrequentStemmedTerms(stemmedTokens: any) {
 }
 
 
-function calculateSentenceImportance(sentence: any, keywords: any) {
+export function calculateSentenceImportance(sentence: any, keywords: any) {
     return keywords.filter((keyword: any) => sentence.toLowerCase().includes(keyword)).length;
 }
 
-function extractSkills(text: any, companySkill: any) {
+export function extractSkills(text: any, companySkill: any) {
     // This is a simple implementation. You might want to use a pre-defined list of skills or ML model.
     const skillKeywords = ['javascript', 'python', 'react', 'node.js', 'mongodb', 'sql', 'aws', 'docker', 'microservice', 'git', 'postgresql', 'kafka', 'css', 'ci/cd'];
     return skillKeywords.filter(skill => text.toLowerCase().includes(skill));
 }
 
-function extractEducation(text: any, companyEducation: any) {
+export function extractEducation(text: any, companyEducation: any) {
     const educationKeywords = ['bachelor', 'master', 'phd', 'degree', 'bsc', 'bcom'];
     const sentences = text.split('.');
     return sentences.filter((sentence: any) =>
@@ -124,7 +124,7 @@ function extractEducation(text: any, companyEducation: any) {
     );
 }
 
-function extractWorkExperience(text: any,companyEducation: any) {
+export function extractWorkExperience(text: any,companyEducation: any) {
     const experienceKeywords = ['work experience', 'job history', 'employment'];
     const sentences = text.split('.');
     return sentences.filter((sentence: any) =>
@@ -132,7 +132,7 @@ function extractWorkExperience(text: any,companyEducation: any) {
     );
 }
 
-function calculateScore(keywords: any[], entities: any[], skills: any[], education: any[], workExperience: any[], keyPhrases: any[]): number {
+export function calculateScore(keywords: any[], entities: any[], skills: any[], education: any[], workExperience: any[], keyPhrases: any[]): number {
     // Define weights for each component
     const weights = {
         keyword: 0.10,
@@ -157,7 +157,7 @@ function calculateScore(keywords: any[], entities: any[], skills: any[], educati
     // Normalize to 0-100 scale
     return Math.min(Math.round(totalScore), 100);
 }
-function extractKeyPhrases(posTagged: any): string[] {
+export function extractKeyPhrases(posTagged: any): string[] {
     if (!Array.isArray(posTagged) || posTagged.length === 0) {
         return [];
     }

@@ -14,17 +14,17 @@ export const setUpSocketIo = (io: any) => {
                 if (!isUserOnline) {
                     onlineUsers.push({ userId: user._id, socketId: socket.id, role: user?.role || 'company' });
                 }
-                console.log('online users --- ---- ',onlineUsers)
+                console.log('online users --- ---- ', onlineUsers)
                 io.emit("get-online-users", onlineUsers);
             }
         });
 
 
         //! READ AND UNREAD
-        socket.on('mark-as-read', (data) => {
+        socket.on('mark-as-read', async (data) => {
             console.log(data, 'marking it as read-------------')
             io.to(data?.senderId).emit('message-read', { messageId: data?.messageId, status: 'read' })
-            updateMessageStatus({ id: data?.messageId, status: 'read' })
+            await updateMessageStatus({ id: data?.messageId, status: 'read' })
         })
 
         socket.on('send-message', (data) => {   //! USER WHILE SENDING MESSAGE
@@ -32,9 +32,9 @@ export const setUpSocketIo = (io: any) => {
             io.to(data?.recieverId).emit('recieve-message', data)
         })
 
-        socket.on('interviewer',(data) => {
-            console.log('Interview start-------',data);
-            io.to(data?.to).emit('interviewee',data)
+        socket.on('interviewer', (data) => {
+            console.log('Interview start-------', data);
+            io.to(data?.to).emit('interviewee', data)
         })
 
         socket.on('disconnect', () => {
