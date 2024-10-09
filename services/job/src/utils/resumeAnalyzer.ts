@@ -113,14 +113,14 @@ export function calculateSentenceImportance(sentence: any, keywords: any) {
 export function extractSkills(text: any, companySkill: any) {
     // This is a simple implementation. You might want to use a pre-defined list of skills or ML model.
     const skillKeywords = ['javascript', 'python', 'react', 'node.js', 'mongodb', 'sql', 'aws', 'docker', 'microservice', 'git', 'postgresql', 'kafka', 'css', 'ci/cd'];
-    return skillKeywords.filter(skill => text.toLowerCase().includes(skill));
+    return companySkill.filter((skill:string) => text.toLowerCase().includes(skill));
 }
 
 export function extractEducation(text: any, companyEducation: any) {
     const educationKeywords = ['bachelor', 'master', 'phd', 'degree', 'bsc', 'bcom'];
     const sentences = text.split('.');
     return sentences.filter((sentence: any) =>
-        educationKeywords.some(keyword => sentence.toLowerCase().includes(keyword))
+        companyEducation.some((keyword:string) => sentence.toLowerCase().includes(keyword))
     );
 }
 
