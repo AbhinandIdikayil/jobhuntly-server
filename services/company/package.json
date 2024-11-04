@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "start": "nodemon build/index.js",
     "dev": "tsc-watch --onSuccess \"npm start\" ",
     "test": "echo \"Error: no test specified\" && exit 1"

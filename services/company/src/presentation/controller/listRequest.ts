@@ -17,5 +17,4 @@ export const listRequestController = (dependencies: IDependencies) => {
             next(error)
         }
     }
-
 }
