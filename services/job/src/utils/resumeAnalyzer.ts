@@ -57,18 +57,18 @@ export async function resumeAnalyzer(url: string, companySkill: any, companyEduc
 
             // Skills extraction
             const skills = extractSkills(resumeText, companySkill);
-
+            console.log('skills',skills)
             // Education extraction
             const education = extractEducation(resumeText, companyEducation);
-
+            console.log('education',education)
             // Work experience extraction
             const workExperience = extractWorkExperience(resumeText,companyEducation);
-
+            console.log('word experience',workExperience)
             // Calculate score
             const score = calculateScore(keywords, entities, skills, education, workExperience,
                 keyPhrases
             );
-
+            console.log('score','score')
             // Save to MongoDB
             const analyzedData = {
                 keywords,
@@ -112,7 +112,7 @@ export function calculateSentenceImportance(sentence: any, keywords: any) {
 
 export function extractSkills(text: any, companySkill: any) {
     // This is a simple implementation. You might want to use a pre-defined list of skills or ML model.
-    const skillKeywords = ['javascript', 'python', 'react', 'node.js', 'mongodb', 'sql', 'aws', 'docker', 'microservice', 'git', 'postgresql', 'kafka', 'css', 'ci/cd'];
+    // const skillKeywords = ['javascript', 'python', 'react', 'node.js', 'mongodb', 'sql', 'aws', 'docker', 'microservice', 'git', 'postgresql', 'kafka', 'css', 'ci/cd'];
     return companySkill.filter((skill:string) => text.toLowerCase().includes(skill));
 }
 
@@ -137,8 +137,8 @@ export function calculateScore(keywords: any[], entities: any[], skills: any[], 
     const weights = {
         keyword: 0.10,
         entity: 0.10,
-        skill: 0.30,
-        education: 0.20,
+        skill: 0.40,
+        education: 0.10,
         experience: 0.20,
         keyPhrase: 0.10
     };

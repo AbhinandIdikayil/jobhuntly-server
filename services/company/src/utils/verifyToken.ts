@@ -15,7 +15,6 @@ export const verifyToken = (
     next: NextFunction
 ) => {
     const token = req?.cookies?.access_token;
-    console.log(req.cookies)
     if (!token) {
         return res.status(401).json({ error: "Access denied. No token provided." });
     }
@@ -26,17 +25,14 @@ export const verifyToken = (
             String(process.env.ACCESS_TOKEN_SECRET),
             (err: jwt.VerifyErrors | null, decoded: any) => {
                 if (err) {
-                    console.log('Failed to authenticate token')
                     return res.status(401).json({ message: "Failed to authenticate token" });
                 }
                 
                 if (decoded) {
-                    console.log(decoded)
                     const { _id , email , role  } = decoded as CustomJwtPayload;
                     (req as ModifiedRequest).user = { _id , email , role };
                     next();
                 } else {
-                    console.log("Invalid token payload" )
                     return res.status(401).json({ error: "Invalid token payload" });
                 }
             }
