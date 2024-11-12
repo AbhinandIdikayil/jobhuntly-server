@@ -45,7 +45,7 @@ export const googleAuthContoller = (dependencies: IDependencies) => {
                     await producerService.publishToUserQueue(result)
 
                     return res.status(200)
-                        .cookie('access_token', token, { maxAge: maxAge?.maxAge })
+                        .cookie('access_token', token, { httpOnly: true, sameSite: 'none', secure: true, maxAge: maxAge?.maxAge })
                         .cookie('refresh_token', refresh_token, { httpOnly: true, maxAge: refreshTokenMaxage?.maxAge })
                         .json(response)
 
