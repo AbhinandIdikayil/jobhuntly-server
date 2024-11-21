@@ -1,4 +1,3 @@
-import { HttpStatusCode } from "axios";
 import { connectDB } from "./config/config"
 import { startProducer } from "./config/rabbitmq"
 import app from "./presentation/server"

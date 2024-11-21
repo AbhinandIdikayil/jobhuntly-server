@@ -10,7 +10,7 @@ export const recommendJobsController = () => {
             if (_id) {
                 const recommendation = await recommendJobs(_id)
 
-                console.log(recommendation)
+                console.log(recommendation,'recommendation 0-----------------')
                 return res.status(200).json(recommendation)
             }
             return res.status(404).json('error')

@@ -4,25 +4,21 @@ import { createSkillVector, getAllSkills } from './dataPrepration';
 import { jobModel } from '../model/jobModel';
 import path from 'path';
 
-export async function recommendJobs(userId: string, topN = 5, threshold = 0.75) {
+export async function recommendJobs(userId: string, topN = 5, threshold = 0.70) {
     const modelLoadPath = `file://${path.resolve(__dirname, '..', '..', '..', '..', '..', 'models', 'job-recommendation-model', 'model.json')}`;
-
     const model = await tf.loadLayersModel(modelLoadPath);
     const user = await userModel.findById(userId).select('skills');
     if (!user) {
         return null
     }
 
-
     const allSkills = await getAllSkills();
     const userVector = createSkillVector(user.skills, allSkills);
     const userTensor = tf.tensor2d([userVector]);
 
-    // Predict the embedding for the user
     const prediction: any = model.predict(userTensor) as tf.Tensor;
     const userEmbedding = prediction.arraySync()[0] as number[]; // Get the prediction as an array
 
-    // Fetch job data
     const jobs = await jobModel.aggregate([
         {
             $lookup: {

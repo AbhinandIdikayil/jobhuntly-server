@@ -34,7 +34,7 @@ export async function main() {
     try {
 
         const { userVectors, jobVectors, users, jobs } = await prepareData();
-        console.log(userVectors?.shape)
+        console.log(userVectors?.shape, jobVectors)
         const model = createModel(userVectors.shape[1]);
         const history = await trainModel(model, userVectors, jobVectors);
 
@@ -47,7 +47,6 @@ export async function main() {
         }
 
         // Save the model
-        console.log(modelDir)
         const modelPath = `file://${path.resolve(modelDir, 'job-recommendation-model')}`;
         await model.save(modelPath);
 
