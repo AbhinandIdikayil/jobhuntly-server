@@ -7,6 +7,9 @@ metadata:
     # cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "https://jobhuntly-client.vercel.app"
+    nginx.ingress.kubernetes.io/websocket-services: "jobhuntly-chat-srv"
+    nginx.ingress.kubernetes.io/websocket-services: "jobhuntly-company-srv"
+
 spec:
   # ingressClassName: webapprouting.kubernetes.azure.com  for azure
   ingressClassName: nginx  # for digital ocean
