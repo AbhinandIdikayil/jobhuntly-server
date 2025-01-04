@@ -11,7 +11,7 @@ spec:
   # ingressClassName: webapprouting.kubernetes.azure.com  for azure
   ingressClassName: nginx  # for digital ocean
   rules:
-  - host: www.abhinand.buzz
+  - host: url.abhinand.buzz
     http:
       paths:
       - path: /api/v1/auth
