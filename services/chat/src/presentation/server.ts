@@ -21,8 +21,12 @@ app.use('/api/v1/chat', routes(dependencies))
 app.use(errorHandler)
 const io = new SocketIoServer(server, {
     cors: {
-        origin: CLIENT_URL
-    }
+        origin: CLIENT_URL,
+        methods: ["GET", "POST"],
+        allowedHeaders: ["X-Socket-ID"],
+        credentials: true
+    },
+    transports: ['websocket', 'polling']
 })
 setUpSocketIo(io)
 server.listen(PORT, () => {

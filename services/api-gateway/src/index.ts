@@ -21,14 +21,13 @@ const corsOptions = {
     credentials: true,
 };
 
-app.use(parser())
+app.use(parser());
 app.use(cors(corsOptions));
 
 
 app.use('/api/v1/auth', createProxyMiddleware({
     target: services.auth,
     changeOrigin: true,
-
 }));
 
 app.use('/api/v1/chat', createProxyMiddleware({
