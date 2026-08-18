@@ -7,7 +7,7 @@ export const getCompanyDetails = async (id: string): Promise<CompanyEntity | nul
         
         const company = await companyModel.findById({_id:id})
         if(company){
-            return company as CompanyEntity
+            return company as unknown as CompanyEntity
         } else {
             return null
         }

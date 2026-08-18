@@ -7,7 +7,7 @@ export const searchCompanies = async (value: string): Promise<CompanyEntity[] | 
             $or: [{ name: { $regex: value, $options: 'i' } }, {email:value}]
         }).select('-password -locations -techStack')
         if(companies.length > 0) {
-            return companies as CompanyEntity[]
+            return companies as unknown as CompanyEntity[]
         } else {
             return []
         }
