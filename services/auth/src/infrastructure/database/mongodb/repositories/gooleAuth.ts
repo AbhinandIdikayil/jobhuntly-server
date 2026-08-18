@@ -8,7 +8,7 @@ export const googleAuth = async (email: string, name: string, role: string, page
     try {
         let user = await authModel.findOne({ email });
         if (page == "login" && user) {
-            return user as UserEntity
+            return user as unknown as UserEntity
         }
         if (!user) {
             let data = await authModel.create({
@@ -19,7 +19,7 @@ export const googleAuth = async (email: string, name: string, role: string, page
             })
             user = await authModel.findOne({ email });
         }
-        return user as UserEntity
+        return user as unknown as UserEntity
     } catch (error: any | Error) {
         console.log(error)
         throw new Error(error.message)

@@ -19,7 +19,7 @@ export const verifyOtp = async (email:string,otp?:string,name?:string,password?:
 
             if(checkEmailForgotPs) {
                 console.log(checkEmailForgotPs)
-                return checkEmailForgotPs as UserEntity
+                return checkEmailForgotPs as unknown as UserEntity
             }
 
             const user = await authModel.create({
@@ -29,7 +29,7 @@ export const verifyOtp = async (email:string,otp?:string,name?:string,password?:
                 role
             })
             if(user){
-                return user as UserEntity
+                return user as unknown as UserEntity
             } else {
                 throw new Error('error while signup')
             }

@@ -11,7 +11,7 @@ export const login = async (email: string, password: string): Promise<UserEntity
         }
         if (user) {
             if (await user?.matchPassword(password)) {
-                return user as UserEntity
+                return user as unknown as UserEntity
             } else {
                 throw new Error('password is incorrect')
             }
