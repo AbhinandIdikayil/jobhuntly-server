@@ -1,22 +1,23 @@
+import 'dotenv/config'
 import express, { Application } from 'express'
 import cors from 'cors'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { verifyToken } from './utils/verify';
 import parser from 'cookie-parser'
 const app: Application = express()
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const services = {
-    auth: 'http://localhost:2000/api/v1/auth',
-    chat: 'http://localhost:3000/api/v1/chat',
-    company: 'http://localhost:4000/api/v1/company',
-    job: 'http://localhost:5000/api/v1/job',
-    notification: 'http://localhost:6000/api',
-    user: 'http://localhost:7000/api/v1/user', 
+    auth: process.env.AUTH_SERVICE_URI || 'http://localhost:2000/api/v1/auth',
+    chat: process.env.CHAT_SERVICE_URI || 'http://localhost:3000/api/v1/chat',
+    company: process.env.COMPANY_SERVICE_URI || 'http://localhost:4000/api/v1/company',
+    job: process.env.JOB_SERVICE_URI || 'http://localhost:5000/api/v1/job',
+    notification: process.env.NOTIFICATION_SERVICE_URI || 'http://localhost:6000/api',
+    user: process.env.USER_SERVICE_URI || 'http://localhost:7000/api/v1/user', 
 };
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 };

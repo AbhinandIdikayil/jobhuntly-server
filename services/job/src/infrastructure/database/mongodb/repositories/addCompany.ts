@@ -14,10 +14,10 @@ export const addCompany = async (data: CompanyEntity): Promise<CompanyEntity | n
                 },
                 { new: true }
             )
-            return res ? res as CompanyEntity : null
+            return res ? res as unknown as CompanyEntity : null
         } else {
             res = await companyModel.create(data)
-            return res as CompanyEntity
+            return res as unknown as CompanyEntity
         }
     } catch (error: Error | any) {
         throw new Error(error?.message)
